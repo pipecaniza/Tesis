@@ -1,0 +1,54 @@
+%%% thesis.tex
+%%% no more needs to be said
+%
+% Alex Barnett, Sept 2000.
+%
+% Taken from Adam Lupu-Sax and edited May 2000.
+
+% my preferred settings:
+% \documentclass[11pt,twoside,final]{huthesis}
+
+% Harvard GSAS Jan 2000 settings:
+% (Lauren Lamir 5-1519 gave 12pt Times New Roman as the ideal size)...
+\documentclass[12pt,oneside,final]{UCOthesis}
+
+
+\usepackage{epsfig,bm,epsf,float}
+\usepackage[utf8]{inputenc}
+\usepackage{apacite}
+
+
+\setcounter{tocdepth}{2}
+
+
+\begin{document}
+
+
+% Front Matter %
+\include{./Front/frontmatter}
+
+% Marco teórico %
+\part{Marco Teórico}
+\include{./MarcoTeorico/mt1}
+\include{./MarcoTeorico/mt2}
+\include{./MarcoTeorico/mt3}
+
+% Capítulos %
+\part{Capítulos}
+\include{./Capitulos/ch1}
+\include{./Capitulos/ch2}
+\include{./Capitulos/ch3}
+\include{./Capitulos/ch4}
+\include{./Capitulos/ch5}
+
+
+% Bibliografía %
+\include{./Bibliografia/b}
+
+% Anexos %
+%\appendix
+%\include{./Anexos/ap1}
+
+% insert other appendices here...
+
+\end{document}
