@@ -1,16 +1,42 @@
 %% intro.tex
 
 \chapter{El Lenguaje}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Objetivos del lenguaje}
+% intro %
 
-\section{Definición del lenguaje}
+Antes del diseño de cualquier compilador se deben definir los tres tipos de lenguajes que harán parte de él, pues la implementación está altamente ligada a ellos. Estos tipos de lenguajes son:
 
-\section{Gramática}
+\begin{itemize}
+	\item Lenguaje de entrada: Es el lenguaje en el que está escrito en código fuente.
+	\item Lenguaje de salida: Es el lenguaje en el que estará escrito el código destino.
+	\item Lenguaje(s) de implementación: Es ó son los lenguajes en los que está escrito el compilador, pueden ser varios dependiendo de la implementación del mismo.
+\end{itemize}
 
-\section{Haskell}
+Modificar cualquiera de los anteriores lenguajes repercute enormemente en el diseño y la complejidad del compilador, si bien todos los compiladores tienen etapas similares, realizar un cambio abrupto supone modificar la gramática, la semántica, las representaciones intermedias, optimizaciones y obviamente, la generación de código.
+Es por tal razón, que antes de iniciar el proceso de diseño y codificación del compilador, es menester definir cada uno de los anteriores lenguajes.
 
-\section{C++}
+\section{Lenguaje de entrada}
+	\subsection{Objetivos del lenguaje}
+	
+	Si el lenguaje de entrada es muy complejo necesita un compilador de igual complejidad, por tal razón, el primer objetivo es definir un lenguaje sumamente sencillo.\\\\
+	\noindent
+	Como segundo objetivo, el lenguaje debe ser debilmente tipado, para facilitar su uso.\\\\
+	\noindent
+	El tercer objetivo , un lenguaje matemático, es decir, con expresividad matemática, que sea cómodo trabajar estructuras matemáticas dentro del mismo.\\\\
+	\noindent
+	El cuarto y último objetivo, un lenguaje basado en funciones, su bloque elemental es la definición de una función.
+	
+	\subsection{Definición del lenguaje}
+	
+	\subsection{Gramática}
+
+\section{Lenguaje de Salida e Implementación}
+	\subsection{C++}
+	
+
+
+\section{Lenguaje de Implementación}
+	\subsection{Haskell}
+
 
 

@@ -3,9 +3,80 @@
 \chapter{Universo imperativo}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+Existen dos grandes modelos computacionales: el funcional, basado en el calculo lambda de Alonzo Church, y el imperativo, basado en la máquina de Turing, inventada por Alan Turing. La exploración de estos modelos no sólo hace parte de la teoría computacional, sino también, de lenguajes formales y compiladores, pues cada modelo de cómputo genera diferentes paradigmas que definen el lenguaje y su implementación.
 
-\section{Funcional Vs Imperativo}
+\paragraph{El modelo computacional es indiferente,} tal como lo plante la tesis Church-Turing (CT)\footnote{La tesis CT no es un teorema.}, una máquina de Turing puede simular cualquier otro modelo computacional con máximo una ralentización polinomial, esto tiene como resultado que dada la clase de complejidad \textbf{P} en el modelo análogo, esta no es más grande que en una máquina de Turing. Si la tesis es cierta, implicaría que la clase \textbf{P} definida por los alienígenas es igual a la nuestra. \cite{Arora2009}
 
+Teniendo en cuenta esto, podríamos reescribirlo y plantear, 
+
+
+\section{Funcional vs Imperativo}
+
+
+La programación funcional ofrece una visión de alto nivel de programación, provee una gran variedad de características que ayudan a construir librerías de funciones elegantes, poderosas y generales.\cite{Thompson2011}
+
+	\subsection{Arquitectura Von-Neumann}
+	La popularidad del modelo imperativo se debe a la arquitectura del computador que usamos, la arquitectura Von-Neumann, inventada por el matemático Húngaro-Estadounidense con el mismo nombre. Es fácil notar que aunque la máquina de Turing y el cálculo lambda son altamente abstractos, el primero está mucho mas cerca a una implementación real de un computador basado en la tecnología digital. La arquitectura Von-Neumann está más ligada al concepto de estamentos que modifiquen el estado de la máquina, que a la composición de funciones puras.\\\\
+	
+	\begin{figure}[h!]
+		\centering
+		\begin{tikzpicture}
+		\coordinate (ma) at (0,0);   
+		\coordinate (mb) at (8,0);
+		\coordinate (mc) at (8,1);
+		\coordinate (md) at (0,1);   
+		
+		\coordinate (ca) at (0,-1);
+		\coordinate (cb) at (3,-1);
+		\coordinate (cc) at	(3,-4);
+		\coordinate (cd) at (0,-4);
+		
+		\coordinate (aa) at (4,-1);
+		\coordinate (ab) at (8,-1);
+		\coordinate (ac) at	(8,-4);
+		\coordinate (ad) at (4,-4);		
+		
+		% Memoria
+		\draw (ma) -- (mb) node [above=2mm, midway] {\textsc{memoria}};
+		\draw (mb) -- (mc);
+		\draw (mc) -- (md);
+		\draw (md) -- (ma); 
+		
+		% Unidad de control
+		\draw (ca) -- (cb) node [below=6mm, midway] {\begin{tabular}{c}
+			\textsc{Unidad}\\\textsc{de}\\\textsc{control}
+		\end{tabular}};
+		\draw (cb) -- (cc);
+		\draw (cc) -- (cd);
+		\draw (cd) -- (ca);
+		
+		% Memoria
+		\draw (aa) -- (ab) node [below=2mm, midway] (ALU) {\begin{tabular}{c}
+			\textsc{Unidad}\\\textsc{logica}\\\textsc{aritmética}
+		\end{tabular}};
+		\draw (ab) -- (ac);
+		\draw (ac) -- (ad);
+		\draw (ad) -- (aa);    
+		
+		\node [below=0.1mm of ALU] [box] (ac) {acumulador};
+		\node [below left=8mm and 0.1mm of ac] [box] (i) {Entrada};
+		\node [below right=8mm and 0.1mm of ac] [box] (o) {Salida};
+		
+		
+		\end{tikzpicture}
+		
+		\caption{Arquitectura Von-Neumann}
+		\label{figram}
+	\end{figure}
+	
+	\noindent
+	La implementación de un lenguaje funcional en una máquina imperativa requiere de múltiples transformaciones y optimizaciones de bajo nivel, esto permite crear lenguajes funcionales con un desempeño aceptable.
+	
+	Los compiladores más eficientes están escritos en C++, lenguaje multiparadigma (mayormente imperativo), que permite una buena capacidad de abstracción y no es lejano a la máquina, por lo cuál, en términos de performance, éste lenguaje es el más apropiado. El problema radica en que el universo funcional, es más cercano al problema de los compiladores, fácilmente se puede entender la anterior afirmación con la implementación de un front-end, el cuál es declarativo, son múltiples funciones interactuando, que retornan estructuras y realmente no importa mucho el concepto de estamento, la generación de estructuras recurrentes y pattern matching en lugar de estructuras complejas con punteros y switches.
+	
+	Luego, no quiere decir que acercarse con un enfoque imperativo suponga una aproximación errada, mas bien, reduce la expresividad en el dominio del problema.
+	
+	
 \section{Front-end imperativo clásico}
 
 \section{Parser Funcional sobre un lenguaje imperativo}
