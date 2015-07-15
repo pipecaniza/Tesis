@@ -5,13 +5,24 @@
 
 Existen dos grandes modelos computacionales: el funcional, basado en el calculo lambda de Alonzo Church, y el imperativo, basado en la máquina de Turing, inventada por Alan Turing. La exploración de estos modelos no sólo hace parte de la teoría computacional, sino también, de lenguajes formales y compiladores, pues cada modelo de cómputo genera diferentes paradigmas que definen el lenguaje y su implementación.
 
-\paragraph{El modelo computacional es indiferente,} tal como lo plante la tesis Church-Turing (CT)\footnote{La tesis CT no es un teorema.}, una máquina de Turing puede simular cualquier otro modelo computacional con máximo una ralentización polinomial, esto tiene como resultado que dada la clase de complejidad \textbf{P} en el modelo análogo, esta no es más grande que en una máquina de Turing. Si la tesis es cierta, implicaría que la clase \textbf{P} definida por los alienígenas es igual a la nuestra. \cite{Arora2009}
+\paragraph{El modelo computacional es indiferente,} tal como lo plante la tesis Church-Turing (CT)\footnote{La tesis CT no es un teorema.}, una máquina de Turing puede simular cualquier otro modelo computacional con máximo una ralentización polinomial, esto tiene como resultado que dada la clase de complejidad \textbf{P} \footnote{Clase de complejidad P, conjunto de problemas solucionables en tiempo polinomial por una máquina determinista.} en el modelo análogo, esta no es más grande que en una máquina de Turing. Si la tesis es cierta, implicaría que la clase \textbf{P} definida por los alienígenas es igual a la nuestra. \cite{Arora2009}
 
 Teniendo en cuenta esto, podríamos reescribirlo y plantear, 
 
 
 \section{Funcional vs Imperativo}
 
+Comúnmente tenemos la pre-concepción de que el universo Funcional es excluyente al Imperativo, en cierto sentido puede ser cierto, pues están basados en diferentes modelos computacionales, asumiendo que la tesis CT es cierta, sabemos que todo el conjunto de los problemas solucionables en cualquier modelo computacional determinista (válido) pueden ser solucionados con los dos enfoques, es decir, ambos modelos son igualmente poderosos, la pregunta que se podría hacer es, ¿existe alguna manera de comunicar ambos universos para aplicar técnicas existentes que solo se encuentran en alguno de los dos?
+
+Actualmente todos los lenguajes de programación modernos mezclan atributos de ambos paradigmas creando a su vez nuevos paradigmas que dotan a los lenguajes de gran flexibilidad. En el inicio de la computación moderna, el mundo se partió en dos campos, el campo \emph{bottom-up} teniendo como base las máquinas de Turing, empezando con el hardware y añadiendo abstracción a medida que sea necesario, cada vez acercándose mas a las matemáticas pero nunca perjudicando el performance, el otro campo \emph{top-down} parte de las matemáticas y cada vez quita abstracción para acercarse a la máquina sin importar el performance, comenzando desde el calculo lambda, actualmente se está llegando a un punto de equilibrio entre ambos campos \cite{Beckman2007}  . Esto es posible con la definición de un lenguaje que permita utilizar estructuras pertenecientes a cada uno de los enfoques computacionales, esto puede responder en cierta medida la pregunta anterior, pero ¿que sucede si el lenguaje no soporta todas las estructuras necesarias para realizar distintas técnicas que solo pertenecen a un enfoque?\\
+
+La implementación de un lenguaje funcional en una máquina imperativa requiere de múltiples transformaciones y optimizaciones de bajo nivel, esto permite crear lenguajes funcionales con un desempeño aceptable, de no ser así, como resultado se tendría un lenguaje funcional con grandes fallas de desempeño.
+
+Los compiladores más eficientes están escritos en C++, lenguaje multiparadigma (mayormente imperativo), que permite una buena capacidad de abstracción y no es lejano a la máquina, por lo cuál, en términos de performance, éste lenguaje es el más apropiado. El problema radica en que el universo funcional, es más cercano al problema de los compiladores, fácilmente se puede entender la anterior afirmación con la implementación de un front-end, el cuál es declarativo, son múltiples funciones interactuando, que retornan estructuras y realmente no importa mucho el concepto de estamento, la generación de estructuras recurrentes y pattern matching en lugar de estructuras complejas con punteros y switches.
+
+Luego, no quiere decir que acercarse con un enfoque imperativo suponga una aproximación errada, mas bien, reduce la expresividad en el dominio del problema.\\
+
+Una solución plausible podria ser crear un nuevo lenguaje $L^*$ que soporte ambos paradigmas, partiendo de éste escribir un compilador con las técnicas funcionales sin perder mucho performance, pero escribir el compilador para el lenguje $L^*$ sería demasiado complejo.
 
 La programación funcional ofrece una visión de alto nivel de programación, provee una gran variedad de características que ayudan a construir librerías de funciones elegantes, poderosas y generales.\cite{Thompson2011}
 
@@ -70,11 +81,7 @@ La programación funcional ofrece una visión de alto nivel de programación, pr
 	\end{figure}
 	
 	\noindent
-	La implementación de un lenguaje funcional en una máquina imperativa requiere de múltiples transformaciones y optimizaciones de bajo nivel, esto permite crear lenguajes funcionales con un desempeño aceptable.
 	
-	Los compiladores más eficientes están escritos en C++, lenguaje multiparadigma (mayormente imperativo), que permite una buena capacidad de abstracción y no es lejano a la máquina, por lo cuál, en términos de performance, éste lenguaje es el más apropiado. El problema radica en que el universo funcional, es más cercano al problema de los compiladores, fácilmente se puede entender la anterior afirmación con la implementación de un front-end, el cuál es declarativo, son múltiples funciones interactuando, que retornan estructuras y realmente no importa mucho el concepto de estamento, la generación de estructuras recurrentes y pattern matching en lugar de estructuras complejas con punteros y switches.
-	
-	Luego, no quiere decir que acercarse con un enfoque imperativo suponga una aproximación errada, mas bien, reduce la expresividad en el dominio del problema.
 	
 	
 \section{Front-end imperativo clásico}
