@@ -1,3 +1,76 @@
+% Definiciones matemáticas
+\theoremstyle{plain}
+\newtheorem{thm}{Teorema}[section]
+\newtheorem{lem}[thm]{Lema}
+\newtheorem{prop}[thm]{Proposición}
+\newtheorem*{cor}{Corolario}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definición}[section]
+\newtheorem{conj}{Conjetura}[section]
+\newtheorem{exmp}{Ejemplo}[section]
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Observación}
+\newtheorem*{note}{Nota}
+
+% Definición de colores
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% 
+\lstnewenvironment{HaskellCode}
+{\lstset{}%
+	\csname lst@SetFirstLabel\endcsname}
+{\csname lst@SaveFirstLabel\endcsname}
+\lstset{
+	basicstyle=\small\ttfamily,
+	escapeinside={/+}{+/},
+	flexiblecolumns=false,
+	basewidth={0.5em,0.45em},
+	literate={+}{{$+$}}1 {/}{{$/$}}1 {*}{{$*$}}1
+	{=}{{$=$}}1 %{/=}{{$\neg$}}1
+	{>}{{$>$}}1 {<}{{$<$}}1 {\\}{{$\lambda$}}1
+	{++}{{$+\!\!\!+$}}1 {::}{{$:\!\!\!:$}}1
+	{\\\\}{{\char`\\\char`\\}}1
+	{->}{{$\rightarrow$}}2 {>=}{{$\geq$}}2 {<-}{{$\leftarrow$}}2
+	{<=}{{$\leq$}}2 {=>}{{$\Rightarrow$}}2
+	{\ .\ }{{$\circ$}}2 {(.)}{{($\circ$)}}2
+	{<<}{{$\ll$}}2 {>>}{{$\gg$}}2 {>>=}{{$>\!\!>\!\!=$}}2
+	{<<<}{{$\lll$}}2 {>>>}{{$\ggg$}}2 {-<}{{$\leftY$}}1 {^<<}{{$\hat{}\!\!\ll$}}2 {^>>}{{$\hat{}\!\!\gg$}}2
+	{|}{{$\mid$}}1
+	{undefined}{{$\bot$}}1
+	{not\ }{{$\neg$}}1
+	{`elem`}{{$\in$}}1
+	{forall}{{$\forall$}}1
+}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{blue},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codegreen},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2,
+	basicstyle=\footnotesize\ttfamily,
+	frame=tlbr,framesep=4pt,framerule=0pt
+}
+\lstset{style=mystyle}
+\lstset{basicstyle=\ttfamily}
+
+
 % Graphics
 \usetikzlibrary{arrows,positioning,shapes} 
 \tikzset{
