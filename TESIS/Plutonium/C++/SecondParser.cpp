@@ -80,10 +80,10 @@ int main()
     string a = "hola";
     reverse(a.begin(),a.end());
     Parser <char>* as = symbol('h', a);
-    Parser <char>* a2 = symbol('o',as->result[0]->second);
+    Parser <char>* a2 = symbol('h', a);
     cout << as<<endl;
     cout << &(*(as)) <<endl;
-    *(as) * symbol('o',as->result[0]->second);
+    *(as) | a2;
     as->ptr();
     return 0;
 }

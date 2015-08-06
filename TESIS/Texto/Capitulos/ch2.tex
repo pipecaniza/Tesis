@@ -3,13 +3,50 @@
 \chapter{Parser Combinators}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\lstinputlisting[language=Haskell,caption=Hallando el módulo o residuo de una división.,label=cod-mod]{./ParserDefine.hs}
+\lstinputlisting[language=Haskell,caption=Definición del Parser.,label=cod-mod]{./Codes/ParserDefine.hs}
 
 \section{Teoría}
 
 \section{Basic's Parsers}
 
 \section{Parser Combinators}
+
+
+
+El parser combinator $<\$>$ toma como argumentos una función y un parser, el resultado es un parser que reconoce el mismo string de entrada que el parser original, pero \emph{postprocesando} el resultado usando el functor de entrada.\cite{Jeuring2010}. Este parser combinator tiene dos propósitos: proporcionar una manera fácil y efectiva de combinar los resultados de parser unidos por el operador $<*>$ (función sequenciadora), evitando anidamiento innecesario de túplas, también permite ser usado como una función semántica, que provee de flexibilidad a la combinación de parsers para modificar el tipo de retorno de los mismos, desde un arbol de sintaxis abstracta polimórfico hasta un valor o un string lineal. 
+
+El uso de $<\$>$ es generalmente sencillo, pero entender la definición de la función es dificil si no se tiene un conocimiento sólido en programación funcional. Éste parser combinator es un claro ejemplo del pensamiento declarativo, una función muy compacta con una aplicación compleja. En primer lugar el \emph{Currying} es el núcleo de la definición de ésta función.
+
+\begin{exmp}
+	Sea $G_1$ una gramática válida sobre el lenguaje $L'$, y $G_1 \in LL(1)$.
+	Donde $G_1$ está definido por:
+
+	\begin{lstlisting}
+	S -> '(' S ')' | e
+	\end{lstlisting}
+		
+	$G_1$ no es una gramática recursiva por la izquierda y tampoco es ambigua.
+	
+	Utilizando la combinación de los parsers \emph{symbol} y del nuevo parser \emph{recursivo}, podemos escribir un parser utilizando la definición de la gramática. Como salída del proceso de parsing se espera un arbol de sintaxis abstracta.
+	
+	\lstinputlisting[language=Haskell,caption=Parser para la gramática $G_1$.,label=cod-mod]{./Codes/ParserS.hs}
+	
+	\emph{S} es la representación del arbol de sintaxis abstracta, su construcción es directa con la gramática, pero se omiten los terminales, en éste caso, $\forall x \in \{ `(', `)` \}$. Por la definición recursiva de la gramática, se usa en contructor \emph{Inside} que recibe el tipo de dato \emph{S}, lo que significa que hay parentesis tal como lo dice la gramática, y el contructor vacio \emph{Empty}, que se traduce al \emph{epsilon} de $G_1$.
+	
+	El nuevo parser que se está construyendo es \emph{parenthesis} con ayuda de los \emph{parser combinators}, éste recibe un [Char], y como resultado arroja [(S,[Char])]. Como se están usando varios parsers con el operador $<*>$ y no todos retornan S, debemos utilizar el operador $<\$>$ que servirá como pegamento para los diferentes parsers y para cambiar el resultado final con la función semántica.
+	
+	La función lambda está currificada, y puede ser reescrita como:
+	
+	\begin{lstlisting}[language=Haskell]
+		(\_ -> (\x -> (\_ -> Inside x)))
+	\end{lstlisting}
+
+	Se observa de forma trivial, que dado la asociatividad por la derecha de las funciones currificadas, la aplicación de las mismas tiene una asociatividad por la izquierda.
+	
+	Toda la función lambda será el functor enviado a la función de primer orden $<\$>$, y el parser recibido será \emph{open} 
+	
+	
+\end{exmp}
 
 \section{Parser Combinators E-BNF}
 	
