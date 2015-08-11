@@ -11,11 +11,9 @@
 
 \section{Parser Combinators}
 
+El parser combinator $<\$>$ toma como argumentos una función y un parser, el resultado es un parser que reconoce el mismo string de entrada que el parser original, pero \emph{postprocesando} el resultado usando el functor de entrada.\cite{Jeuring2010}. Este parser combinator tiene dos propósitos: proporcionar una manera fácil y efectiva de combinar los resultados de parser unidos por el operador $<*>$ (función sequenciadora), evitando anidamiento innecesario de túplas, también permite ser usado como una función semántica, que provee de flexibilidad a la combinación de parsers para modificar el tipo de retorno de los mismos, desde un arbol de sintaxis abstracta polimórfico hasta un valor o un string. 
 
-
-El parser combinator $<\$>$ toma como argumentos una función y un parser, el resultado es un parser que reconoce el mismo string de entrada que el parser original, pero \emph{postprocesando} el resultado usando el functor de entrada.\cite{Jeuring2010}. Este parser combinator tiene dos propósitos: proporcionar una manera fácil y efectiva de combinar los resultados de parser unidos por el operador $<*>$ (función sequenciadora), evitando anidamiento innecesario de túplas, también permite ser usado como una función semántica, que provee de flexibilidad a la combinación de parsers para modificar el tipo de retorno de los mismos, desde un arbol de sintaxis abstracta polimórfico hasta un valor o un string lineal. 
-
-El uso de $<\$>$ es generalmente sencillo, pero entender la definición de la función es dificil si no se tiene un conocimiento sólido en programación funcional. Éste parser combinator es un claro ejemplo del pensamiento declarativo, una función muy compacta con una aplicación compleja. En primer lugar el \emph{Currying} es el núcleo de la definición de ésta función.
+El uso de $<\$>$ es generalmente sencillo, pero entender la definición de la función es dificil si no se tiene un conocimiento sólido en programación funcional. Este parser combinator es un claro ejemplo del pensamiento declarativo, una función muy compacta con una aplicación compleja. En primer lugar el \emph{Currying} es el núcleo de la definición de ésta función.
 
 \begin{exmp}
 	Sea $G_1$ una gramática válida sobre el lenguaje $L'$, y $G_1 \in LL(1)$.
@@ -43,8 +41,26 @@ El uso de $<\$>$ es generalmente sencillo, pero entender la definición de la fu
 
 	Se observa de forma trivial, que dado la asociatividad por la derecha de las funciones currificadas, la aplicación de las mismas tiene una asociatividad por la izquierda.
 	
-	Toda la función lambda será el functor enviado a la función de primer orden $<\$>$, y el parser recibido será \emph{open} 
+	Toda la función lambda será el functor enviado a la función de primer orden $<\$>$, y el parser recibido será \emph{open}. Utilizando la definición de $<*>$, sabemos que el primer parser arrojará como resultado una función de $(a \to b)$, dado que la función $<\$>$ se aplico antes, el functor enviado a ésta tambien ya se aplico, pero parcialmente debido a que se reescribio descurrificandola, es decir, el resultado se podría expresar de la siguiente manera:
 	
+	\begin{lstlisting}[language=Haskell]
+	[((\x -> (\_ -> Inside x))), ys]
+	\end{lstlisting}
+	
+	De forma trivial se puede apreciar que la primer función lambda ya fue utilizada. Ésto garantiza la cohesión de tipos  con la función $<*>$. Así se seguirá aplicando la expresión lambda a lo largo de los parsers unidos por $<*>$. Cabe anotar, que el resultado que se espera es \emph{S}, es por ésto que la función lambda sólo utiliza el resultado del parser que está en segundo lugar, es decir, la llamada recursiva de \emph{parenthesis}, pues éste es el único parser que se está usando que retorna el valor \emph{S}.
+	
+	\begin{lstlisting}[language=Haskell, caption=Ejemplo de la utilización del parser en GHCi]
+	*> parenthesis "((()))"
+	   [(Inside(Inside(Inside Empty)), ""), (Empty,"((()))")]
+	\end{lstlisting}
+	
+	Nótese que el parser intenta realizar la aplicación de todas las maneras posibles, lo cuál es obvio por su naturaleza recursiva, el segundo arbol es descartado pues no logra completar el análisis hasta el final.\\
+	
+	Con el anterior parser se puede reconocer la gramática $G_1$, y arrojará como resultado el arbol de sintaxis abstracta del mísmo. Nótese lo corto y directo que és el código, tan sólo modificando el contructor \emph{Inside} agregandole otra \emph{S}, agregando otra variable de entrada a la función lambda, y agregando otra llamada recursiva al parser \emph{parenthesis} luego del parser \emph{close}, será posible realizar el análisis sintáctico de la siguiente gramática:
+	
+	\begin{lstlisting}
+	S -> '(' S ')' S | e
+	\end{lstlisting}
 	
 \end{exmp}
 
