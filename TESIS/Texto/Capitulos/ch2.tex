@@ -3,14 +3,23 @@
 \chapter{Parser Combinators}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+En la programación funcional, una popular aproximación para construir parsers recursivos descendentes es modelar los parsers como funciones, y definir funciones de primer orden (o combinators) que implementan la contrucción de gramáticas como secuenciación, elección, y repetición.\cite{Hutton1996}
+
+Los \emph{Parser Combinators} ocupan un lugar único en el campo del \emph{parsing}, pues hacen posible escribir expresiones que lucen como gramáticas, pero realmente describen los parsers de éstas gramáticas. La mayoría de los \emph{frameworks} de parsing más maduros suponen un preprocesamiento voluminoso, que lee la sintaxis, la analiza, y produce un codigo destino para la gramática de entrada. En contraste, una librería relativamente pequeña de \emph{Parsers Combinators} pueden alcanzar el poder de análisis aprovechando las estructuras del lenguaje.\cite{Swierstra2008}
+
 \lstinputlisting[language=Haskell,caption=Definición del Parser.,label=cod-mod]{./Codes/ParserDefine.hs}
 
 \section{Teoría}
+
+Los \emph{Parser Combinators} son usados para escribir parsers que sean muy similares a la gramática de un lenguaje. Estos parsers son contruidos con lenguajes funcionales que proveen \emph{Lazyness}, \emph{High-order functions} (funciones de primer orden), listas, tipos de datos, y \emph{List Comprhensions} \cite{Jeuring2010}. Partiendo de la definición anterior, el concepto de \emph{parser combinators} existe en el mundo funcional, si un lenguaje de programación no soporta conceptos básicos funcionales como funciones de primer orden y polimorfismo, la implementación del mismo no sería plausible. Si bien el modelo computacional es independiete en la contrucción de la teoría computacional (ver siguiente capítulo), distintos modelos proveen distintos mecanismos de abstracción (algunos mas poderosos que otros), en teoría, cualquier problema computable (el parsing es uno de ellos) puede ser resuelto en cualquier modelo, pero cada modelo implica una implementación diferente, y la representación de cada modelo, es el lenguaje de programación mísmo, en otras palabras, el parsing puede ser resuleto en cualquier lenguaje de programación que provea estructuras suficientes para resolver el problema, pero en algunos lenguajes la aproximación por \emph{parser combinators} puede ser imposible.
+
+En terminos generales, los \emph{Parser Combinators} consisten en la definición de parsers básicos, y componerlos entre sí para obtener como resultado un parser mucho mas complejo que sea capaz de identificar una gramática, su mayor ventaja es la forma directa y simple como se escriben los nuevos parsers partiendo de la gramática, es decir, los parsers son la gramática misma. Su naturalidad con el mundo funcional reside en las caracteristicas que comparten en su definición, tales como funciones, composición y polimorfismo. 
 
 \section{Basic's Parsers}
 
 \section{Parser Combinators}
 
+\subsection{El Parser $<\$>$}
 El parser combinator $<\$>$ toma como argumentos una función y un parser, el resultado es un parser que reconoce el mismo string de entrada que el parser original, pero \emph{postprocesando} el resultado usando el functor de entrada.\cite{Jeuring2010}. Este parser combinator tiene dos propósitos: proporcionar una manera fácil y efectiva de combinar los resultados de parser unidos por el operador $<*>$ (función sequenciadora), evitando anidamiento innecesario de túplas, también permite ser usado como una función semántica, que provee de flexibilidad a la combinación de parsers para modificar el tipo de retorno de los mismos, desde un arbol de sintaxis abstracta polimórfico hasta un valor o un string. 
 
 El uso de $<\$>$ es generalmente sencillo, pero entender la definición de la función es dificil si no se tiene un conocimiento sólido en programación funcional. Este parser combinator es un claro ejemplo del pensamiento declarativo, una función muy compacta con una aplicación compleja. En primer lugar el \emph{Currying} es el núcleo de la definición de ésta función.

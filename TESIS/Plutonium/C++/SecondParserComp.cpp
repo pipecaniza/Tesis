@@ -58,6 +58,7 @@ Parser<T> seq (Functor f, string input)
 }
 
 
+
 //template<char>
 Parser<char> symbol (char t, string xs)
 {
@@ -83,19 +84,25 @@ Parser<char> symbol (char t, string xs)
 
 int main()
 {
-    string a = "hola";
+    string a = "dota2";
     reverse(a.begin(),a.end());
     auto lambda = [] (string input,
                       Parser<char> (*P1)(char,string) = &symbol,
-                      Parser<char> (*P2)(char,string) = &symbol )
+                      Parser<char> (*P2)(char,string) = &symbol,
+                      Parser<char> (*P3)(char,string) = &symbol,
+                      Parser<char> (*P4)(char,string) = &symbol )
                       {
                           Parser<string> result;
-                          auto r1 = P1('h', input);
+                          auto r1 = P1('d', input);
                           auto r2 = P2('o', r1.result[0]->second);
-                          string r3;
-                          r3.push_back(r1.result[0]->first);
-                          r3.push_back(r2.result[0]->first);
-                          result.result.push_back(new pair<string,string>(r3, r2.result[0]->second));
+                          auto r3 = P2('t', r2.result[0]->second);
+                          auto r4 = P2('a', r3.result[0]->second);
+                          string r5;
+                          r5.push_back(r1.result[0]->first);
+                          r5.push_back(r2.result[0]->first);
+                          r5.push_back(r3.result[0]->first);
+                          r5.push_back(r4.result[0]->first);
+                          result.result.push_back(new pair<string,string>(r5, r4.result[0]->second));
                           return result;
                       };
 
