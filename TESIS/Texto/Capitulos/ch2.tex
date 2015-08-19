@@ -13,7 +13,24 @@ Los \emph{Parser Combinators} ocupan un lugar único en el campo del \emph{parsi
 
 Los \emph{Parser Combinators} son usados para escribir parsers que sean muy similares a la gramática de un lenguaje. Estos parsers son contruidos con lenguajes funcionales que proveen \emph{Lazyness}, \emph{High-order functions} (funciones de primer orden), listas, tipos de datos, y \emph{List Comprhensions} \cite{Jeuring2010}. Partiendo de la definición anterior, el concepto de \emph{parser combinators} existe en el mundo funcional, si un lenguaje de programación no soporta conceptos básicos funcionales como funciones de primer orden y polimorfismo, la implementación del mismo no sería plausible. Si bien el modelo computacional es independiete en la contrucción de la teoría computacional (ver siguiente capítulo), distintos modelos proveen distintos mecanismos de abstracción (algunos mas poderosos que otros), en teoría, cualquier problema computable (el parsing es uno de ellos) puede ser resuelto en cualquier modelo, pero cada modelo implica una implementación diferente, y la representación de cada modelo, es el lenguaje de programación mísmo, en otras palabras, el parsing puede ser resuleto en cualquier lenguaje de programación que provea estructuras suficientes para resolver el problema, pero en algunos lenguajes la aproximación por \emph{parser combinators} puede ser imposible.
 
-En terminos generales, los \emph{Parser Combinators} consisten en la definición de parsers básicos, y componerlos entre sí para obtener como resultado un parser mucho mas complejo que sea capaz de identificar una gramática, su mayor ventaja es la forma directa y simple como se escriben los nuevos parsers partiendo de la gramática, es decir, los parsers son la gramática misma. Su naturalidad con el mundo funcional reside en las caracteristicas que comparten en su definición, tales como funciones, composición y polimorfismo. 
+En terminos generales, los \emph{Parser Combinators} consisten en la definición de parsers básicos, y componerlos entre sí para obtener como resultado un parser mucho mas complejo que sea capaz de identificar una gramática, su mayor ventaja es la forma directa y simple como se escriben los nuevos parsers partiendo de la gramática, es decir, los parsers son la gramática misma. Su naturalidad con el mundo funcional reside en las caracteristicas que comparten en su definición, tales como funciones, composición y polimorfismo.
+
+En primer lugar, es necesario definir el tipo de los parsers. El proceso de análisis siempre recibe como entrada algo a lo que se le va a realizar el análisis sintáctico, ese algo puede ser un arbol, un string o cualquier otro tipo, aunque generalmente es un texto, por lo que string es el tipo más conveniente. Como resultado arroja algún tipo de dato que trae la información del parsing, y tambien debe arrojar el resto del string de entrada que aún no ha parseado.
+
+Cada parser tiene un resultado y un resto de la entrada asociado, es decir, hay que mantener una estructura que permita saber que retorno cada uno de los parsers, dado que son dos valores la mejor estructura es una \emph{tupla}, la cuál contenerá el resultado del proceso y la entrada restante, de ésta manera (resultado, simbolos). Como se tendran varios parsers, y cada uno retornará tuplas, es necesario que estas tuplas estén dentro de una lista, esto tambien servirá para saber cuando el proceso de parsing falló, pues si se tiene una lista vacia, significa que no hubo forma de continuar el parsing. Partiendo de lo anterior, como resultado se debe obtener [(resultado, simbolos)].
+
+El siguiente es una simplificación realizada por Hutton para definir el tipo de parser: \cite{Hutton1996}
+\begin{lstlisting}[language=Haskell]
+type Parse result = String -> [(result, String)]
+\end{lstlisting}
+
+El problema de ésta definición es que no da lugar a un analizador léxico que permita el parser trabajar con \emph{tokens}, esto por que la entrada se está definiendo siempre como un \emph{String}. Si se permite que los simbolos de entrada seán un tipo polimórfico dotará al parser de más flexibilidad. La siguiente definición es la más común si la librería de \emph{Parser Combinators} pretende ser usada para la creación de un compilador. Ésta definición es mucho más genérica que la anterior \cite{Jeuring2010}
+
+\begin{lstlisting}[language=Haskell]
+type Parse symbol result = [symbol] -> [(result, [symbol])]
+\end{lstlisting}
+
+Así pues, si se desea tener como entrada un \emph{String}, el tipo de dato deberá ser definido como \emph{Char}, pues, al interior de la definición, ya está presente la definición de lista, y en \emph{Haskell}, el \emph{String} está representado por [Char].
 
 \section{Basic's Parsers}
 
