@@ -30,9 +30,15 @@ El problema de ésta definición es que no da lugar a un analizador léxico que 
 type Parse symbol result = [symbol] -> [(result, [symbol])]
 \end{lstlisting}
 
-Así pues, si se desea tener como entrada un \emph{String}, el tipo de dato deberá ser definido como \emph{Char}, pues, al interior de la definición, ya está presente la definición de lista, y en \emph{Haskell}, el \emph{String} está representado por [Char].
+Así pues, si se desea tener como entrada un \emph{String}, el tipo de dato deberá ser definido como \emph{Char}, pues, al interior de la definición, ya está presente una lista, y en \emph{Haskell} el \emph{String} está representado por [Char].
+
+La definición de estos típos facilitará la construcción de los parsers posteriores, tambien facilitarán la lectura del código.
+
 
 \section{Basic's Parsers}
+
+Como ya se ha dicho antes, los \emph{Parser Combinators} están conformados por parsers básicos que serán compuestos para poder reconocer gramáticas complejas, por ésta razón, es necesario definir una serie de parsers muy simples los cuales permitirán la creación de una librería de análisis sintáctico basada en la teoría de \emph{Parser Combinators}.
+
 
 \section{Parser Combinators}
 
