@@ -34,14 +34,39 @@ Una categoría C consta de los siguientes datos:
 asigna el objeto $dom(f)$, llamado dominio de f.
 \item Una aplicación $cod : Mor(C) \to Ob(C)$ que a cada $f \in Mor(C)$ le
 asigna el objeto $cod(f)$, llamado codominio de f.
-\item Una aplicación $cod : Mor(C) \to Ob(C)$ que a cada $A \in Obj(C)$ le
+\item Una aplicación $I_A : Mor(C) \to Ob(C)$ que a cada $A \in Obj(C)$ le
 asigna el morfismo $I_A$, llamado morfismo identidad de $A$.
-\item Siendo $\displaystyle \prod_{Obj(C)} Mor(C)^2 : \left\lbrace (f, g) \in Mor(C \times C) | dom(f)=cod(g) \right\rbrace$, si construimos una aplicacion $\displaystyle \circ : \prod_{Obj(C)} Mor(C)^2 \mapsto Mor(C) $ llamada composicion, asignara para cada $(f,g)$ el morfismo $f \circ g$
+\item Siendo $\displaystyle \prod_{Obj(C)} Mor(C)^2 := \left\lbrace (f, g) \in Mor(C \times C) | dom(f)=cod(g) \right\rbrace$, construimos una aplicacion llamada composicion.
+\begin{align*}
+  \displaystyle \circ: & \prod_{Obj(C)} Mor(C)^2  \to Mor(C) \\
+					   & (f,g) 					  \mapsto f \circ g
+\end{align*}
 \end{itemize}
 \end{defn}
 
 \begin{note}
+Si $A,B \in Ob(C)$ entonces 
 
+\begin{itemize}
+\item $Hom_{C}(A,B):= \{ f \in Mor_{C}(dom(f)=A \wedge cod(f)=B)) \}$
+\item $f: A \to B$ significa que $f \in Hom_{C}(A,B)$
+\item Si $f,g,h \in Mor(C)$ y $f:A \to B.g:B \to C.h:C \to A$ entonces los siguientes diagramas conmutan
+
+	\xymatrix{
+	A \ar[r]^{f} \ar[rd]_{g \circ f} &
+	B \ar[d]^{g} \ar[rd]^{h \circ g} \\ 
+	& C \ar[r]_{h} &
+	D}	
+	\xymatrix{
+	A \ar[r]^{I_A} \ar[rd]_{f} &
+	A \ar[d]^{f}  \\
+	& B }
+	\xymatrix{
+	A \ar[r]^{f} \ar[rd]_{f} &
+	B \ar[d]^{I_B}  \\
+	& B }
+	
+\end{itemize}
 \end{note}
 
 \begin{defn}[Monoide]
