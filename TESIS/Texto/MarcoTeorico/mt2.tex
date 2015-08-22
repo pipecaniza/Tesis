@@ -19,3 +19,42 @@ Al pasar el tiempo evidentemente esta tendencia fue perdiendo fuerza en el merca
 
 A finales de los cincuenta John McCarthy creo el primer lenguaje de programación funcional Lisp. Posteriormente y por la necesidad de dar mas fortaleza al tipado se crearon otros, ML, Scheme, Hope. Cada investigador se enfocaba en crear el suyo propio, tratando de tomar lo mejor de cada uno, un grupo de cientificos de la computacion creo Haskell en los noventa. Posteriormente vendrian versiones de los que ya existian y algunos nuevos Clojure, Scala entre otros, algunos ya tomando fuerza en desarrollos empresariales, por ejemplo F\#.
 
+\subsection{Teoria de Categorias y Programación Funcional}
+
+Muchos conceptos de ka programación funcional tienen su origen en la teoria de categorias, por ello introducimos a partir de ahora esta teoria de manera formal como sustento axiomatico de nuestro trabajo.
+
+\subsection{Teoria de Categorias}
+
+\begin{defn}[Categoria]
+Una categoría C consta de los siguientes datos:
+\begin{itemize}
+\item Conjunto $Ob(C)$ de objetos, $A, B, \dots$
+\item Conjunto $Mor(C)$ de morfismos $f, g, \dots$
+\item Una aplicación $dom : Mor(C) \to Ob(C)$ que a cada $f \in Mor(C)$ le
+asigna el objeto $dom(f)$, llamado dominio de f.
+\item Una aplicación $cod : Mor(C) \to Ob(C)$ que a cada $f \in Mor(C)$ le
+asigna el objeto $cod(f)$, llamado codominio de f.
+\item Una aplicación $cod : Mor(C) \to Ob(C)$ que a cada $A \in Obj(C)$ le
+asigna el morfismo $I_A$, llamado morfismo identidad de $A$.
+\item Siendo $\displaystyle \prod_{Obj(C)} Mor(C)^2 : \left\lbrace (f, g) \in Mor(C \times C) | dom(f)=cod(g) \right\rbrace$, si construimos una aplicacion $\displaystyle \circ : \prod_{Obj(C)} Mor(C)^2 \mapsto Mor(C) $ llamada composicion, asignara para cada $(f,g)$ el morfismo $f \circ g$
+\end{itemize}
+\end{defn}
+
+\begin{note}
+
+\end{note}
+
+\begin{defn}[Monoide]
+Es una tupla $\langle M, *, \mft{a}, e, \mft{i} \rangle$ con los siguientes elementos
+\begin{itemize}
+\item $M$ Conjunto
+\item $\mu$ Operador $* : M \times M \to M$
+\item $\mathcal{a}$ Asociatividad $\forall_{m_1, m_2, m_3 \in M} ((m_1 * m_2) * m_3 = m_1 * (m_2 * m_3))$
+\item $e$ Elemento Identidad [$\mft{i}$] $\forall_{m \in M} ( e * m = m = m * e)$
+\end{itemize}
+\end{defn}
+
+
+\begin{note}
+Cuando situations where an infix operator~$*$ is associative, we use $a * b * c$ to denote either of the equal terms $(a * b) * c$ and $a * (b * c)$.
+\end{note}
