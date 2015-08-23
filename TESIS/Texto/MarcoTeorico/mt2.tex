@@ -10,9 +10,9 @@ La programación funcional se cimenta en el cálculo lambda desarrollado por Chu
 
 \subsection{Funciones}
 
-Antes de que los ordenadores vieran la luz se habian concedido tecnicas para solucionar problemas. Por anto la terminologia referente a memoria no se usaba. En la matemática un concepto fundamental  es el de funciónlas funcione, las cuales actuan como un procesador con una entrada y dando como resultado una salida donde los resultados dependen de los parametros a traves de cada pasó, es por eso que se puede asociar una función, con la computación.\\
+Antes de que los ordenadores vieran la luz se habian concedido tecnicas para solucionar prOlemas. Por anto la terminologia referente a memoria no se usaba. En la matemática un concepto fundamental  es el de funciónlas funcione, las cuales actuan como un procesador con una entrada y dando como resultado una salida  los resultados dependen de los parametros a traves de cada pasó, es por eso que se puede asociar una función, con la computación.\\
 
-Podemos entonces decir que un ``programa'' consiste en la definicion de una o varias funciones. Donde el ordenador procesa los parametros en la funcion  entrega el resultado. Con esta aproximacion no tenemos que preocuparnos del orden de ejecucion, lo cual ya es mas potente que la aproximacion imperativa.
+Podemos entonces decir que un ``programa'' consiste en la definicion de una o varias funciones.  el ordenador procesa los parametros en la funcion  entrega el resultado. Con esta aproximacion no tenemos que preocuparnos del orden de ejecucion, lo cual ya es mas potente que la aproximacion imperativa.
 Al pasar el tiempo evidentemente esta tendencia fue perdiendo fuerza en el mercado pero nunca en la academia 
 
 \subsection{Lenguajes}
@@ -25,32 +25,75 @@ Muchos conceptos de ka programación funcional tienen su origen en la teoria de 
 
 \subsection{Teoria de Categorias}
 
-\begin{defn}[Categoria]
-Una categoría C consta de los siguientes datos:
+\begin{note}
+Usamos $:$ para definir tipos,  $\Omega$ es uns generalización, ademas asumimos implicitamente el tipado para evitar sOrecargar la notacion.
+\end{note}
+
+\begin{defn}[Monoide]
+\end{defn}
+Tupla $\langle M, *, \mft{a}, e, \mft{i} \rangle$ 
 \begin{itemize}
-\item Conjunto $Ob(C)$ de objetos, $A, B, \dots$
-\item Conjunto $Mor(C)$ de morfismos $f, g, \dots$
-\item Una aplicación $dom : Mor(C) \to Ob(C)$ que a cada $f \in Mor(C)$ le
-asigna el objeto $dom(f)$, llamado dominio de f.
-\item Una aplicación $cod : Mor(C) \to Ob(C)$ que a cada $f \in Mor(C)$ le
-asigna el objeto $cod(f)$, llamado codominio de f.
-\item Una aplicación $I_A : Mor(C) \to Ob(C)$ que a cada $A \in Obj(C)$ le
+\item $M: \Omega$ Conjunto
+\item $\mu$ Operador $* : M \times M \to M$
+\item $\mathcal{a}$ Asociatividad $\forall_{m_1, m_2, m_3 \in M} ((m_1 * m_2) * m_3 = m_1 * (m_2 * m_3))$
+\item $e$ Elemento Identidad [$\mft{i}$] $\forall_{m \in M} ( e * m = m = m * e)$
+\end{itemize}
+
+\begin{defn}[Agregación]
+\end{defn}
+Tupla $\langle M, \Pi, \mft{a}, \mft{i} \rangle$  
+\begin{itemize}
+\item Conjunto $M: \Omega$ 
+\item Agregador $\Pi: \mathcal{L} M \to M$
+\item Asociatividad $\mft{a}: \forall_{ n \in \mathbb{N}, \vec{m_1}, \dots, \vec{m_n} \in \mathcal{L}M}
+(\prod [\prod \vec{m_1}, \dots , \prod \vec{m_n}] = \prod(\vec{m_1} ++ \dots ++ \vec{m_n}))$
+\item Identidad $i: \forall_m ( m = \Pi[m])$
+\end{itemize}
+
+\begin{defn}[Homomosfismos de Monoides de $\langle M, *, e \rangle$ hacia $\langle N, +, i \rangle$]
+\end{defn}
+Tupla $\langle f, \mft{d}, \mft{i} \rangle$ 
+\begin{itemize}
+\item Función $f : M \to N$ 
+\item Distributividad $\mft{d} : \forall_{m_1, m_2}( f(m_1) + f(m_2) = f(m_1 * m_2))$
+\item Identidad ${i} : i = f(e)$
+\end{itemize}
+
+\begin{defn}[Homomosfismos de Monoides de $\langle M, \Pi, \rangle$ hacia $\langle N, \Sigma \rangle$]
+\end{defn}
+Tupla $\langle f, \mft{d} \rangle$ 
+\begin{itemize}
+\item Función $f: M \to N$
+\item Distributividad $\mft{d} : \forall_{ n \in \mathbb{N}, m_1, \dots, m_n }( \Sigma \left[f(m_1), \dots, f(m_n)\right] = f\left(\Pi \left[m_1, \dots, m_n\right]\right))$
+\end{itemize}
+
+\begin{note}
+En general denotamos homomorfismo como  $\hom$
+\end{note}
+
+\begin{defn}[Categoria]
+\end{defn}
+Tupla $\langle O,M,\circ,\mft{a},\mft{id},\mft{i} \rangle$ 
+\begin{itemize}
+\item Conjunto de Objetos $O$
+\item Morfismos $M: O \times O \to \Omega$
+\item Funcion $\mft{id} : \forall_C (M(C,C))$
+\item Funcion $\mft{i} : M(C) \to O(C)$ que a cada $A \in O(C)$ le
 asigna el morfismo $I_A$, llamado morfismo identidad de $A$.
-\item Siendo $\displaystyle \prod_{Obj(C)} Mor(C)^2 := \left\lbrace (f, g) \in Mor(C \times C) | dom(f)=cod(g) \right\rbrace$, construimos una aplicacion llamada composicion.
+\item Siendo $\displaystyle \prod_{O(C)} M(C)^2 := \left\lbrace (f, g) \in M(C \times C) | dom(f)=cod(g) \right\rbrace$, construimos una aplicacion llamada composicion.
 \begin{align*}
-  \displaystyle \circ: & \prod_{Obj(C)} Mor(C)^2  \to Mor(C) \\
+  \displaystyle \circ: & \prod_{O(C)} M(C)^2  \to M(C) \\
 					   & (f,g) 					  \mapsto f \circ g
 \end{align*}
 \end{itemize}
-\end{defn}
 
 \begin{note}
-Si $A,B \in Ob(C)$ entonces 
+Si $A,B \in O(C)$ entonces 
 
 \begin{itemize}
-\item $Hom_{C}(A,B):= \{ f \in Mor_{C}(dom(f)=A \wedge cod(f)=B)) \}$
-\item $f: A \to B$ significa que $f \in Hom_{C}(A,B)$
-\item Si $f,g,h \in Mor(C)$ y $f:A \to B.g:B \to C.h:C \to A$ entonces los siguientes diagramas conmutan
+\item $\hom_{C}(A,B):= \{ f \in M_{C}(dom(f)=A _{\wedge} cod(f)=B)) \}$
+\item $f: A \to B$ significa que $f \in \hom_{C}(A,B)$
+\item Si $f,g,h \in M(C)$ y $f:A \to B.g:B \to C.h:C \to A$ entonces los siguientes diagramas conmutan
 
 	\xymatrix{
 	A \ar[r]^{f} \ar[rd]_{g \circ f} &
@@ -69,12 +112,11 @@ Si $A,B \in Ob(C)$ entonces
 \end{itemize}
 \end{note}
 
-\begin{defn}[Monoide]
-Es una tupla $\langle M, *, \mft{a}, e, \mft{i} \rangle$ con los siguientes elementos
-\begin{itemize}
-\item $M$ Conjunto
-\item $\mu$ Operador $* : M \times M \to M$
-\item $\mathcal{a}$ Asociatividad $\forall_{m_1, m_2, m_3 \in M} ((m_1 * m_2) * m_3 = m_1 * (m_2 * m_3))$
-\item $e$ Elemento Identidad [$\mft{i}$] $\forall_{m \in M} ( e * m = m = m * e)$
-\end{itemize}
+\begin{defn}[Dominio, Codominio, Origen, Destino]
 \end{defn}
+\begin{itemize}
+\item Una aplicación $dom : M(C) \to O(C)$ que a cada $f \in M(C)$ le
+asigna el Objeto $dom(f)$, llamado dominio (Origen) de f.
+\item Una aplicación $cod : M(C) \to O(C)$ que a cada $f \in M(C)$ le
+asigna el Objeto $cod(f)$, llamado codominio (Destino) de f.
+\end{itemize}
