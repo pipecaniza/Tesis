@@ -37,8 +37,18 @@ La definición de estos típos facilitará la construcción de los parsers poste
 
 \section{Basic's Parsers}
 
-Como ya se ha dicho antes, los \emph{Parser Combinators} están conformados por parsers básicos que serán compuestos para poder reconocer gramáticas complejas, por ésta razón, es necesario definir una serie de parsers muy simples los cuales permitirán la creación de una librería de análisis sintáctico basada en la teoría de \emph{Parser Combinators}.
+Como ya se ha dicho antes, los \emph{Parser Combinators} están conformados por parsers básicos que serán compuestos para poder reconocer gramáticas complejas, por ésta razón, es necesario definir una serie de parsers muy simples los cuales permitirán la creación de una librería de análisis sintáctico basada en la teoría de \emph{Parser Combinators}. \cite{Jeuring2010,Hutton2007}
 
+Los Parsers básicos o elementales pueden unicamente analizar secuencias fijas de símbolos terminales. Para una gramática que contenga no terminales a su lado derecho se deben utilizar los \emph{Parser Combinators}. \cite{Jeuring2010} Todo parser tiene implícito una entrada definida en el tipo \emph{Parser}, ésta corresponde al código de entrada que se le aplicará el análisis. Ademas, 
+algunos parsers elementales utilizan otra entrada, ya sea una función, un caracter o un string para analizar los terminales.
+
+Estos Parser básicos se asemejan mucho al proceso de análisis léxico, en el que se pueden consumir o no caracteres de la entrada y se analiza si el caracter actual es el correcto.
+
+Existen tres parsers elementales, el primero reconoce un caracter, el segundo no consume ningun caracter de entrada, pero siempre logra hacer el parsing y retorna el caracter de entrada , y el tercero falla siempre sin importar la entrada. El número de parser básicos puede crecer dependiendo del tipo de análisis que se requiera, puede añadirse el parser \emph{SAT} que recibe una función que evalúa la entrada, o un parser \emph{Token} que es capaz de comparar un string con la entrada para saber si se trata de algún token en específico, es útil si de un análisis léxico se tratase.
+ 
+\lstinputlisting[language=Haskell,caption=Definición de los Parser elementales. (Jeuring \& Swiertra 2011),label=cod-mod]{./Codes/ParserType.hs}
+
+La implementación de cada uno de los anteriores parsers puede variar, pero siempre realizan la misma tarea. El parser \emph{symbol} recibe un símbolo \emph{a} y una lista, ambos de tipo \emph{s}, donde este tipo \emph{s} tiene la definición de comparación (\emph{Eq}), si la lista es vacia, significa que no hay entrada que analizar, por tanto retorna una lista vacía, si ls lista no es vacía, compara el primer elemento de la lista y el símbolo \emph{a}, si son iguales, retorna una lista de éxito (de la traducción \emph{Success list}) como ya se había visto en la definición del tipo \emph{Parser}, si los dos símbolos no concuerdan, se retornará la lista vacía que representa error al intentar realizar el análisis. Es claro que éste primer parser tiene como función comparar un elemento de la entrada con un símbolo definido, y consume símbolos o caracteres de la entrada. El parser \emph{failp} siempre falla retornando una lista vacía sin importar la entrada. El parser \emph{succeed} toda un argumento y retorna un parser, en otras palabras, dado un símbolo de entrada, siempre retorna una lista con el símbolo sin consumir caracteres o tokens del código de entrada. \cite{Hutton1996,Jeuring2010,Swierstra2008,Hutton1992}
 
 \section{Parser Combinators}
 
