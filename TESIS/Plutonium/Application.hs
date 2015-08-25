@@ -26,4 +26,6 @@ sequenceOfS'	=	const ConsS <$> symbol 's' <*> parseZ
 								<|> SingleZ <$> sequenceOfS'
 								
 paren	:: Parser Char P
-paren 	=  	(\ _ x _ -> Inside x) <$> symbol '(' <*> paren <*> symbol ')'  <|> succeed Empty
+paren 	=  	(\ _ x _ -> Inside x) <$> 
+				symbol '(' <*> paren <*> symbol ')'  
+			<|> 	succeed Empty

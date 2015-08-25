@@ -10,7 +10,6 @@ open  = symbol '('
 close = symbol ')'
 
 parenthesis 	::	Parser Char S
-parenthesis 	=	(\_ -> (\x ->(\_ -> Inside x))) 
+parenthesis 	=	(\_ x _  -> Inside x ) 
 						<$> open <*> parenthesis <*> close
 					<|> succeed Empty
-

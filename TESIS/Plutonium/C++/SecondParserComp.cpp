@@ -80,7 +80,11 @@ Parser<char> symbol (char t, string xs)
     return parser;
 }
 
-
+template<typename A,typename B>
+Parser<T> por (A a, B b, string input)
+{
+    return f(input);
+}
 
 int main()
 {
