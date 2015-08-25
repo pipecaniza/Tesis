@@ -26,16 +26,20 @@ Muchos conceptos de ka programación funcional tienen su origen en la teoria de 
 \subsection{Teoria de Categorias}
 
 \begin{note}
-Usamos $:$ para definir tipos,  $\Omega$ es uns generalización, ademas asumimos implicitamente el tipado para evitar sOrecargar la notacion.
+\begin{itemize}
+\item Usamos $:$ para definir tipos, asumimos implicitamente el tipado para evitar sobrecargar la notacion cuando no haya confusión al respecto, de lo contrario se escribe $.$ antecedido del tipo.
+\item $\Omega$ es uns generalización para los tipos, es decir el contenedor universal de tipos
+\item El signo $:$ representa el alcance de los cuantificadores si se ubica despues de uno de estos, de lo contrario representa una definicion
+\end{itemize}
 \end{note}
 
 \begin{defn}[Monoide]
 \end{defn}
 Tupla $\langle M, *, \mft{a}, e, \mft{i} \rangle$ 
 \begin{itemize}
-\item $M: \Omega$ Conjunto
-\item $\mu$ Operador $* : M \times M \to M$
-\item $\mathcal{a}$ Asociatividad $\forall_{m_1, m_2, m_3 \in M} ((m_1 * m_2) * m_3 = m_1 * (m_2 * m_3))$
+\item Conjunto $M: \Omega$
+\item Operador $* : M \times M \to M$
+\item Asociatividad $\mathcal{a} : \forall_{m_1, m_2, m_3 \in M} ((m_1 * m_2) * m_3 = m_1 * (m_2 * m_3))$
 \item $e$ Elemento Identidad [$\mft{i}$] $\forall_{m \in M} ( e * m = m = m * e)$
 \end{itemize}
 
@@ -59,9 +63,9 @@ Tupla $\langle f, \mft{d}, \mft{i} \rangle$
 \item Identidad ${i} : i = f(e)$
 \end{itemize}
 
-\begin{defn}[Homomosfismos de Monoides de $\langle M, \Pi, \rangle$ hacia $\langle N, \Sigma \rangle$]
+\begin{defn}[Homomosfismo de Monoides]
 \end{defn}
-Tupla $\langle f, \mft{d} \rangle$ 
+Es una tupla $\langle f, \mft{d} \rangle$ basada en una aplicación de $\langle M, \Pi \rangle$ hacia $\langle N, \Sigma \rangle$  
 \begin{itemize}
 \item Función $f: M \to N$
 \item Distributividad $\mft{d} : \forall_{ n \in \mathbb{N}, m_1, \dots, m_n }( \Sigma \left[f(m_1), \dots, f(m_n)\right] = f\left(\Pi \left[m_1, \dots, m_n\right]\right))$
@@ -120,3 +124,31 @@ asigna el Objeto $dom(f)$, llamado dominio (Origen) de f.
 \item Una aplicación $cod : M(C) \to O(C)$ que a cada $f \in M(C)$ le
 asigna el Objeto $cod(f)$, llamado codominio (Destino) de f.
 \end{itemize}
+
+\begin{defn}[Functor]
+Un functor es en general un homomorfismo de Categorías 
+\end{defn}
+
+\begin{defn}[Functor Covariante]
+\end{defn}
+Un funtor covariante es el homomorfismo desde $\langle O_\cat{C}, M_\cat{C}, \circ_\cat{C}, \id_\cat{C} \rangle$ hacia $\langle O_\cat{D}, M_\cat{D}, \circ_\cat{D}, \id_\cat{D} \rangle$, y que asocia a esta a plicacion la tupla $\langle F_O, F_M, \mft{d}, \mft{i} \rangle$  
+\begin{itemize}
+\item Funcion sobre Objetos $F_O : O_\cat{C} \to O_\cat{D}$
+\item Funcion sobre Morfismos $F_M : 
+\forall_{\ob{C}_1, \ob{C}_2}(O_\cat{C}. M_\cat{C}(\ob{C}_1, \ob{C}_2) \to M_\cat{D}(F_O(\ob{C}_1), F_O(\ob{C}_2)))$
+\item Distributividad \\
+$\mft{d}: 
+\forall_{\ob{C}_1, \ob{C}_2, \ob{C}_3} 
+( O_\cat{C} . \forall_{ \mo{m}_1 : M_\cat{C}(\ob{C}_1, \ob{C}_2), \mo{m}_2 : M_\cat{C}(\ob{C}_2, \ob{C}_3)} ( F_M(\mo{m}_1) \circ_\cat{D} F_M(\mo{m}_2) = F_M(\mo{m}_1 \circ_\cat{C} \mo{m}_2)))$
+\item Identidad $\mft{i} : \forall_{ \ob{C} : O_\cat{C}}( \id_\cat{D} = F_M(\id_\cat{D}))$
+\end{itemize}
+
+\begin{defn}[Functor Contravariante]
+Sigue la definicion del Functor covariante excepto por la distributividad que se comporta de la siguiente forma
+\begin{itemize}
+\item Distributividad \\
+$\mft{d}: 
+\forall_{\ob{C}_1, \ob{C}_2, \ob{C}_3} 
+( O_\cat{C} . \forall_{ \mo{m}_1 : M_\cat{C}(\ob{C}_1, \ob{C}_2), \mo{m}_2 : M_\cat{C}(\ob{C}_2, \ob{C}_3)} ( F_M(\mo{m}_2) \circ_\cat{D} F_M(\mo{m}_1) = F_M(\mo{m}_1 \circ_\cat{C} \mo{m}_2)))$
+\end{itemize}
+\end{defn}
