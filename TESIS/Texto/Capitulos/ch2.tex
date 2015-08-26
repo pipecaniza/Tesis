@@ -7,7 +7,6 @@ En la programación funcional, una popular aproximación para construir parsers 
 
 Los \emph{Parser Combinators} ocupan un lugar único en el campo del \emph{parsing}, pues hacen posible escribir expresiones que lucen como gramáticas, pero realmente describen los parsers de éstas gramáticas. La mayoría de los \emph{frameworks} de parsing más maduros suponen un preprocesamiento voluminoso, que lee la sintaxis, la analiza, y produce un codigo destino para la gramática de entrada. En contraste, una librería relativamente pequeña de \emph{Parsers Combinators} pueden alcanzar el poder de análisis aprovechando las estructuras del lenguaje.\cite{Swierstra2008}
 
-\lstinputlisting[language=Haskell,caption=Definición del Parser.,label=cod-mod]{./Codes/ParserDefine.hs}
 
 \section{Teoría}
 
@@ -48,9 +47,24 @@ Existen tres parsers elementales, el primero reconoce un caracter, el segundo no
  
 \lstinputlisting[language=Haskell,caption=Definición de los Parser elementales. (Jeuring \& Swiertra 2011),label=cod-mod]{./Codes/ParserType.hs}
 
-La implementación de cada uno de los anteriores parsers puede variar, pero siempre realizan la misma tarea. El parser \emph{symbol} recibe un símbolo \emph{a} y una lista, ambos de tipo \emph{s}, donde este tipo \emph{s} tiene la definición de comparación (\emph{Eq}), si la lista es vacia, significa que no hay entrada que analizar, por tanto retorna una lista vacía, si ls lista no es vacía, compara el primer elemento de la lista y el símbolo \emph{a}, si son iguales, retorna una lista de éxito (de la traducción \emph{Success list}) como ya se había visto en la definición del tipo \emph{Parser}, si los dos símbolos no concuerdan, se retornará la lista vacía que representa error al intentar realizar el análisis. Es claro que éste primer parser tiene como función comparar un elemento de la entrada con un símbolo definido, y consume símbolos o caracteres de la entrada. El parser \emph{failp} siempre falla retornando una lista vacía sin importar la entrada. El parser \emph{succeed} toda un argumento y retorna un parser, en otras palabras, dado un símbolo de entrada, siempre retorna una lista con el símbolo sin consumir caracteres o tokens del código de entrada. \cite{Hutton1996,Jeuring2010,Swierstra2008,Hutton1992}
+La implementación de cada uno de los anteriores parsers puede variar, pero siempre realizan la misma tarea. El parser \emph{symbol} recibe un símbolo \emph{a} y una lista, ambos de tipo \emph{s}, donde este tipo \emph{s} tiene la definición de comparación (\emph{Eq}), si la lista es vacia, significa que no hay entrada que analizar, por tanto retorna una lista vacía, si ls lista no es vacía, compara el primer elemento de la lista y el símbolo \emph{a}, si son iguales, retorna una lista de éxito (de la traducción \emph{Success list}) como ya se había visto en la definición del tipo \emph{Parser}, si los dos símbolos no concuerdan, se retornará la lista vacía que representa error al intentar realizar el análisis. Es claro que éste primer parser tiene como función comparar un elemento de la entrada con un símbolo definido, y consume símbolos o caracteres de la entrada. El parser \emph{failp} siempre falla retornando una lista vacía sin importar la entrada. El parser \emph{succeed} toma un argumento y retorna un parser, en otras palabras, dado un símbolo de entrada, siempre retorna una lista con el símbolo sin consumir caracteres o tokens del código de entrada. \cite{Hutton1996,Jeuring2010,Swierstra2008,Hutton1992}
+
+\begin{lstlisting}[language=Haskell, caption=Ejemplo de la utilización del parser symbol en GHCi]
+*> symbol 'l' "lambda"
+[('l', "ambda")]
+\end{lstlisting}
+
+Con el uso repetido del anterior parser podemos identificar cada uno de los símbolos de entrada, el problema radica en que aún no se ha definido la forma de utilizar éste parser de forma repetitiva, y esa tarea se llevará acabo por los \emph{Parser Combinators}.
 
 \section{Parser Combinators}
+
+Al igual que en las gramáticas, los \emph{Parser Combinators} tienen dos operadores básico,  \emph{secuenciación} y \emph{elección}, representados por los símbolos $*$ y $|$ respectivamente, el primero proviene del operador de concatenación en la teoría de lenguajes formales, y el segundo del operador OR.
+
+Las definiciones de los siguientes parsers puede variar mucho dependiendo de la fuente de investigación, de hecho, en diferentes artículos del mismo investigador cambian la implementación, dichas modificaciones no afectan la flexibilidad de la librería, pero si pueden afectar el performance y el uso de la misma. Se definirán tres operadores básicos que están presentes en todas las librerías de \emph{Parser Combinators}, se pueden agregar muchos más que proveen mayor facilidad y flexibilidad de uso. Estos operadores básicos están basados en las implementaciones presentes en los artículos de los más sobresalientes investigadores en programación funcional y compiladores.
+
+El uso de los \emph{Parser Combinators} es sencillo, pero entender la implementación es una tarea compleja a pesar de lo corto de las definiciones. Todas las definiciones hacen uso del \emph{currying}, \emph{list of comprehension}, \emph{polimorfísmo}, \emph{High-order functions} y el lazzyness.
+
+\subsection{El Parser $<|>$}
 
 \subsection{El Parser $<\$>$}
 El parser combinator $<\$>$ toma como argumentos una función y un parser, el resultado es un parser que reconoce el mismo string de entrada que el parser original, pero \emph{postprocesando} el resultado usando el functor de entrada.\cite{Jeuring2010}. Este parser combinator tiene dos propósitos: proporcionar una manera fácil y efectiva de combinar los resultados de parser unidos por el operador $<*>$ (función sequenciadora), evitando anidamiento innecesario de túplas, también permite ser usado como una función semántica, que provee de flexibilidad a la combinación de parsers para modificar el tipo de retorno de los mismos, desde un arbol de sintaxis abstracta polimórfico hasta un valor o un string. 
