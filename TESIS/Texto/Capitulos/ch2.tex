@@ -66,7 +66,53 @@ El uso de los \emph{Parser Combinators} es sencillo, pero entender la implementa
 
 \subsection{El Parser $<|>$}
 
+\begin{lstlisting}[language=Haskell, caption=definición del parser de elección]
+<|>				::	Parser s a -> Parser s a -> Parser s a
+(p <|> q) xs	=	p xs ++ q xs
+\end{lstlisting}
+
+Este parser es el más simple de todos, recibe dos parsers que representan las dos elecciones o posibles análisis válidos para el téxto de entrada. La función de ``elección" está representada con el operador $<|>$. Gracias a la lista de éxito, tanto \textsc{P1} y\textsc{P2} (dos parsers cualquiera) retornan listas con posibles análisis. Para obtener todos los posibles resultados cuando se aplican \textsc{P1} ó \textsc{P2}, sólo se necesita concatenar las dos posibles listas.\cite{Jeuring2010}
+
+\subsection{El Parser $<*>$}
+
+\begin{lstlisting}[language=Haskell, caption=definición del parser de sequencia]
+(<*>)		:: Parser s (b ->a) -> Parser s b -> Parser s a
+(p <*> q) xs =	[ (f x, zs)
+				| (f  , ys) <- p xs
+				, (  x, zs) <- q ys
+				]
+\end{lstlisting}
+
+El parser de \emph{secuenciación} ó \emph{repetición} permite concatenar varios parser elementales, ésto con el fin de hacer un análisis a una gramática que tenga múltiples terminales y no terminales al lado derecho. Tambien provee implícito un mecanismo para de alguna manera unir todos los resultados de los parsers unidos por éste operador.
+
+Como entrada recibe dos parsers \textsc{P1} y \textsc{P2}, pero \textsc{P1} tiene una peculiaridad, como valor que retorna al realizar el análisis es una función que servirá para unir de alguna manera el resultado de \textsc{P1} y \textsc{P2}. Ésta aplicación no es trivial, y para logra el \emph{functor} esperado en el resultado de \textsc{P1} es necesario usar el próximo \emph{Parser Combinator}.
+En terminos generales, el parser $<*>$ toma dos parsers y la entrada a la cuál se le realizará el análisis, primero ejecuta el parser \textsc{P1} y con la entrada sobrante ejecuta el parser \textsc{P2}.
+
+\begin{exmp}
+	Sea la entrada \emph{xs} = ``lambda", y el parser \textsc{P1} y \textsc{P2}, donde:\\	\textsc{P1} = symbol 'l',
+	\textsc{P2} = symbol 'a'\\
+	Para reconocer los dos primeros caracteres de \emph{xs} es necesario utilizar el operador de secuenciación.\\
+	\textsc{P} = \textsc{P1} $<*>$ \textsc{P2}
+	La aplicación se realizará así:
+	
+	\begin{lstlisting}[language=Haskell]
+	"lambda" -> P1 retorna: [(`l', "ambda")]
+	"ambda"  -> P2 retorna: [(`a', "mbda")]
+	\end{lstlisting}
+\end{exmp}
+
+Existe un problema con el ejemplo anterior, que \textsc{P1} retorna `l' como resultado, es decir, existe una inconsistencia en los tipos de la función, este problema se soluciona con el siguiente parser que permitirá inyectar una función a los parsers unidos por $<*>$. Hasta ahora, el parser $<*>$ permite que el análisis se lleve a cabo con el resto de la entrada, tal como se aprecia en el ejemplo, pero no permite que el resultado de ambos parsers se combine.
+
+
 \subsection{El Parser $<\$>$}
+
+\begin{lstlisting}[language=Haskell, caption=definición del parser $<\$>$]
+(<$>)		:: (a -> b) -> Parser s a -> Parser s b
+(f <$> p) xs = 	[ (f y, ys)
+				| (  y, ys) <- p xs
+				]
+\end{lstlisting}
+
 El parser combinator $<\$>$ toma como argumentos una función y un parser, el resultado es un parser que reconoce el mismo string de entrada que el parser original, pero \emph{postprocesando} el resultado usando el functor de entrada.\cite{Jeuring2010}. Este parser combinator tiene dos propósitos: proporcionar una manera fácil y efectiva de combinar los resultados de parser unidos por el operador $<*>$ (función sequenciadora), evitando anidamiento innecesario de túplas, también permite ser usado como una función semántica, que provee de flexibilidad a la combinación de parsers para modificar el tipo de retorno de los mismos, desde un arbol de sintaxis abstracta polimórfico hasta un valor o un string. 
 
 El uso de $<\$>$ es generalmente sencillo, pero entender la definición de la función es dificil si no se tiene un conocimiento sólido en programación funcional. Este parser combinator es un claro ejemplo del pensamiento declarativo, una función muy compacta con una aplicación compleja. En primer lugar el \emph{Currying} es el núcleo de la definición de ésta función.
