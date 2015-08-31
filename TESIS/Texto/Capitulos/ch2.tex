@@ -23,7 +23,7 @@ El siguiente es una simplificación realizada por Hutton para definir el tipo de
 type Parse result = String -> [(result, String)]
 \end{lstlisting}
 
-El problema de ésta definición es que no da lugar a un analizador léxico que permita el parser trabajar con \emph{tokens}, esto por que la entrada se está definiendo siempre como un \emph{String}. Si se permite que los simbolos de entrada seán un tipo polimórfico dotará al parser de más flexibilidad. La siguiente definición es la más común si la librería de \emph{Parser Combinators} pretende ser usada para la creación de un compilador. Ésta definición es mucho más genérica que la anterior \cite{Jeuring2010}
+El problema de ésta definición es que no da lugar a un analizador léxico que permita al parser trabajar con \emph{tokens}, esto por que la entrada se está definiendo siempre como un \emph{String}. Si se permite que los simbolos de entrada seán un tipo polimórfico dotará al parser de más flexibilidad. La siguiente definición es la más común si la librería de \emph{Parser Combinators} pretende ser usada para la creación de un compilador. Ésta definición es mucho más genérica que la anterior \cite{Jeuring2010}
 
 \begin{lstlisting}[language=Haskell]
 type Parse symbol result = [symbol] -> [(result, [symbol])]
@@ -167,6 +167,20 @@ El uso de $<\$>$ es generalmente sencillo, pero entender la definición de la fu
 \end{exmp}
 
 \section{Parser Combinators E-BNF}
+Se pueden crear todo tipo de parsers usando los combinators $<|>$ y $<*>$, pero en la practica es más facil contar con más \emph{parser combinators}. Al igual que en los lenguajes regulares, las gramáticas también poseen operadores de repetición (uno o muchos, cero o muchos...), estos operadores pertenecen al BNF extendido, también llamado E-BNF. Con éstos combinators adicionales se puede fácilmente crear parsers que evalúen una gramática que tenga elementos dentro de parentesis, múltiples parámetros, o estructuras separadas con algún caracter, sin necesidad de crear un parser recursivo adicional.
+
+\begin{exmp}
+	Sea $G_1$ una gramática válida sobre el lenguaje $L'$, y $G_1 \in LL(1)$.
+	Donde $G_1$ está definido por:
+	
+	\begin{lstlisting}
+	S -> '(' S ')' | e
+	\end{lstlisting}
+	
+
+	
+\end{exmp}
+
 	
 \section{Parsing funcional}
 
