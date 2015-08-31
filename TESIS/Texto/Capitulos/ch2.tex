@@ -174,10 +174,35 @@ Se pueden crear todo tipo de parsers usando los combinators $<|>$ y $<*>$, pero 
 	Donde $G_1$ está definido por:
 	
 	\begin{lstlisting}
-	S -> '(' S ')' | e
+	FUNCTION -> 'function' '(' PARAMS ')'
+	PARAMS   ->  var ',' PARAMS | E
 	\end{lstlisting}
 	
-
+	Con los \emph{parser combinators} definidos hasta el momento es suficiente para poder evaluar la gramática anterior, bastaría con definir un parser recursivo para la regla \emph{PARAMS}, el cual es un conjunto de variables separadas por el signo `,'.
+	
+	Para facilitar la creación de este nuevo parser, se definirán dos nuevos parsers básicos que han sido nombrados anteriormente.
+		
+	\begin{lstlisting}[language=Haskell, caption=Parser elemental SAT]
+	satisfy		:: (s -> bool) -> Parser s s
+	satisfy p []					= []
+	satisfy p (x:xs) 	| p x		= [(x,xs)]
+						| otherwise	= []
+	\end{lstlisting}
+	
+	Con éste nuevo parser se puede enviar una función que retorna un \emph{bool} permitiendo crear parsers en los que la evaluación se realice con una función personalizada.
+	
+	\begin{lstlisting}[language=Haskell, caption=Parser elemental token]
+	token 		:: Eq s => [s] -> Parser s [s]
+	token k xs	| k == take n xs 	= [(k, drop n xs)]
+				| otherwise			= []
+		where n = length k
+	\end{lstlisting}
+	
+	Con éste nuevo parser se puede revisar fácilmente si el string esperado es un token, servirá para mirar si al inicio del string de entrada se encuentra el token \emph{function}
+	
+	Ya de manera casi trivial se puede generar un analizador sintáctico para $G_1$:
+	
+	\lstinputlisting[language=Haskell,caption=Parser para la gramática $G_1$.,label=cod-mod]{./Codes/gram.hs}
 	
 \end{exmp}
 
