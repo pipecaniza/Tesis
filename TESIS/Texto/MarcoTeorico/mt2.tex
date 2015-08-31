@@ -25,13 +25,13 @@ Muchos conceptos de ka programación funcional tienen su origen en la teoria de 
 
 \subsection{Teoria de Categorias}
 
-\begin{note}
+\begin{note}\end{note}
 \begin{itemize}
 \item Usamos $:$ para definir tipos, asumimos implicitamente el tipado para evitar sobrecargar la notacion cuando no haya confusión al respecto, de lo contrario se escribe $.$ antecedido del tipo.
 \item $\Omega$ es uns generalización para los tipos, es decir el contenedor universal de tipos
+\item $\Sigma_{\Omega}$ es el conjunto contenedor, se infiere de su contexto
 \item El signo $:$ representa el alcance de los cuantificadores si se ubica despues de uno de estos, de lo contrario representa una definicion
 \end{itemize}
-\end{note}
 
 \begin{defn}[Monoide]
 \end{defn}
@@ -94,11 +94,14 @@ asigna el morfismo $I_A$, llamado morfismo identidad de $A$.
 \begin{note}
 Si $A,B \in O(C)$ entonces 
 
+\end{note}
 \begin{itemize}
 \item $\hom_{C}(A,B):= \{ f \in M_{C}(dom(f)=A _{\wedge} cod(f)=B)) \}$
 \item $f: A \to B$ significa que $f \in \hom_{C}(A,B)$
 \item Si $f,g,h \in M(C)$ y $f:A \to B.g:B \to C.h:C \to A$ entonces los siguientes diagramas conmutan
 
+\begin{figure}
+\centerline{
 	\xymatrix{
 	A \ar[r]^{f} \ar[rd]_{g \circ f} &
 	B \ar[d]^{g} \ar[rd]^{h \circ g} \\ 
@@ -111,10 +114,10 @@ Si $A,B \in O(C)$ entonces
 	\xymatrix{
 	A \ar[r]^{f} \ar[rd]_{f} &
 	B \ar[d]^{I_B}  \\
-	& B }
+	& B }	}
+\end{figure}
 	
 \end{itemize}
-\end{note}
 
 \begin{defn}[Dominio, Codominio, Origen, Destino]
 \end{defn}
@@ -126,12 +129,12 @@ asigna el Objeto $cod(f)$, llamado codominio (Destino) de f.
 \end{itemize}
 
 \begin{defn}[Functor]
-Un functor es en general un homomorfismo de Categorías 
+Un functor es en general un homomorfismo de Categorías, el cual preserva estructuras.
 \end{defn}
 
 \begin{defn}[Functor Covariante]
 \end{defn}
-Un funtor covariante es el homomorfismo desde $\langle O_\cat{C}, M_\cat{C}, \circ_\cat{C}, \id_\cat{C} \rangle$ hacia $\langle O_\cat{D}, M_\cat{D}, \circ_\cat{D}, \id_\cat{D} \rangle$, y que asocia a esta a plicacion la tupla $\langle F_O, F_M, \mft{d}, \mft{i} \rangle$  
+Un funtor covariante es el homomorfismo desde $\langle O_\cat{C}, M_\cat{C}, \circ_\cat{C}, \id_\cat{C} \rangle$ hacia $\langle O_\cat{D}, M_\cat{D}, \circ_\cat{D}, \id_\cat{D} \rangle$, y que asocia a esta aplicacion la tupla $\langle F_O, F_M, \mft{d}, \mft{i} \rangle$  
 \begin{itemize}
 \item Funcion sobre Objetos $F_O : O_\cat{C} \to O_\cat{D}$
 \item Funcion sobre Morfismos $F_M : 
@@ -145,10 +148,179 @@ $\mft{d}:
 
 \begin{defn}[Functor Contravariante]
 Sigue la definicion del Functor covariante excepto por la distributividad que se comporta de la siguiente forma
+\end{defn}
 \begin{itemize}
 \item Distributividad \\
 $\mft{d}: 
 \forall_{\ob{C}_1, \ob{C}_2, \ob{C}_3} 
 ( O_\cat{C} . \forall_{ \mo{m}_1 : M_\cat{C}(\ob{C}_1, \ob{C}_2), \mo{m}_2 : M_\cat{C}(\ob{C}_2, \ob{C}_3)} ( F_M(\mo{m}_2) \circ_\cat{D} F_M(\mo{m}_1) = F_M(\mo{m}_1 \circ_\cat{C} \mo{m}_2)))$
 \end{itemize}
+
+\begin{defn}[Endofunctor]
 \end{defn}
+Es un functor $\zeta$ que cumple que $dom(\zeta)=cod(\zeta)$
+
+\begin{defn}[Definiciones por tipo de morfismo]
+Dada yuna categoria $\mathcal{C}$ y objetos $ A,B \in O_{\mathcal{C}}$, un morfismo $f \in Mor(A,B)$ será:
+\end{defn}
+\begin{itemize}
+\item monomorfismo: $\forall_{ C \in O_{\mathcal{C}} \wedge g,h \in Mor(C,A)}(g=h \Rightarrow f \circ g=f\circ h)$
+\item epimorfismo: $\forall_{ C \in O_{\mathcal{C}} \wedge g,h \in Mor(B,C)}(g=h \Rightarrow g \circ f=h\circ f)$
+\item isomorfismo: $\exists_{g \in Mor(B,A)} ( fg = I_{B} \ _{\wedge} \ gf = I_{A})$
+\item endomorfismo: $A=B$
+\item automorfismo: $f$ es isomorfismo y $A=B$
+\end{itemize}
+
+\begin{defn}[Transformación natural]\end{defn}
+Sean los functores covariantes $\zeta$ y $\rho$ en las categorías $\mathcal{C}$ y $\mathcal{D}$, una transformación natural $\kappa : \zeta \rightarrow \rho$ asocia a cada objeto $O$ en $\mathcal{C}$ un morfismo 
+$\kappa_{O} : \zeta(O_X) \rightarrow \rho(O_Y)$ en $\mathcal{D}$, tal que para cada morfismo $\omega : O_X \rightarrow O_Y$ en $\mathcal{C}$ tenemos $\kappa_{O_Y} \circ \zeta(\omega) = \rho(\omega) \circ \kappa_{O_X}$. El siguiente diagrama representa los endofunctores.
+
+\begin{figure}[h!]
+\centerline{
+\xymatrix{
+   \zeta(O_X) \ar[r]^{\zeta(\omega)} \ar[d]_{\kappa_{O_X}} & \zeta(O_Y) \ar[d]^{\kappa_{O_Y}} \\
+   \rho(O_X) \ar[r]_{\rho(\omega)} & \rho(O_Y)
+  }}
+\end{figure}
+
+\begin{note}
+Para introducir monadas debemos pensar en 2-categoria que son una categoria con "morfismos entre morfismos"; es decir, donde cada $\hom \in \Sigma_{\Omega}$ contiene su propia estructura de una categoria. Sus objetos son llamados 0-cell, una 2-cell representa la segunda jerarquia de una funcion y se genera con un functor, por ejemplo si hablamos de la identidad sobre un objeto $O$, la 2-cell sera un functor del tipo $\id_{\id_{A}}$. Entender 2-categorias es mas facil con diagramas conmutativos, los cuales a su vez son una prueba para la teoria.
+\end{note}
+
+\begin{defn}[Monadas en 2-categoria]\end{defn}
+
+Tupla $\langle O,\mft{m}, \mu, \mft{a}, \eta, \mft{i} \rangle$ con las representaciones
+
+\begin{enumerate}
+
+\item Objeto $\ob{C}$ de $\cat{C}$
+\item Morfismo $\mo{m}$ de $\cat{C}$ desde $\ob{C}$ hasta $\ob{C}$
+\item Adjuncion $\mu$ es una 2-cell de $\cat{C}$ desde $\mo{m} \circ \mo{m} \Rightarrow \mo{m}$
+\item Asociatividad $\mft{a}$ \\
+Es una prueba
+\begin{tikzpicture}[baseline=0]
+\node(c1) at (0,1) {$\ob{C}$};
+\node(c2) at (1,-1) {$\ob{C}$};
+\node(c3) at (3,-1) {$\ob{C}$};
+\node(c4) at (4,1) {$\ob{C}$};
+\draw[->] (c1) -- node[below left]{$\mo{m}$} (c2);
+\draw[->] (c2) -- node[below]{$\mo{m}$} (c3);
+\draw[->] (c3) -- node[below right]{$\mo{m}$} (c4);
+\draw[->] (c1) -- node(f12){} node[above]{$\mo{m}$} (c3);
+\draw[->] (c1) -- node(f123){} node[above]{$\mo{m}$} (c4);
+\draw[double,double equal sign distance,-implies] (c2) -- node[below right]{$\mu$} (f12);
+\draw[double,double equal sign distance,-implies] (c3) -- node[above right]{$\mu$} (f123);
+\end{tikzpicture}
+igual a 
+\begin{tikzpicture}[baseline=0]
+\node(c1) at (0,1) {$\ob{C}$};
+\node(c2) at (1,-1) {$\ob{C}$};
+\node(c3) at (3,-1) {$\ob{C}$};
+\node(c4) at (4,1) {$\ob{C}$};
+\draw[->] (c1) -- node[below left]{$\mo{m}$} (c2);
+\draw[->] (c2) -- node[below]{$\mo{m}$} (c3);
+\draw[->] (c3) -- node[below right]{$\mo{m}$} (c4);
+\draw[->] (c2) -- node(f23){} node[above]{$\mo{m}$} (c4);
+\draw[->] (c1) -- node(f123){} node[above]{$\mo{m}$} (c4);
+\draw[double,double equal sign distance,-implies] (c3) -- node[below left]{$\mu$} (f23);
+\draw[double,double equal sign distance,-implies] (c2) -- node[above left]{$\mu$} (f123);
+\end{tikzpicture}\\
+Es decir
+\begin{tikzpicture}[baseline=1.5cm]
+\node(f1) at (0,0) {$\mo{m}$};
+\node(f2) at (2,0) {$\mo{m}$};
+\node(f3) at (4,0) {$\mo{m}$};
+\node(n1)[circle,draw] at (1,1) {$\mu$};
+\node(n2)[circle,draw] at (2,2) {$\mu$};
+\node(f123) at (2,3) {$\mo{m}$};
+\draw[->] (f1) -- (n1);
+\draw[->] (f2) -- (n1);
+\draw[->] (f3) -- (n2);
+\draw[->] (n1) -- node(f12)[above left]{$\mo{m}$} (n2);
+\draw[->] (n2) -- (f123);
+\node at (.5,2.5) {$\ob{C}$};
+\node at (1,.25) {$\ob{C}$};
+\node at (2.25,.75) {$\ob{C}$};
+\node at (3.5,2) {$\ob{C}$};
+\end{tikzpicture}
+igual a 
+\begin{tikzpicture}[baseline=1.5cm]
+\node(f1) at (0,0) {$\mo{m}$};
+\node(f2) at (2,0) {$\mo{m}$};
+\node(f3) at (4,0) {$\mo{m}$};
+\node(n1)[circle,draw] at (3,1) {$\mu$};
+\node(n2)[circle,draw] at (2,2) {$\mu$};
+\node(f123) at (2,3) {$\mo{m}$};
+\draw[->] (f1) -- (n2);
+\draw[->] (f2) -- (n1);
+\draw[->] (f3) -- (n1);
+\draw[->] (n1) -- node(f12)[above right]{$\mo{m}$} (n2);
+\draw[->] (n2) -- (f123);
+\node at (3.5,2.5) {$\ob{C}$};
+\node at (3,.25) {$\ob{C}$};
+\node at (1.75,.75) {$\ob{C}$};
+\node at (.5,2) {$\ob{C}$};
+\end{tikzpicture}
+\item Unidad $\eta$ es una 2-cell de $\cat{C}$ desde $\ob{C}$ hasta $\mo{m}$
+\item Identidad $\mft{i}$ Es una prueba \\
+\begin{tikzpicture}[baseline=(c1.base)]
+\node(c1) at (0,0) {$\ob{C}$};
+\node(c2) at (4,0) {$\ob{C}$};
+\draw[->] (c1) .. controls (1.5,-1.5) and (2.5,-1.5) .. node(f1){} node[below]{$\mo{m}$} (c2);
+\draw[->] (c2) .. controls (1.75,-1.5) and (1.75,1.5) .. node(f2){} node[left]{$\mo{m}$} (c2);
+\draw[->] (c1) .. controls (1.5,1.5) and (2.5,1.5) .. node(f12){} node[above]{$\mo{m}$} (c2);
+\draw[double,double equal sign distance,-implies] (c2) -- node[above]{$\eta$} (f2);
+\draw[double,double equal sign distance,-implies] ($(f1.west) !.5! (c2.south)$) .. controls +(-1.5,-.5) and ($(f12.south west) + (-.5,-1)$) .. node[left]{$\mu$} (f12.south west);
+\end{tikzpicture}
+y
+\begin{tikzpicture}[baseline=(c1.base)]
+\node(c1) at (0,0) {$\ob{C}$};
+\node(c2) at (4,0) {$\ob{C}$};
+\draw[->] (c1) .. controls (2.25,1.5) and (2.25,-1.5) .. node(f1){} node[right]{$\mo{m}$} (c1);
+\draw[->] (c1) .. controls (1.5,-1.5) and (2.5,-1.5) .. node(f2){} node[below]{$\mo{m}$} (c2);
+\draw[->] (c1) .. controls (1.5,1.5) and (2.5,1.5) .. node(f12){} node[above]{$\mo{m}$} (c2);
+\draw[double,double equal sign distance,-implies] (c1) -- node[above]{$\eta$} (f1);
+\draw[double,double equal sign distance,-implies] ($(f2.east) !.5! (c1.south)$) .. controls +(1.5,-.5) and ($(f12.south east) + (.5,-1)$) .. node[right]{$\mu$} (f12.south east);
+\end{tikzpicture}
+igual a 
+\begin{tikzpicture}[baseline=(c1.base)]
+\node(c1) at (0,0) {$\ob{C}$};
+\node(c2) at (1.5,0) {$\ob{C}$};
+\draw[->] (c1) to[bend right=30] node[below]{$\mo{m}$} node(f1){} (c2);
+\draw[->] (c1) to[bend left=30] node[above]{$\mo{m}$} node(f2){} (c2);
+\draw[double,double equal sign distance] (f1) -- (f2);
+\end{tikzpicture}
+\\
+Es decir
+\begin{tikzpicture}[baseline=1.5cm]
+\node(f1) at (0,0) {$\mo{m}$};
+\node(n1)[circle,draw] at (1,1) {$\eta$};
+\node(n2)[circle,draw] at (0,2) {$\mu$};
+\node(f12) at (0,3) {$\mo{m}$};
+\draw[->] (f1) -- ++(0,.5) .. controls +(0,.5) and ($(n2.south west) + (-.5,-.5)$) .. (n2.south west);
+\draw[->] (n1) -- node[above right]{$\mo{m}$} (n2);
+\draw[->] (n2) -- (f12);
+\node at (-1,1) {$\ob{C}$};
+\node at (1.5,2.25) {$\ob{C}$};
+\end{tikzpicture}
+y
+\begin{tikzpicture}[baseline=1.5cm]
+\node(f1) at (0,0) {$\mo{m}$};
+\node(n1)[circle,draw] at (-1,1) {$\eta$};
+\node(n2)[circle,draw] at (0,2) {$\mu$};
+\node(f12) at (0,3) {$\mo{m}$};
+\draw[->] (f1) -- ++(0,.5) .. controls +(0,.5) and ($(n2.south east) + (.5,-.5)$) .. (n2.south east);
+\draw[->] (n1) -- node[above left]{$\mo{m}$} (n2);
+\draw[->] (n2) -- (f12);
+\node at (1,1) {$\ob{C}$};
+\node at (-1.5,2.25) {$\ob{C}$};
+\end{tikzpicture}
+igual a
+\begin{tikzpicture}[baseline=1.5cm]
+\node(f1) at (0,0) {$\mo{m}$};
+\node(f2) at (0,3) {$\mo{m}$};
+\draw[->] (f1) -- (f2);
+\node at (-.5,1.5) {$\ob{C}$};
+\node at (.5,1.5) {$\ob{C}$};
+\end{tikzpicture}
+\end{enumerate}
