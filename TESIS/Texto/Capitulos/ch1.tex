@@ -19,9 +19,9 @@ Es por tal razón, que antes de iniciar el proceso de diseño y codificación de
 	\subsection{Objetivos del lenguaje}
 	
 	Si el lenguaje de entrada es muy complejo necesita un compilador de igual complejidad, por tal razón, el primer objetivo es definir un lenguaje sumamente sencillo.\\\\
-	\noindent
+
 	Como segundo objetivo, el lenguaje debe ser débilmente tipado, para facilitar su uso.\\\\
-	\noindent
+
 	El tercer objetivo , un lenguaje matemático, es decir, con expresividad matemática, que sea cómodo trabajar estructuras matemáticas dentro del mismo.\\\\
 	\noindent
 	El cuarto y último objetivo, un lenguaje basado en funciones, su bloque elemental es la definición de una función.
@@ -34,7 +34,99 @@ Es por tal razón, que antes de iniciar el proceso de diseño y codificación de
 Dado que la teoría descrita en los próximos capítulos parte del \emph{cálculo lambda} es necesario un lenguaje funcional, en esta caso \emph{Haskell} es el lenguaje seleccionado que permitirá implementar éste modelo de análisis sintáctico bastante poderoso y flexible. El principal objetivo de ésta investigación es observar la relación, propiedades e interacciones entre el universo funcional e imperativo, partiendo de la conjetura que son dos universos computacionales totalmente diferentes, pero aplicado a la teoría de compiladores, particularmente al problema del parsing y su elegante solución en el paradigma funcional. Por lo anterior, es necesario usar un lenguaje imperativo, flexible, veloz y con características que permitan desarrollar técnicas funcionales (condición necesaria explicada en el siguiente capítulo), por ésto, el lenguaje seleccionado es \emph{C++}.
 
 	\subsection{C++}
-
+	\emph{C++} es quizás el lenguaje de programación más eficiente jamás creado, y ha mantenido su popularidad debido a su constante evolución. El diseño de \emph{C++} está basado en la idea de proveer:	
+	\begin{itemize}
+		\item Proveer un uso de memoria eficiente y operaciones eficientes de bajo nivel.
+		\item Mecanismos de abstracción asequibles y flexibles. \cite{Bjarne2013}
+	\end{itemize}
+	
+	\emph{C++} provee demasiados mecanismos de abstracción sin perder el \emph{performance}. Ademas de ser un lenguaje \emph{multiparadigma}, da la facilidad de utilizar funciones que se acercan mucho al mundo funcional, pero nunca perdiendo el imperativismo. Las últimas versiones del lenguaje incluyen una serie de elementos y abstraciones adicionales que proveen una mayor expresividad funcional.
+	
+	Al igual que en el universo funcional, Bjarne expresa que una de las principales formas de completar tareas complejas es la composición de funciones. Es por esto, que \emph{C++} permite múltiples formas de abstración basándose en las funciones. Desde funciones \emph{genéricas}, hasta punteros a funciones, lo cuál permite crear algorítmos con técnicas funcionales sin desprenderse del universo imperativo. 
+	
+	Es necesario definir las características que permitirán que \emph{C++} pueda implementar los \emph{Parser Combinators}, y de que forma se pueden representar aspectos de la programación funcional dentro de un lenguaje mayormente imperativo como lo es \emph{C++}.
+	
+	\subsubsection{Templates}
+		Un \emph{template} es una clase o una función que se parametrizará con un conjunto de tipos o valores. Se utilizan \emph{templates} para representar conceptos que son mejor entendidos como algo muy general desde el cuál se pueden generar tipos específicos y funciones con argumentos que se pueden especificar. \cite{Bjarne2013}
+		
+		De una forma casi directa se puede asociar el concepto de \emph{template} con el concepto de \emph{polimorfísmo}\footnote{Polimorfísmo entendido dentro del universo funcional, cabe anotar que el polimorfismo en el universo imperativo tiene un significado totalmente distinto.}, y viceversa, es decir, se puede afirmar que el \emph{polimorfísmo} funcional está asociado al concepto de \emph{template}. Obviamente la limitante de los \emph{templates} es que \emph{C++} al ser un lenguaje compilado y con comprobación de tipos estática, se debe definir en algún momento que tipo de dato reemplazará a la definición generál del \emph{template}.
+		
+		\begin{lstlisting}[language=C++, caption="Función que suma dos variables de tipo T"]
+		template <typename T>
+		T sum(T a, T b)
+		{
+			return a + b;
+		}
+		\end{lstlisting}
+		
+		De ésta forma se puede generar una función con tipos no especificados, cabe anotar como se dijo anteriormente, en el momento del uso hay que especificar su tipo.
+	
+	\subsubsection{Pointer to Function}
+		Como un objeto, el código generado para un cuerpo de una función es puesto en memoria en algún lugar, entonces tiene una dirección. Se puede tener un puntero a una función como un puntero a un objeto. \cite{Bjarne}
+		
+		\begin{lstlisting}[language=C++, caption="Puntero a una función"]
+		void func(string s) { /* ... */ }
+		
+		void (*pf)(string);
+		
+		void f()
+		{
+			pf = &error;
+			pf("POINTER TO FUNCTION!");
+		}
+		\end{lstlisting}
+		
+		De ésta manera se puede utilizar el puntero \emph{pf} que tiene la posición de memoria de la función \emph{func}. A simple vista puede parecer inútil, pero éstos punteros son la base para poder simular los \emph{functores} presentes en lenguajes de programación funcional, como lo és \emph{Haskell}.
+		
+		También \emph{C++} permite generar \emph{funciones de primer orden} con ayuda de los punteros a funciones.
+		
+		\begin{lstlisting}[language=C++, caption="Funciones de primer orden"]
+		void func(string s) { /* ... */ }
+		
+		void high_order_function(void (*pf)(string), string a)
+		{
+			pf(a);
+		}
+		\end{lstlisting}
+		
+		De ésta manera se pueden pasar funciones como argumentos. Para evitar escribir explícitamente el tipo de la función, se puede recurrir al uso de \emph{templates}.
+		
+		\begin{lstlisting}[language=C++, caption="Funciones de primer orden con templates"]
+		void func(string s) { /* ... */ }
+		
+		template<typename FUNCTOR>
+		void high_order_function(FUNCTOR f, string a)
+		{ 
+			f(a);
+		}
+		\end{lstlisting}
+		
+	\subsubsection{Lambda expressions}
+		\emph{C++11} tiene implementado una eficiente, fácil y elegante forma de utilizar las \emph{expresiones lambda} pertenecientes al universo funcional, las cuales no son otra cosa que funciones anónimas, en otras palabras, una expresión lambda no es más que una función sin nombre, es decir, no están muy separadas del universo imperativo. Utilizando \emph{lambdas} se puede evitar los punteros a funciones.
+		
+		Tal como lo expresa Stroustrup, una expresión lambda es una notación simplificada para definir y usar un objeto a una función anónima. En lugar de definir una clase con el operador (), luego crear el objeto y finalmente invocarlo, se puede usar un atajo. Esto es particularmente útil cuando se necesita pasar una operación como argumento a un algorítmo.\cite{Bjarne}
+		
+		Se puede observar que el concepto de \emph{expresión lambda} no es del todo ajeno al universo imperativo, pero en el modelo computacional no existe éste concepto.
+		
+		Con una sintaxis bastante funcional se utilizan las \emph{expresiones lambda} en \emph{C++}:
+		
+		\begin{lstlisting}[language=C++, caption="Lambda para elevar al cuadrado un número en C++"]
+			[](int x) -> int { return x * x; }
+		\end{lstlisting}
+	
+	\subsubsection{Auto type}
+		\emph{C++11} trae también con sigo la detección automática de tipos, obviamente, como ya se a expresado, es necesario que éste tipo sea resuelto en tiempo de compilación, es decir, la detección de tipos no puede estar asociada a un efectos colateral, en otras palabras, si el chequeo de tipos no se puede hacer de forma estática, se debe utilizar un tipo explícito.
+	
+		\begin{lstlisting}[language=C++, caption="Auto type en C++"]
+			auto num = 2.8 * 3; //auto -> double
+		\end{lstlisting}
+		
+		De la misma forma se puede evitar escribir todo el tipo del puntero a una función y también se pueden crear variables asociadas a una función lambda:
+		
+		\begin{lstlisting}[language=C++, caption="Auto type en C++"]
+		auto flambda = [](int x) -> int { return x * x; };
+		\end{lstlisting}
+				
 	\subsection{Haskell}
 
 

@@ -177,7 +177,7 @@ Se pueden crear todo tipo de parsers usando los combinators $<|>$ y $<*>$, pero 
 	FUNCTION -> 'function' '(' PARAMS ')'
 	PARAMS   ->  var ',' PARAMS | E
 	\end{lstlisting}
-	
+\end{exmp}
 	Con los \emph{parser combinators} definidos hasta el momento es suficiente para poder evaluar la gramática anterior, bastaría con definir un parser recursivo para la regla \emph{PARAMS}, el cual es un conjunto de variables separadas por el signo `,'.
 	
 	Para facilitar la creación de este nuevo parser, se definirán dos nuevos parsers básicos que han sido nombrados anteriormente.
@@ -189,8 +189,7 @@ Se pueden crear todo tipo de parsers usando los combinators $<|>$ y $<*>$, pero 
 						| otherwise	= []
 	\end{lstlisting}
 	
-	Con éste nuevo parser se puede enviar una función que retorna un \emph{bool} permitiendo crear parsers en los que la evaluación se realice con una función personalizada.
-	
+	Con éste nuevo parser se puede enviar una función que retorna un \emph{bool} permitiendo crear parsers en los que la evaluación se realice con una función específica.
 	\begin{lstlisting}[language=Haskell, caption=Parser elemental token]
 	token 		:: Eq s => [s] -> Parser s [s]
 	token k xs	| k == take n xs 	= [(k, drop n xs)]
@@ -204,9 +203,32 @@ Se pueden crear todo tipo de parsers usando los combinators $<|>$ y $<*>$, pero 
 	
 	\lstinputlisting[language=Haskell,caption=Parser para la gramática $G_1$.,label=cod-mod]{./Codes/gram.hs}
 	
-\end{exmp}
-
+	Como se puede observar hay que recurrir a la definición de parsers adicionales para implementar gramáticas recursivas.
 	
+	Al igual que en la teoría de lenguajes, hay que definir los símbolos que se utilizaran para los nuevos \emph{parsers} que facilitarán el proceso de análisis sintáctico. La notación \emph{Backus - Naur} extendida existen tres operadores para expresar las gramáticas libres de contexto, dichos operadores están presentes también en los lenguajes regulares, de hecho, su origen proviene de las \emph{expresiones regulares}:
+	\begin{itemize}
+		\item Cero ó muchas (*)
+		\item Uno ó muchas (+)
+		\item Opcional (?)
+	\end{itemize}
+	
+	De está manera es posible simplificar la siguiente gramática:
+	
+	\begin{lstlisting}
+	NATURAL -> DIG NATURAL | E
+	DIG -> 0 | 1 | 2 | 3 | ... | 9
+	\end{lstlisting}
+	
+	Utilizando el operador (+), se puede eliminar la definición recursiva explícita
+	
+	\begin{lstlisting}[mathescape]
+	NATURAL -> DIG$^+$
+	DIG -> 0 | 1 | 2 | 3 | ... | 9
+	\end{lstlisting}
+	
+	Partiendo de lo anterior, se pueden implementar los tres nuevos operadores(parsers) que permitirán expresar de una manera mas flexible el analizador sintáctico de una gramática libre de contexto que defina un lenguaje de programación.
+	
+	\lstinputlisting[language=Haskell,caption=Parsers extendidos.,label=cod-mod]{./Codes/EBNF.hs}
 \section{Parsing funcional}
 
 

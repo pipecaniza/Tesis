@@ -7,7 +7,7 @@ Existen dos grandes modelos computacionales: el funcional, basado en el calculo 
 
 \paragraph{El modelo computacional es indiferente,} tal como lo plante la tesis Church-Turing (CT)\footnote{La tesis CT no es un teorema.}, una máquina de Turing puede simular cualquier otro modelo computacional con máximo una ralentización polinomial, esto tiene como resultado que dada la clase de complejidad \textbf{P}  en el modelo análogo\footnote{Clase de complejidad P, conjunto de problemas solucionables en tiempo polinomial por una máquina determinista.}, esta no es más grande que en una máquina de Turing. Si la tesis es cierta, implicaría que la clase \textbf{P} definida por los alienígenas es igual a la nuestra. \cite{Arora2009}
 
-Teniendo en cuenta esto, podríamos reescribirlo y plantear, 
+
 
 
 \section{Funcional vs Imperativo}
@@ -84,8 +84,68 @@ La programación funcional ofrece una visión de alto nivel de programación, pr
 	
 	
 	
-\section{Front-end imperativo clásico}
+\section{Parser imperativo clásico}
+El análisis sintáctico o parsing está presente en todos los compiladores, puesto que es la fase que se encarga de evaluar el programa fuente verificando que éste cumpla con las especificaciones del lenguaje definido para el compilador \cite{MarioZ}, ademas, realiza la representación intermedia que será utilizada por el \emph{back-end} para optimizar y generar código \cite{Dragon}.
+
+Existen múltiples formas de diseñar un parser, pero la más común es la forma \emph{descendente}, puede verse como el problema de construir un árbol de análisis sintáctico para la cadena de entrada, partiendo desde la raíz y creando los nodos del árbol de análisis sintáctico en preorden.\cite{Dragon}
+
+Así pues, si se quisiera construir un parser descendente por la izquierda se deben crear tantas funciones como no terminales existan, y en cada una se verifica si la estructura interna de la regla es correcta o no.
+
+\begin{exmp}
+	Sea $G_1$ una gramática válida sobre el lenguaje $L'$, y $G_1 \in LL(1)$.
+	Donde $G_1$ está definido por:
+		
+	\begin{lstlisting}
+	FUNCTION -> 'function' '(' PARAMS ')'
+	PARAMS   ->  var ',' PARAMS | E
+	\end{lstlisting}
+	
+	$G_1$ no es una gramática recursiva por la izquierda y tampoco es ambigua.
+	
+	Así se construirá un parser descendente por la izquierda imperativo clásico:
+	\begin{lstlisting}[language=C++, caption="Parser imperativo"]
+	void FUNCTION()
+	{
+		if(current_token == token.function){
+			if(current_token == '('){
+				PARAMS();
+				if(current_token != ')')
+					cout << "ERROR\n";
+			}
+			else
+				cout << "ERROR\n";
+		}
+		else{
+			cout << "ERROR\n";
+		}
+	}
+	
+	void PARAMS()
+	{
+		if(current_token == token.var){
+			if(current_token == ','){
+				PARAMS();
+			}
+		}
+	}
+	\end{lstlisting}
+\end{exmp}
+
+	Como se puede observar un parser imperativo clásico se vuelve rápidamente inmanejable, por ésta razón existen generadores de analizadores sintácticos, pero éstos últimos tienen un gran problema, que generan una enorme cantidad de código a espaldas del programador.
+	
+	A simple vista se puede observar la gran desventaja que tiene esta forma de implementar los analizadores sintácticos, están totalmente desligados de la gramática, y teniendo en cuenta que aún no se han implementado las estructuras para crear el árbol de sintaxis abstracta, omitiendo el análisis léxico y la definición de los tokens y la demás estructura presente en la clase que contiene el parser.
+
 
 \section{Parser Funcional sobre un lenguaje imperativo}
 
+La necesidad de crear un parser elegante y sencillo en el universo imperativo es obvia. Ya se ha descrito los componentes esenciales y los recursos que debe proveer el lenguaje para que los \emph{Parser Combinators} puedan ser implementados. Al comprar el parser imperativo con el funcional se encuentra una abismal diferencia, y marcan como claro ganador a los  \emph{Parser Combinators}. Partiendo de los mecanismos de abstracción de \emph{C++} descritos en el primer capítulo se podría desarrollar una librería básica que intente simular los ya mencionados parsers funcionales.
+
+
+
+
+El anterior \emph{Parser Combinator} sobre un lenguaje imperativo no es más que un prototípo inicial, se pueden observar que muchas de las operaciones aún se tienen que hacer de forma manual, ésto debido a que para poder transportar toda una librería funcional al universo imperativo requiere de grandes transformaciones y diseños no triviales. A partir de éste punto se deja una hipótesis no demostrada, pues requiere de un análisis profundo de la basta teoría de \emph{mónadas} en el paradigma funcional.
+
+\begin{conj}
+	monada
+\end{conj}
 
