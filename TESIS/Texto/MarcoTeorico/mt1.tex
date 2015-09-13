@@ -14,6 +14,76 @@ Los paradigmas de programación son modelos que guían la forma en que debemos p
 
 \subsection{Cálculo Lambda}
 
+El cálculo lambda $\Lambda$ desarrollado por Alonso Church en los 30 para dar una teoría general de las funciones. Tiene por objeto formalizar el empleo de funciones como transformación de argumentos en resultados empleando 
+un conjunto de axiomas, y reglas de inferencia.
+
+\subsubsection{Sintaxis}
+
+Dado un conjunto \texttt{A} de nombres de variables tal que $\vert$ 
+\texttt{A} $\vert = \mathbb{N}$, una expresión lambda \texttt{<expr>} es una produccion de FNB ``Forma normal de Backus $\mathfrak{F}$":
+
+\begin{verbatim}
+<expr> ::= <variable> 
+        |  <variable>.<expr> 
+        |  (<expr><expr>)
+\end{verbatim}
+
+\begin{note}
+Para denotar términos usamos letras mayúsculas \texttt{M,N, $\dots$} y para denotar variables letras  minúsculas \texttt{$x,y, \dots$}
+\end{note}
+
+Una abstracción funcional crea procedimientos y funciones y los invocara mediante un nombre donde se destaca qué hace la función y se ignora cómo lo hace, está será:
+
+\texttt{$\lambda$<variable>.<expr>}
+donde:
+\texttt{$\lambda$<variable>} es la lista de argumentos
+\texttt{<expr>} es el contenido de la abstracción funcional
+
+Una función con más de un argumento se representará:
+\texttt{$\lambda $x$_1. $x$_2. \dots $x$_n. $M}
+
+\begin{defn}[Equivalencia entre expresiones de $\Lambda$]\end{defn}
+
+Aplicación funcional  \texttt{(M N)} la cual produce un resultado \texttt{R} la consistencia implica una interpretacion equivalente,
+es decir \texttt{(M N)} $\equiv$ \texttt{R}, luego representan lo mismo.
+El resultado de una aplicación funcional será obtenido mediante la generación de expresiones equivalentes:
+
+\begin{defn}[Relaciones de equivalencia entre expresiones de $\Lambda$]
+\end{defn}
+\begin{itemize}
+\item Reflexividad: \texttt{M $\equiv$ M}
+\item Simetría: \texttt{M $\equiv$ N $\Rightarrow$ N $\equiv$ M}
+\item Transitividad: \texttt{M $\equiv$ N $\wedge$ N $\equiv$ P $\Rightarrow$  M $\equiv$ P}
+\item \texttt{M $\equiv$ N $\Rightarrow$ (M P) $\equiv$ (N P)}
+\item \texttt{M $\equiv$ N $\Rightarrow$ (P M) $\equiv$ (P N)}
+\item \texttt{M $\equiv$ N $\Rightarrow$ $\lambda$x.N $\equiv$ $\lambda$x.M}
+\end{itemize}
+
+\begin{defn}[Ocurrencia $\succ$ de un $\lambda$-termino]\end{defn}
+\begin{itemize}
+\item \texttt{$\succ$P $\in$ P}
+\item \texttt{$\succ$P $\in$ M $\vee$ N $\Rightarrow \ \succ$P $\in$ (M N)}
+\item \texttt{$\succ$P $\in$ M $\vee$ P $\equiv$ x $\Rightarrow \ \succ$P $\in$ ($\lambda$x.M)}
+\end{itemize}
+
+\begin{defn}[Ocurrencia $\succ$ de un $\lambda$-variable ligada \texttt{b} o libre \texttt{f}]\end{defn}
+Una ocurrencia de la variable \texttt{b} en un término \texttt{P} es ligada sí y solo sí, \texttt{b} ocurre en un subtérmino de \texttt{P} de la forma \texttt{$\lambda$b.M} es decir 
+\texttt{Q $\subset $ P $ := \lambda$b.M
+$\Rightarrow \ \succ$b $\in$ P $\Leftrightarrow$ 
+$\succ$x $\in$ Q}. \\
+La ocurrencia es libre cuando \\
+\texttt{$\succ$f $\in$ N $ := \lambda$z.M $\wedge$
+f$\neq$z 
+$\Rightarrow \ \succ$f $\in$ N $\Leftrightarrow  
+$ f $\equiv$ N $\vee \ \succ$f $\in$ M }
+
+
+\begin{defn}[Reglas de reduccion]\end{defn}
+\begin{itemize}
+\item $\beta$-reducción
+\item $\alpha$-reducción
+\item $\eta$-reducción
+\end{itemize}
 
 \section{Lenguajes de programación}
 
