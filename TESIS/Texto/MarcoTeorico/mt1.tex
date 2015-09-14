@@ -4,13 +4,38 @@
 
 ``Las herramientas que utilizamos tienen una profunda (¡y retorcida!) influencia en nuestros hábitos de pensamiento, y, por lo tanto, en nuestra habilidad mental'', Edsger Dijkstra. \\
 
-Los paradigmas de programación son modelos que guían la forma en que debemos pensar para resolver problemas utilizando herramientas computacionales. Cada paradigma tiene sus ventajas y desventajas de acuerdo al tipo de problema que se deseé resolver. En este capítulo revisaremos los dos principales modelos que soportan las corrientes  \emph{imperativa} y \emph{funcional}.
+Los paradigmas de programación guían la forma en que debe construirse una solución para resolver problemas utilizando herramientas computacionales. Cada paradigma tiene sus ventajas y desventajas de acuerdo al tipo de problema que se deseé resolver. En este capítulo se revisan las dos principales corriente \emph{imperativa} y \emph{funcional}, soportadas en las \emph{Máquinas de Turing} y el \emph{Cálculo Lambda}, respectivamente.
 
 \section{Modelo computacional}
 
+Para el estudio de la \emph{computación} desde un enfoque teórico, es necesario utilizar abstracciones que cumplan con las siguientes restricciones:
 
+\begin{enumerate}
+	\item El modelo debe ser lo suficientemente poderoso para poder realizar cualquier método computacional físicamente realizable. Sólo de esta forma se puede garantizar que los resultados encontrados puedan ser aplicados en cualquier \emph{Computador Universal} (aquellos que pueden realizar todos las operaciones conocidas sobre una entrada discreta).
+	\item El modelo debe ser lo suficientemente simple para facilitar los análisis y las demostraciones a realizar, siendo menester que dicha abstracción elimine detalles innecesarios, cómo por ejemplo, las especificaciones propias de la máquina o las restricciones de un lenguaje de programación específico.
+\end{enumerate}  
+
+En ese órden de ideas, han surgido múltiples abstracciones que si bien, han inspirado caminos diferentes para la solución de problemas, han resultado siendo equivalentes en poder computacional; es decir, que en los modelos que se exponen a continuación, aplican los mismos principios de la \emph{teoría computacional}, así como también tienen los mismos límites en cuánto a \emph{computabilidad} se refiere.
 
 \subsection{Máquina de Turing}
+
+``(Turing)ha tenido éxito por primera vez en encontrar una definición absoluta de una interesante noción epistemológica, por ejemplo, una que no depende del formalismo seleccionado'', Kurt Gödel. \\
+
+La Máquina de Turing (TM, por sus siglas en inglés), desarrollada por el matemático Alan Turing, ha servido como el principal modelo bajo el cuál se han construido las computadores modernas.
+
+\subsubsection{Definición formal}
+
+Formalmente, una TM $M$ está descrita por una tupla $(\Gamma, Q, \delta)$  \cite{Arora2009}, que contiene:
+
+\begin{itemize}
+\item Un conjunto finito $\Gamma$ de símbolos que las cintas de $M$ pueden contener. Se asume que $\Gamma$ tiene un símbolo ``blank'', denotado por $\Box$; un símbolo ``start'', denotado por $\rhd$; y los número 0 y 1|. Llamamos $\Gamma$ el \emph{alfabeto} de $M$.
+
+\item Un conjunto finito $Q$ de los posibles estados en los que el registro de $M$ puede encontrarse. Asumimos que $Q$ contiene designado un estado inicial, denotado por $q_{start}$, y un estado de terminación (\emph{halting}), denotado por $q_{halt}$.
+
+\item Una función $\delta$: $Q \times \Gamma^k \to Q \times \Gamma^{k-1} \times {L,S,R}^k$, donde $k \geq 2$, describiendo las reglas que $M$ usa para realizar cada paso. Esta función es llamada \emph{función de transición} de $M$
+\end{itemize}
+
+
 
 \subsection{Cálculo Lambda}
 
