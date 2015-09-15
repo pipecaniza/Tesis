@@ -102,13 +102,31 @@ f$\neq$z
 $\Rightarrow \ \succ$f $\in$ N $\Leftrightarrow  
 $ f $\equiv$ N $\vee \ \succ$f $\in$ M }
 
+\begin{note}
+Llamamos $\mathit{f}$ el conjunto de variables libres
+y $\mathit{b}$ el de ligadas, denotando por \texttt{f} y \texttt{b} sus elementos
+\end{note}
 
-\begin{defn}[Reglas de reduccion]\end{defn}
-\begin{itemize}
-\item $\beta$-reducción
-\item $\alpha$-reducción
-\item $\eta$-reducción
-\end{itemize}
+\begin{defn}[$\alpha-$equivalencia $\equiv_{\alpha}$]\end{defn}
+
+\texttt{$\succ$x $\in$ M $\Rightarrow$ ($\lambda$b.M)[x/y] $\equiv_{\alpha} \lambda$b.N}
+
+\begin{defn}[$\beta$-reducción $\rightarrow_{\beta}$]\end{defn}
+\texttt{($\lambda$f.M N) $\equiv$ [N/f] M} donde
+\texttt{[N/f] M} se obtiene de introducir \texttt{N} y no \texttt{f} si \texttt{$\succ$f $\in$ M}
+
+\begin{defn}[$\alpha$-conversion $\rightarrow_{\alpha}$]\end{defn}
+\texttt{($\lambda$b.M) $\rightarrow_{\alpha}$ ($\lambda$b.N)}
+ 
+\begin{note}
+La $\alpha$-conversion no es posible si la equivalencia resultante genera nuevas variables ligadas que cambien el sentido a la abstraccion original.
+\end{note}
+
+\begin{defn}[$\eta$-conversion $\rightarrow_{\eta}$]\end{defn}
+\texttt{$\succ b \in M \Rightarrow$ ($\lambda$b.Mb) $\rightarrow_{\eta}$ M}
+\begin{note}
+Genera conversiones sobre funciones, es la aproximacion funcional de la extensionalidad de conjuntos.
+\end{note}
 
 \section{Lenguajes de programación}
 
