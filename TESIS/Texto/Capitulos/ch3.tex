@@ -29,7 +29,7 @@ La programación funcional ofrece una visión de alto nivel de programación, pr
 	\subsection{Arquitectura Von-Neumann}
 	La popularidad del modelo imperativo se debe a la arquitectura del computador que usamos, la arquitectura Von-Neumann, inventada por el matemático Húngaro-Estadounidense con el mismo nombre. Es fácil notar que aunque la máquina de Turing y el cálculo lambda son altamente abstractos, el primero está mucho mas cerca a una implementación real de un computador basado en la tecnología digital. La arquitectura Von-Neumann está más ligada al concepto de estamentos que modifiquen el estado de la máquina, que a la composición de funciones puras.\\\\
 	
-	\begin{figure}[h!]
+	\begin{figure}[H]
 		\centering
 		\begin{tikzpicture}
 		\coordinate (ma) at (0,0);   
@@ -80,8 +80,11 @@ La programación funcional ofrece una visión de alto nivel de programación, pr
 		\label{figram}
 	\end{figure}
 	
-	\noindent
+	Todos los computadores digitales están basados en ésta arquitectura; la pregunta que podría surgir es ¿como los computadores pueden ejecutar código funcional?. Partimos de que la solución algorítmica de un problema es distinta en el modelo funcional e imperativo, pero en ambos se puede solucionar el problema. Así pues, si se construyera una máquina basada en una arquitectura funcional, ésta debe entender un lenguaje máquina muy abstracto basado en el cálculo lambda. Llámese $M^f$ a ésta máquina funcional, ésta no debe entender código imperativo, al igual que una máquina imperativa no entiende código funcional, así pues, debe existir una forma de representar el código funcional en imperativo y viceversa partiendo de la \emph{tesis CT}, pues ambos modelos parecen ser análogos.
 	
+	Lo anterior permite responder a la posibilidad de escribir código funcional en una máquina imperativa, al fin y al cabo, cualquier código terminará siendo código imperativo de bajo nivel entendido por el computador, ésta labor es realizada por el \emph{compilador}. Si careciéramos de la teoría de compiladores no sería plausible la utilización de cualquier tipo de programación funcional. En términos generales, la utilización de la programación funcional en una máquina imperativa no es más que una ilusión, es decir, es sólo la expresividad del lenguaje, pues el compilador es el encargado de transformar de alguna forma dicho código a una representación imperativa.
+	
+	Resulta bastante difuso lograr separar y representar los dos modelos computacionales desde éste punto, tan sólo se puede afirmar que uno esta basado en la máquina de Turing y el otro en el cálculo lambda, y dado que una solución en un modelo puede ser reducida o representada como el otro, se puede reafirmar su naturaleza análoga. Pero más allá de ésto es difícil definir la interacción y estructura de cada uno, partiendo desde los compiladores sólo podrían definirse como paradigmas, que incluso se pueden mezclar en un lenguaje pues al final serán traducidos a una representación genérica. 
 	
 	
 \section{Parser imperativo clásico}

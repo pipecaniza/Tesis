@@ -31,3 +31,6 @@ var1		= 	(\q y -> q : y)	<$> satisfy isString <*> var
 
 isString	:: 	Char -> Bool
 isString x 	=	x >= 'a' && x <= 'z'
+
+f1			:: Parser Char Expr
+f1			=	func <*> open <*> parameters <*> close

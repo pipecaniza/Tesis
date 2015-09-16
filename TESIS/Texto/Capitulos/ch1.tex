@@ -13,22 +13,8 @@ Antes del diseño de cualquier compilador se deben definir los tres tipos de len
 \end{itemize}
 
 Modificar cualquiera de los anteriores lenguajes repercute enormemente en el diseño y la complejidad del compilador, si bien todos los compiladores tienen etapas similares, realizar un cambio abrupto supone modificar la gramática, la semántica, las representaciones intermedias, optimizaciones y obviamente, la generación de código.
-Es por tal razón, que antes de iniciar el proceso de diseño y codificación del compilador, es menester definir cada uno de los anteriores lenguajes.
+Es por tal razón, que antes de iniciar el proceso de diseño y codificación del compilador, es menester definir cada uno de los anteriores lenguajes. Puesto que no se llevará a cabo una implementación de un compilador completo, no se requiere la definición completa de cada lenguaje. El objetivo central de la investigación es estudiar el parsing partiendo desde dos modelos computacionales que permitirán observar el comportamiento de los mismos.
 
-\section{Lenguaje de entrada}
-	\subsection{Objetivos del lenguaje}
-	
-	Si el lenguaje de entrada es muy complejo necesita un compilador de igual complejidad, por tal razón, el primer objetivo es definir un lenguaje sumamente sencillo.\\\\
-
-	Como segundo objetivo, el lenguaje debe ser débilmente tipado, para facilitar su uso.\\\\
-
-	El tercer objetivo , un lenguaje matemático, es decir, con expresividad matemática, que sea cómodo trabajar estructuras matemáticas dentro del mismo.\\\\
-	\noindent
-	El cuarto y último objetivo, un lenguaje basado en funciones, su bloque elemental es la definición de una función.
-	
-	\subsection{Definición del lenguaje}
-	
-	\subsection{Gramática}
 
 \section{Lenguajes utilizados}
 Dado que la teoría descrita en los próximos capítulos parte del \emph{cálculo lambda} es necesario un lenguaje funcional, en esta caso \emph{Haskell} es el lenguaje seleccionado que permitirá implementar éste modelo de análisis sintáctico bastante poderoso y flexible. El principal objetivo de ésta investigación es observar la relación, propiedades e interacciones entre el universo funcional e imperativo, partiendo de la conjetura que son dos universos computacionales totalmente diferentes, pero aplicado a la teoría de compiladores, particularmente al problema del parsing y su elegante solución en el paradigma funcional. Por lo anterior, es necesario usar un lenguaje imperativo, flexible, veloz y con características que permitan desarrollar técnicas funcionales (condición necesaria explicada en el siguiente capítulo), por ésto, el lenguaje seleccionado es \emph{C++}.
@@ -128,6 +114,7 @@ Dado que la teoría descrita en los próximos capítulos parte del \emph{cálcul
 		\end{lstlisting}
 				
 	\subsection{Haskell}
+	
 
 
 

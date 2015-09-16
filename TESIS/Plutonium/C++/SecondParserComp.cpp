@@ -79,18 +79,70 @@ Parser<char> symbol (char t, string xs)
     }
     return parser;
 }
-
+/*
 template<typename A,typename B>
 Parser<T> por (A a, B b, string input)
 {
     return f(input);
+}*/
+
+void pf(const char* s)
+{
+    if (s==nullptr) return;
+    while (*s) {
+        if (*s=='%' && *++s!='%')
+            throw runtime_error("invalid format: missing arguments");
+        std::cout << *s++;
+    }
 }
+
+template<typename T, typename... Args>
+void pf(const char* s, T value, Args... args)
+{
+    while (s && *s) {
+        if (*s=='%' && *++s!='%') { // a for mat specifier (ignore which one it is)
+            std::cout << value; // use first non-for mat argument
+            return pf(++s, args...); // do a recursive call with the tail of the argument list
+        }
+        std::cout << *s++;
+    }
+    throw std::runtime_error("extra arguments provided to printf");
+}
+
+void a()
+{
+    std::cout << "A";
+}
+
+void b()
+{
+    std::cout << "B";
+}
+
+void c()
+{
+    std::cout << "C";
+}
+
+template<typename F>
+void ss(F functor)
+{
+    functor();
+}
+
+template<typename F, typename... Args>
+void ss(F functor, Args... args)
+{
+    functor();
+    return ss(args...);
+}
+
 
 int main()
 {
-    string a = "dota2";
-    reverse(a.begin(),a.end());
-    auto lambda = [] (string input,
+   // string a = "dota2";
+   // reverse(a.begin(),a.end());
+   /* auto lambda = [] (string input,
                       Parser<char> (*P1)(char,string) = &symbol,
                       Parser<char> (*P2)(char,string) = &symbol,
                       Parser<char> (*P3)(char,string) = &symbol,
@@ -115,8 +167,12 @@ int main()
     as.ptr();
     symbol('h', a) | symbol('h', a);*/
 
-    Parser<string> p = seq<string>(lambda, a);
-    p.ptr();
+   // Parser<string> p = seq<string>(lambda, a);
+    //p.ptr();
+
+    //pf("Hola %d %d %d ",121,13,"asd");
+
+    ss(a,b,c);
 
     return 0;
 }
