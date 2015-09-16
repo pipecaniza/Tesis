@@ -21,19 +21,21 @@ En ese órden de ideas, han surgido múltiples abstracciones que si bien, han in
 
 ``(Turing)ha tenido éxito por primera vez en encontrar una definición absoluta de una interesante noción epistemológica, por ejemplo, una que no depende del formalismo seleccionado'', Kurt Gödel. \\
 
-La Máquina de Turing (TM, por sus siglas en inglés), desarrollada por el matemático Alan Turing, ha servido como el principal modelo bajo el cuál se han construido las computadores modernas.
+La Máquina de Turing (TM, por sus siglas en inglés), desarrollada por el matemático Alan Turing, ha servido como el principal modelo bajo el cuál se han construido las computadoras modernas.
 
 \subsubsection{Definición formal}
 
 Formalmente, una TM $M$ está descrita por una tupla $(\Gamma, Q, \delta)$  \cite{Arora2009}, que contiene:
 
 \begin{itemize}
-\item Un conjunto finito $\Gamma$ de símbolos que las cintas de $M$ pueden contener. Se asume que $\Gamma$ tiene un símbolo ``blank'', denotado por $\Box$; un símbolo ``start'', denotado por $\rhd$; y los número 0 y 1|. Llamamos $\Gamma$ el \emph{alfabeto} de $M$.
+\item Un conjunto finito $\Gamma$ de símbolos que las cintas de $M$ pueden contener. Usualmente se tienen 3 cintas, una de entrada, una de trabajo y una de salida, y sobre estas la máquina realiza las operaciones necesarias. Se asume que $\Gamma$ tiene un símbolo ``blank'', denotado por $\Box$; un símbolo ``start'', denotado por $\rhd$; y los número 0 y 1|. Llamamos $\Gamma$ el \emph{alfabeto} de $M$.
 
 \item Un conjunto finito $Q$ de los posibles estados en los que el registro de $M$ puede encontrarse. Asumimos que $Q$ contiene designado un estado inicial, denotado por $q_{start}$, y un estado de terminación (\emph{halting}), denotado por $q_{halt}$.
 
-\item Una función $\delta$: $Q \times \Gamma^k \to Q \times \Gamma^{k-1} \times {L,S,R}^k$, donde $k \geq 2$, describiendo las reglas que $M$ usa para realizar cada paso. Esta función es llamada \emph{función de transición} de $M$
+\item Una función $\delta$: $Q \times \Gamma^k \to Q \times \Gamma^{k-1} \times \{L,S,R\}^k$, donde $k \geq 2$ y $L$: left. $S$: stay. $R$: right., describiendo las reglas que $M$ usa para realizar cada paso. Esta función es llamada \emph{función de transición} de $M$. 
 \end{itemize}
+
+Una máquina de Turing es un computador moderno simplificado. Cualquier algoritmo puede traducirse en un conjunto de reglas y símbolos, de forma que pueda ser simulado por una TM.
 
 \subsection{Cálculo Lambda}
 
