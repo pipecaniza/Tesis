@@ -134,8 +134,101 @@ La $\alpha$-conversion no es posible si la equivalencia resultante genera nuevas
 Genera conversiones sobre funciones, es la aproximacion funcional de la extensionalidad de conjuntos.
 \end{note}
 
+\begin{defn}[Redex ]\end{defn}
+\texttt{$\lambda$x.M N}
+
+\subsubsection{Reducción de Expresiones y forma normal}
+
+Una $\lambda$-expresión que no contiene ningún redex se dice que está en su forma normal, no toda expresión lambda tiene forma normal, pero si existe, es única.
+
+\begin{note}
+Funcionalmente evaluar una exporesion consiste en indentificar los redex que contenga.
+\end{note}
+
+Estrategia de evaluación de orden normal:  
+Es reducir siempre primero el redex que se ubique a la izquierda. La estrategia de evaluación de orden normal aplicada a un término que tiene forma normal termina por encontrarla en un número finito de reducciones.
+
+Estrategia de evaluación de orden aplicativo:
+Es reducir primero los términos de redex internos antes que la aplicación que se consigue sea reducida, luego se reemplaza.
+
+\begin{thm}[Church-Rosser]
+Dos expresiones \texttt{M,N} tienen redex igual si y sólo si son equivalentes (excepto nombres de variables ligadas)
+\end{thm}
+
+\subsubsection{Semantica}
+
+Aunque el $\lambda$-cálculo trata el cálculo con funciones mediante la sustitución de los valores para los argumentos, puede no admitir una semántica para el $\lambda$-cálculo no tipado, si por función entendemos, como es habitual en la teoría de conjuntos, una relación $R$ tal que para cada par $(x, y)$ y $(x, z)$ en $R$ con la misma primera componente $x$ tenemos $y = z$. Para conjuntos $X$ e $Y$, vamos a denotar con $X^Y$ el conjunto de funciones cuyo dominio es $Y$ y con valores en $X$. Intuitivamente, si $X$ es el dominio de una interpretación de 
+$\lambda$-cálculo, entonces $X$ debe ser, en cierto sentido, isomorfo al $X^X$ porque el dominio debe ser cerrado bajo la abstracción (así como la aplicación). Tomado literalmente, sin embargo, este isomorfismo es imposible, porque la cardinalidad de $X$ siempre es estrictamente menor que de la cardinalidad de 
+$X^X$.
+
+Si se esta interesado en la existencia de algún modelo del 
+$\lambda$-cálculo cuyo dominio no necesariamente consista de funciones se encontrara por construcciones conocidas (sintáctica) que implican la $\lambda$ teoría, no muy diferente de las conocidas construcciones Henkin. Estos modelos llamados term models, dan solución insatisfactoria a la cuestión de si existen modelos matemáticos del $\lambda$-cálculo.
+
+La cardinalidad muestra que si vamos a tener una semántica para el 
+$\lambda$-calculo, la interpretación de $\lambda$-términos no puede ser simplemente funciones en el sentido de la teoría de conjuntos. 
+Hay, sin embargo, interpretaciones de $\lambda$-calculo. 
+El primer modelo, $d_{\infty}$, fue encontrado por D. Scott. Otros modelos resuelven el problema mediante la restricción de cardinalidad del dominio $X$ de la interpretación, de modo que, en ellos, $X$ es en un sentido adecuado isomorfo al $X^X$ espacio funcional.
+
+\begin{defn}[Codificación Scott, Codificación Mogensen–Scott]\end{defn}
+Sea $D$ datatype con $N$ constructores $\{c_i\}_{i=1}^N$, donde el constructor $c_i$ tiene aridad $A_i$. \\
+La codificacion Scott del constructor $c_i$ de datatype $D$ es\\
+$\lambda x_1 \dots x_{A_i} . \lambda c_1 \ldots c_N . c_i\ x_1 \dots x_{A_i}$\\
+Mogensen extiende la codificación de Scott para codificar cualquier término lambda sin tipo como datos. Esto permite que un $\lambda$-término pueda representarse como datos, dentro de un programa de meta $\lambda$-cálculo donde la funcion meta convierte un $\lambda$-término en la representación de datos correspondiente del término lambda.
+$\begin{array}{rcl}
+\operatorname{MS}[x] & = & \lambda a, b, c.a\ x \\
+\ \operatorname{MS}[M\ N] & = & \lambda a, b, c.b\ \operatorname{MS}[M]\ \operatorname{MS}[N] \\
+\ \operatorname{MS}[\lambda x . M] & = & \lambda a, b, c.c\ (\lambda x.\operatorname{MS}[M]) \\
+\end{array}$\vspace{0.2cm} \\
+El $\lambda$-término se representa como una unión de etiquetas con tres constructores:\\
+Constructor $a$ - una variable (aridad 1, no recursiva).\\
+Constructor $b$ - aplicación de función (aridad 2, recursivo en ambos argumentos).\\
+Constructor $c$ - $\lambda$-abstracción (aridad 1, recursivo).
+
+\begin{note}
+El cálculo lambda sólo puede representar funciones de una variable, 
+las cuales son suficientes para representar funciones de múltiples variable, utilizando una estrategia denominada currificación (Currying).
+$\displaystyle f(x_{1}, \dots, x_n) \xrightarrow{g} f(x_1, \dots, x_{n-1})$ recursivamente hasta tener $f(x_1)$
+\end{note}
+
+\subsubsection{Combinators}
+Una $\lambda$-expresion que no tiene variables libres es llamada 
+combinator. por ejemplo:
+\begin{itemize}
+\item[I] $\lambda x.x$ (Identidad)
+\item[App] $\lambda$ f. $\lambda$ x.(f x) (Aplicacion)
+\item[C] $\lambda$f.$\lambda$g.$\lambda$x.(f (g x)) (Composicion)
+\item[L] $\lambda$x.(x x) $\lambda$x.(x x)) (Loop)
+\item[Cur] $\lambda$f.$\lambda$x.$\lambda$y.((f x) y) (Currificacion)
+\item[Seq] $\lambda$x.$\lambda$y.($\lambda$z.y x) (Secuenciación de orden normal)
+\item[ASeq] $\lambda$x.$\lambda$y.(y x) (Secuenciación de orden aplicativo)
+\end{itemize}
+
 \section{Lenguajes de programación}
+
+El paradigma de la programación funcional se creó explícitamente para permitir un enfoque puramente funcional de la resolución de problemas. La programación funcional es una forma de programación declarativa. Por el contrario, la mayoría de lenguajes más populares, incluyendo los lenguajes de programación orientada a objetos (OOP) como C\#, Visual Basic, C++ y Java, se diseñaron para admitir en primer lugar la programación imperativa (orientada a procedimientos).
+El enfoque imperativo permite al desarrollador escribir código que describe detalladamente los pasos que el equipo debe realizar para cumplir el objetivo. Este tipo de programación también se denomina programación algorítmica. Por el contrario, un enfoque funcional implica crear el problema como un conjunto de funciones que se deben ejecutar. Es necesario definir con cuidado la entrada a cada función y qué devuelve cada función. La siguiente tabla describe algunas de las diferencias generales entre estos dos enfoques.
+La programación de ordenadores se puede definir como la creación de descripciones codificadas que un ordenador pueda interpretar para resolver un determinado problema. Entenderemos problema en su forma más amplia, incluyendo cualquier funcionalidad de interacción que podamos imaginar con los distintos componentes de la máquina.
 
 \subsection{Imperativo}
 
+El paradigma imperativo obedece al modelo matemático presentado por el inglés Alan Turing, en su trabajo sobre la “máquina automática” conocida hoy como máquina de Turing.
+La máquina tiene un cinta infinita dividida en celdas que contienen un símbolo, hay un número finito de símbolos y uno especial en blanco. Existe una tabla de reglas finita con instrucciones las cuales dada una entrada de la cinta modifica o no el estado de la máquina, el estado se guarda en un registro para el próximo computo.
+Se podria decir que la máquina computa y tiene un algoritmo que le dice como hacerlo.
+En el paradigma imperativo describe como debe resolverse el problema usando un algoritmo con una secuencia de instrucciones, es decir para resolver un problema se deben realizar una serie de pasos y el programador es el encargado de describir de forma ordenada y sistemática los pasos que debe seguir el ordenador para obtener la solución.
+
 \subsection{Declarativo}
+
+La programación funcional puede verse como la versión de propósito general del paradigma declarativo, es decir funcional es un paradigma de programación declarativo.
+El paradigma declarativo obedece al modelo del cálculo lambda donde una función toma como parámetros otras funciones y retorna funciones como resultado. Se dice que la función es el objeto de primera clase, en este sistema la función se denota $\lambda$.
+En programación funcional no hay variables (o las variables son inmutables) dado que a las funciones solo les interesan hacer procesamiento sobre datos. En principio, no hay interés en guardar el estado de nada, cada función opera sobre sus datos y no depende de otra función, por lo cual no hay una secuencia de ejecución.
+En el paradigma declarativo se describe el problema sin importar el algoritmo necesario para conseguir la solución.
+El paradigma declarativo, plantea que los problemas sean descritos al ordenador con una serie de unidades conceptuales básicas que se pueden combinar según unas determinadas
+reglas para generar nueva información. Para la resolución de un problema, se crearán las
+descripciones que representan al dominio en el cual existe el problema a resolver y se planteará el problema como una pregunta que debe ser respondida bien con alguna de las unidades conceptuales iniciales o bien con una combinación válida de ellas que es el propio ordenador quien debe buscar.
+
+\subsection{Ventajas declarativo sobre imperativo}
+\begin{itemize}
+\item No se emplea esfuerzo en diseñar un algoritmo que resuelva el problema.
+\item Descripciones compactas y expresivas. Es posible describir muchos problemas con muy pocas líneas de código del lenguaje.
+\item Desarrollo del programa no tan orientado a la solución de un único problema. Con una programación adecuada, basta haber descrito un dominio de problemas de forma correcta y formular el problema como una simple consulta en dicho dominio.
+\end{itemize}
