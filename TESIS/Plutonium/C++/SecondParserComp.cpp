@@ -4,7 +4,7 @@
 
 using namespace std;
 
-string to_str(char& a)
+string to_str(char a)
 {
     string as;
     as.push_back(a);
@@ -59,8 +59,8 @@ Parser<T> seq (Functor f, string input)
 
 
 
-//template<char>
-Parser<char> symbol (char t, string xs)
+template <char t>
+Parser<char> symbol (string xs)
 {
     Parser<char> parser;
     auto x = x_(xs) == t;
@@ -127,16 +127,35 @@ void c()
 template<typename F>
 void ss(F functor)
 {
-    functor();
 }
 
 template<typename F, typename... Args>
 void ss(F functor, Args... args)
 {
-    functor();
-    return ss(args...);
+   // functor();
+    ss(args...);
 }
 
+
+/*COMBINATORS*/
+
+template<typename R, typename F, typename P>
+Parser<R> por (string input, F f, P p)
+{
+    auto r = p(input);
+    auto f1 = f(r.result[0]->first);
+    Parser<R> last;
+    last.result.push_back(new pair<R,string>(f1, r.result[0]->second));
+    return last;
+}
+
+template<typename R, typename F, typename P, typename... Args>
+Parser<R> por (string input, F f, P p, Args... args)
+{
+    auto r = p(input);
+    auto f1 = f(r.result[0]->first);
+    return por<R>(r.result[0]->second, f1, args... );
+}
 
 int main()
 {
@@ -173,6 +192,24 @@ int main()
     //pf("Hola %d %d %d ",121,13,"asd");
 
     ss(a,b,c);
+    auto f1 = symbol<'d'>;
+    string dota = "dota";
+    reverse(dota.begin(),dota.end());
+    auto resu = por<string>(dota, [](char a) { return ( [b = a](char c) { return to_str(b) + to_str(c); } ); },
+        symbol<'d'>, symbol<'o'>
+    );
+
+    ss(symbol<'d'>, symbol<'o'>);
+
+    resu.ptr();
+
+    auto qwe = [](char a)  {return ([t = a](char q){return q+t;});};
+    auto ter= qwe(1);
+    auto qqq = ter(2);
+    cout << qqq<<endl;
+
+
+
 
     return 0;
 }

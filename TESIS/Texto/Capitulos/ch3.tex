@@ -143,9 +143,106 @@ Así pues, si se quisiera construir un parser descendente por la izquierda se de
 
 La necesidad de crear un parser elegante y sencillo en el universo imperativo es obvia. Ya se ha descrito los componentes esenciales y los recursos que debe proveer el lenguaje para que los \emph{Parser Combinators} puedan ser implementados. Al comprar el parser imperativo con el funcional se encuentra una abismal diferencia, y marcan como claro ganador a los  \emph{Parser Combinators}. Partiendo de los mecanismos de abstracción de \emph{C++} descritos en el primer capítulo se podría desarrollar una librería básica que intente simular los ya mencionados parsers funcionales.
 
+	\subsection{Tipo del parser}
+	Tal como se han implementado los \emph{Parser Combinators} en \emph{Haskell}, es menester definir el tipo del parser, y en el mundo imperativo continua siendo igual de importante éste primer paso.
+	
+	\begin{lstlisting}[language=C++, caption="Tipo Parser"]
+	template<typename R>
+	struct Parser{
+		vector<pair<R,string>* > result;		
+	};
+	\end{lstlisting}
 
-
-
+	La definición del tipo del parser cumple con los mismos objetivos que la definida en el universo funcional. El template permite simular el polimorfísmo presente en los parsers funcionales implementados en \emph{Haskell}, así pues, el resultado del mismo puede ser cualquier tipo de dato definido para el análisis sintáctico. 
+	Se puede notar que la definición que se ha utilizado es la simplificada por \textsc{Hutton}, en la cuál la entrada es siempre un \emph{string}, obviamente puede ser remplazado por un argumento en el template lo que dotará de mayor flexibilidad al parser para que pueda recibir cualquier tipo de dato.
+	
+	El atributo \texttt{result} cumple la función de lista de éxito (\emph{Success list}), dicha lista está implementado con un \texttt{vector} de \texttt{pair}, es decir, una lista de pares ordenados, donde cada par cumple con la misma definición dada en el capítulo 2.
+	
+	\subsection{Creación de un Parsers básicos}
+	Al igual que en \emph{Haskell} es necesario la creación de los parsers elementales que permitirán implementar parsers mucho más complejos con el fin de evaluar una gramática.
+	
+	Los tres parsers básicos son:
+	\begin{itemize}
+		\item Symbol: Reconoce un símbolo.
+		\item Succeded: Tiene éxito sin consumir ningún caracter de entrada.
+		\item Fail: Falla siempre sin consumir ningún caracter de entrada.
+	\end{itemize}
+	
+	La implementación de estos parsers en \emph{C++} es un poco más tediosa y menos clara que en \emph{Haskell}.
+	
+	\begin{lstlisting}[language=C++, caption="Parsers básicos"]
+		template <char t>
+		Parser<char> symbol (string xs)
+		{
+			Parser<char> parser;
+			auto x = xs.back() == t;
+			if (x)
+			{
+				xs.pop_back();
+				pair<char,string>* result = new pair<char,string>(t,xs);
+				parser.result.push_back(result);
+			}			
+			return parser;
+		}
+		
+		template<char t>
+		Parser<char> succeded(string xs)
+		{
+			Parser<char> parser;
+			parser.result.push_back(new pair<char,string>(t,xs));
+			return parser;
+		}
+		
+		template<char t>
+		Parser<char> fail(string xs)
+		{
+			Parser<char> parser;
+			return parser;
+		}		
+	\end{lstlisting}
+	
+	Todos los anteriores métodos retornan un parser: \texttt{Parser<char>}, es decir, que el resultado del análisis será un caracter, al igual que la definición en el modelo análogo ya mencionado.
+	
+	La utilización de estos parsers es muy simple, solo hace falta tener un string de entrada, y en el caso de \emph{symbol} un símbolo (caracter) para hacer el reconocimiento.
+	
+	\begin{lstlisting}[language=C++]
+	Parser<char> P = symbol<t>("otxet"); //C++
+	symbol 't' "texto"					//Haskell
+	\end{lstlisting}
+	En compración con la utilización del mismo parser en \emph{Haskell}, se mantiene la similitud.
+	
+	A la hora de utilizar los parsers aquí descritos, es necesario reversar el string de entrada, esto por motivos de optimizaciones, pues la definición de eliminar la primera posición de un string en \emph{C++} es $\Theta$(n), por el contrario, eliminar la última posición se logra en tiempo constante $\Theta$(1).
+	
+	\subsection{Currying imperativo}
+	Como se expuso en el capítulo anterior, el currying es un elemento básico en los \emph{Parser Combinators}, y sobretodo en la definición de los mismos desde un punto totalmente teórico. La currificación en el mundo funcional provee gran flexibilidad, especialmente si de la \emph{evaluación parcial de funciones} se trata. La evaluación parcial de funciones es precisamente lo que permite inyectar \emph{funciones semánticas} a través de cada resultado de los parsers.
+	Es necesario crear un mecanismo de currying en \emph{C++} para poder implementar \emph{Parser Combinators} fieles a la teoría funcional.
+	
+	\begin{exmp}
+		Sea la función $f$ de tipo
+		$f:(X \times Y) \to Z$ es igual a a lu función currificada que crea la siguiente función \texttt{curry}$(f): X \to (Y \to Z)$, en otras palabras, cualquier función con múltiples parámetros puede ser expresada como una secuencia de funciones que toman un parámetro.		
+	\end{exmp}
+	
+	En \emph{C++} no existe un currying automático como en \emph{Haskell}, sin embargo, se pueden simular por medio de las expresiones lambda.
+	
+	\begin{exmp}
+		Sea la función $g(x,y) = y$, puede expresarse como \texttt{curry}$(g): x \to (y \to y)$, donde $x$ y $y \in \Z$ . En \emph{Haskell} se puede realizar de forma trivial:
+		\begin{lstlisting}[language=Haskell, caption=g currificada en Haskell]
+		g	::	Int -> Int -> Int
+		g x y = y
+		\end{lstlisting}
+		
+		En \emph{C++} es más complejo pues se debe expresar explícitamente la función currificada.		
+		
+		\begin{lstlisting}[language=C++, caption=g currificada en C++]
+		auto g = [](int x){ return [](int y) { return y; }; };
+		\end{lstlisting}	
+		
+		De ésta manera, se puede evaluar parcialmente la función $g$, es decir, si a g se le envía el parámetro $x$, se obtendrá como resultado otra función que esperará el parámetro $y$
+	\end{exmp}
+	
+	
+	
+	
 El anterior \emph{Parser Combinator} sobre un lenguaje imperativo no es más que un prototípo inicial, se pueden observar que muchas de las operaciones aún se tienen que hacer de forma manual, ésto debido a que para poder transportar toda una librería funcional al universo imperativo requiere de grandes transformaciones y diseños no triviales. A partir de éste punto se deja una hipótesis no demostrada, pues requiere de un análisis profundo de la basta teoría de \emph{mónadas} en el paradigma funcional.
 
 \begin{conj}
