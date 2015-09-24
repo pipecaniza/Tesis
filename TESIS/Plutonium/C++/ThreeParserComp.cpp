@@ -85,12 +85,13 @@ Parser<char> succeded(string xs)
 template<typename R, typename F, typename P>
 Parser<R> seq (string input, F f, P p)
 {
+  //  cout << "p\n";
     auto r = p(input);
     if(r.result.size() == 0){
         Parser<R> r1;
         return r1;
     }
-    cout <<"parseado: "<< r.result[0]->first<<"    Queda: "<<r.result[0]->second<<endl;
+  //  cout <<"parseado: "<< r.result[0]->first<<"    Queda: "<<r.result[0]->second<<endl;
     auto f1 = f(r);
     return f1;
 }
@@ -103,7 +104,7 @@ Parser<R> seq (string input, F f, P p, Args... args)
         Parser<R> r1;
         return r1;
     }
-    cout <<"parseado: "<< r.result[0]->first<<"    Queda: "<<r.result[0]->second<<endl;
+    //cout <<"parseado: "<< r.result[0]->first<<"    Queda: "<<r.result[0]->second<<endl;
     auto f1 = f(r);
     return seq<R>(r.result[0]->second, f1, args... );
 }
@@ -112,7 +113,7 @@ auto l = [](Parser<char> a){
             return [](Parser<string> b){
                 return [b](Parser<char> c){
                     Parser<string> q;
-                    q.result.push_back(new pair<string,string>("Inside-> " + b.result[0]->first, c.result[0]->second));
+                    q.result.push_back(new pair<string,string>("Inside " + b.result[0]->first, c.result[0]->second));
                     return q;
                 };
             };
@@ -120,15 +121,33 @@ auto l = [](Parser<char> a){
 
 auto l2 = [](Parser<char> a){
                 Parser<string> q;
-                q.result.push_back(new pair<string,string>("Empty-> ", a.result[0]->second));
+                q.result.push_back(new pair<string,string>("Empty", a.result[0]->second));
                 return q;
 };
 
 Parser<string> parenthesis(string input)
 {
-    auto result = (seq<string>(input, l , symbol<'('>, parenthesis, symbol<')'>)) |
-                        (seq<string>(input, l2, succeded<'e'>));
+    auto result = seq<string>(input, l , symbol<'('>, parenthesis, symbol<')'>) |
+                        seq<string>(input, l2, succeded<'e'>);
     return result;
+}
+
+string S(string input)
+{
+    char a = input.back(); input.pop_back();
+    if(a == '(')
+    {
+        string q = S(input);
+        a = input.back();input.pop_back();
+        if(a != ')')
+            return q;
+        else{
+            return "Inside " + q;
+        }
+    }
+    else{
+        return "Empty";
+    }
 }
 
 int main()
@@ -139,8 +158,13 @@ int main()
 
 //    resu.ptr();
 
-    auto result = parenthesis(dota);
-    result.ptr();
+  //  auto result = parenthesis(dota);
+    //result.ptr();
+
+    cout << S(dota)<< endl;
 
     return 0;
 }
+
+
+
