@@ -45,8 +45,7 @@ Una máquina de Turing es un computador moderno simplificado. Cualquier algoritm
 
 \subsection{Cálculo Lambda}
 
-El cálculo lambda $\Lambda$ desarrollado por Alonso Church en los 30 para dar una teoría general de las funciones. Tiene por objeto formalizar el empleo de funciones como transformación de argumentos en resultados empleando 
-un conjunto de axiomas, y reglas de inferencia.
+El cálculo lambda $\Lambda$ creado por Alonso Church en los 30 para dar una teoría general de las funciones \cite{Bar1998}. Tiene por objeto formalizar el empleo de funciones como transformación de argumentos en resultados empleando un conjunto de axiomas, y reglas de inferencia.
 
 \subsubsection{Sintaxis}
 
@@ -158,8 +157,7 @@ Dos expresiones \texttt{M,N} tienen redex igual si y sólo si son equivalentes (
 \subsubsection{Semantica}
 
 Aunque el $\lambda$-cálculo trata el cálculo con funciones mediante la sustitución de los valores para los argumentos, puede no admitir una semántica para el $\lambda$-cálculo no tipado, si por función entendemos, como es habitual en la teoría de conjuntos, una relación $R$ tal que para cada par $(x, y)$ y $(x, z)$ en $R$ con la misma primera componente $x$ tenemos $y = z$. Para conjuntos $X$ e $Y$, vamos a denotar con $X^Y$ el conjunto de funciones cuyo dominio es $Y$ y con valores en $X$. Intuitivamente, si $X$ es el dominio de una interpretación de 
-$\lambda$-cálculo, entonces $X$ debe ser, en cierto sentido, isomorfo al $X^X$ porque el dominio debe ser cerrado bajo la abstracción (así como la aplicación). Tomado literalmente, sin embargo, este isomorfismo es imposible, porque la cardinalidad de $X$ siempre es estrictamente menor que de la cardinalidad de 
-$X^X$.
+$\lambda$-cálculo, entonces $X$ debe ser, en cierto sentido, isomorfo al $X^X$ porque el dominio debe ser cerrado bajo la abstracción (así como la aplicación). Tomado literalmente \cite{Lambda2013}, sin embargo, este isomorfismo es imposible, porque la cardinalidad de $X$ siempre es estrictamente menor que de la cardinalidad de $X^X$.
 
 Si se esta interesado en la existencia de algún modelo del 
 $\lambda$-cálculo cuyo dominio no necesariamente consista de funciones se encontrara por construcciones conocidas (sintáctica) que implican la $\lambda$ teoría, no muy diferente de las conocidas construcciones Henkin. Estos modelos llamados term models, dan solución insatisfactoria a la cuestión de si existen modelos matemáticos del $\lambda$-cálculo.
@@ -173,7 +171,7 @@ El primer modelo, $d_{\infty}$, fue encontrado por D. Scott. Otros modelos resue
 Sea $D$ datatype con $N$ constructores $\{c_i\}_{i=1}^N$, donde el constructor $c_i$ tiene aridad $A_i$. \\
 La codificacion Scott del constructor $c_i$ de datatype $D$ es\\
 $\lambda x_1 \dots x_{A_i} . \lambda c_1 \ldots c_N . c_i\ x_1 \dots x_{A_i}$\\
-Mogensen extiende la codificación de Scott para codificar cualquier término lambda sin tipo como datos. Esto permite que un $\lambda$-término pueda representarse como datos, dentro de un programa de meta $\lambda$-cálculo donde la funcion meta convierte un $\lambda$-término en la representación de datos correspondiente del término lambda.
+Mogensen extiende la codificación de Scott \cite{Mog1994} para codificar cualquier término lambda sin tipo como datos. Esto permite que un $\lambda$-término pueda representarse como datos, dentro de un programa de meta $\lambda$-cálculo donde la funcion meta convierte un $\lambda$-término en la representación de datos correspondiente del término lambda.
 $\begin{array}{rcl}
 \operatorname{MS}[x] & = & \lambda a, b, c.a\ x \\
 \ \operatorname{MS}[M\ N] & = & \lambda a, b, c.b\ \operatorname{MS}[M]\ \operatorname{MS}[N] \\
@@ -206,14 +204,11 @@ combinator. por ejemplo:
 \section{Lenguajes de programación}
 
 El paradigma de la programación funcional se creó explícitamente para permitir un enfoque puramente funcional de la resolución de problemas. La programación funcional es una forma de programación declarativa. Por el contrario, la mayoría de lenguajes más populares, incluyendo los lenguajes de programación orientada a objetos (OOP) como C\#, Visual Basic, C++ y Java, se diseñaron para admitir en primer lugar la programación imperativa (orientada a procedimientos).
-El enfoque imperativo permite al desarrollador escribir código que describe detalladamente los pasos que el equipo debe realizar para cumplir el objetivo. Este tipo de programación también se denomina programación algorítmica. Por el contrario, un enfoque funcional implica crear el problema como un conjunto de funciones que se deben ejecutar. Es necesario definir con cuidado la entrada a cada función y qué devuelve cada función. La siguiente tabla describe algunas de las diferencias generales entre estos dos enfoques.
+El enfoque imperativo permite al desarrollador escribir código que describe detalladamente los pasos que el equipo debe realizar para cumplir el objetivo. Este tipo de programación también se denomina programación algorítmica. Por el contrario, un enfoque funcional implica crear el problema como un conjunto de funciones que se deben ejecutar. Es necesario definir con cuidado la entrada a cada función y qué devuelve cada función. \cite{CompMic}
 La programación de ordenadores se puede definir como la creación de descripciones codificadas que un ordenador pueda interpretar para resolver un determinado problema. Entenderemos problema en su forma más amplia, incluyendo cualquier funcionalidad de interacción que podamos imaginar con los distintos componentes de la máquina.
 
 \subsection{Imperativo}
 
-El paradigma imperativo obedece al modelo matemático presentado por el inglés Alan Turing, en su trabajo sobre la “máquina automática” conocida hoy como máquina de Turing.
-La máquina tiene un cinta infinita dividida en celdas que contienen un símbolo, hay un número finito de símbolos y uno especial en blanco. Existe una tabla de reglas finita con instrucciones las cuales dada una entrada de la cinta modifica o no el estado de la máquina, el estado se guarda en un registro para el próximo computo.
-Se podria decir que la máquina computa y tiene un algoritmo que le dice como hacerlo.
 En el paradigma imperativo describe como debe resolverse el problema usando un algoritmo con una secuencia de instrucciones, es decir para resolver un problema se deben realizar una serie de pasos y el programador es el encargado de describir de forma ordenada y sistemática los pasos que debe seguir el ordenador para obtener la solución.
 
 \subsection{Declarativo}
@@ -229,6 +224,7 @@ descripciones que representan al dominio en el cual existe el problema a resolve
 La programación funcional ofrece una visión de alto nivel de programación, provee una gran variedad de características que ayudan a construir librerías de funciones elegantes, poderosas y generales.\cite{Thompson2011}
 
 \subsection{Ventajas declarativo sobre imperativo}
+La siguiente lista denota ventajas que posee el enfoque declarativo sobre el iomperativo basdo en investigaciones \cite{Dec10}
 \begin{itemize}
 \item No se emplea esfuerzo en diseñar un algoritmo que resuelva el problema.
 \item Descripciones compactas y expresivas. Es posible describir muchos problemas con muy pocas líneas de código del lenguaje.
