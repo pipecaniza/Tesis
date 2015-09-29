@@ -27,8 +27,20 @@ struct Parser{
     Parser<R>& operator | (Parser<R> t)
     {
         if(t.result.size() != 0)
-        this->result.push_back(t.result[0]);
+            this->result.push_back(t.result[0]);
         return *this;
+    }
+    void Add(Parser<R> np)
+    {
+        for(int i = 0; i < np.result.size(); ++i)
+            result.push_back(np.result[i]);
+    }
+
+    Parser<R> get(int i)
+    {
+        Parser<R> r;
+        r.result.push_back(result[i]);
+        return r;
     }
 
     ~Parser()
@@ -53,6 +65,7 @@ struct Parser{
 template <char t>
 Parser<char> symbol (string xs)
 {
+    cout << "to parser: "<<xs<<endl;
     Parser<char> parser;
     auto x = x_(xs) == t;
     switch(x)
@@ -86,13 +99,14 @@ template<typename R, typename F, typename P>
 Parser<R> seq (string input, F f, P p)
 {
   //  cout << "p\n";
+  cout << "in: "<<input<<endl;
     auto r = p(input);
     if(r.result.size() == 0){
         Parser<R> r1;
         return r1;
     }
-  //  cout <<"parseado: "<< r.result[0]->first<<"    Queda: "<<r.result[0]->second<<endl;
     auto f1 = f(r);
+    cout <<"FINAL ___ parseado: "<< r.result[0]->first<<"    Queda: "<<r.result[0]->second<<endl;
     return f1;
 }
 
@@ -104,9 +118,13 @@ Parser<R> seq (string input, F f, P p, Args... args)
         Parser<R> r1;
         return r1;
     }
-    //cout <<"parseado: "<< r.result[0]->first<<"    Queda: "<<r.result[0]->second<<endl;
-    auto f1 = f(r);
-    return seq<R>(r.result[0]->second, f1, args... );
+    Parser<R> final_result;
+    for(int i = 0; i < r.result.size(); ++i){
+        cout <<"parseado: "<< r.result[0]->first<<"    Queda: "<<r.result[0]->second<<endl;
+        auto f1 = f(r.get(i));
+        final_result.Add(seq<R>(r.result[i]->second, f1, args... ));
+    }
+    return final_result;
 }
 
 auto l = [](Parser<char> a){
@@ -127,8 +145,7 @@ auto l2 = [](Parser<char> a){
 
 Parser<string> parenthesis(string input)
 {
-    auto result = seq<string>(input, l , symbol<'('>, parenthesis, symbol<')'>) |
-                        seq<string>(input, l2, succeded<'e'>);
+    auto result =   seq<string>(input, l2, succeded<'e'>) | seq<string>(input, l , symbol<'('>, parenthesis, symbol<')'>);
     return result;
 }
 
@@ -156,7 +173,7 @@ int main()
     string dota = "(())";
     reverse(dota.begin(),dota.end());cout << dota<<endl;
 
-//    resu.ptr();
+//   resu.ptr();
 
     auto result = parenthesis(dota);
     result.ptr();

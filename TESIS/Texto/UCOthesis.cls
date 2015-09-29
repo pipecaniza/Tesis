@@ -301,6 +301,8 @@
 \def\citationname{Citations to Previously Published Work}
 %                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+\def\conclusionesname{Conclusiones}
+
 %    ****************************************
 %    *             FRONT MATTER             *
 %    ****************************************
@@ -499,6 +501,19 @@
   \newpage
   \thispagestyle{plain}
   \addcontentsline{toc}{section}{Dedicatoria}
+}
+{}
+
+% Conclusiones
+\newenvironment{conclusiones}
+{
+	\newpage
+	\thispagestyle{plain}
+	\@mkboth{\acknowledgename}{\conclusionesname}
+	\addcontentsline{toc}{chapter}{\conclusionesname}
+	\vspace*{-.8in}
+	{\centerline{\bf {\LARGE Conclusiones}}}
+	\vspace*{.2in}
 }
 {}
 
