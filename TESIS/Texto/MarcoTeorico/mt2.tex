@@ -10,10 +10,9 @@ La programación funcional se cimenta en el cálculo lambda desarrollado por Chu
 
 \subsection{Funciones}
 
-Antes de que los ordenadores vieran la luz se habian concedido tecnicas para solucionar problemas. Por tanto la terminologia referente a memoria no se usaba. En la matemática un concepto fundamental  es el de función, las cuales actuan como un procesador con una entrada y dando como resultado una salida, los resultados dependen de los parametros a traves de cada pasó, es por eso que se puede asociar una función, con la computación.\\
+Antes de que aparecieran los ordenadores se habian elaborado tecnicas para solucionar problemas,  usando el concepto fundamental matematico de función, la cual actua como un procesador con una entrada y dando como resultado una salida, los resultados dependen de los parametros a traves de cada pasó, es por eso que se puede asociar una función con la computación.\\
 
 Podemos entonces decir que un ``programa'' consiste en la definicion de una o varias funciones.  el ordenador procesa los parametros en la funcion  entrega el resultado. Con esta aproximacion no tenemos que preocuparnos del orden de ejecucion, lo cual ya es mas potente que la aproximacion imperativa.
-Al pasar el tiempo evidentemente esta tendencia fue perdiendo fuerza en el mercado pero nunca en la academia 
 
 \subsection{Lenguajes}
 
@@ -21,11 +20,13 @@ A finales de los cincuenta John McCarthy creo el primer lenguaje de programació
 
 \subsection{Teoria de Categorias y Programación Funcional}
 
-Muchos conceptos de ka programación funcional tienen su origen en la teoria de categorias, por ello introducimos a partir de ahora esta teoria de manera formal como sustento axiomatico de nuestro trabajo.
+Muchos conceptos de ka programación funcional tienen su origen en la teoria de categorias 
+\cite{MacLane1978}, por ello introducimos a partir de ahora esta teoria de manera formal
+\cite{Cornell} como sustento axiomatico de nuestro trabajo.
 
 \subsection{Definiciones formales en Teoria de Categorias}
 
-\begin{note}\end{note}
+Para lo que resta de este capítulo tenga en cuenta lo siguiente.
 \begin{itemize}
 \item Usamos $:$ para definir tipos, asumimos implicitamente el tipado para evitar sobrecargar la notacion cuando no haya confusión al respecto, de lo contrario se escribe $.$ antecedido del tipo.
 \item $\Omega$ es uns generalización para los tipos, es decir el contenedor universal de tipos
@@ -189,7 +190,7 @@ Para introducir monadas debemos pensar en 2-categoria que son una categoria con 
 
 \begin{defn}[Monadas en 2-categoria]\end{defn}
 
-Tupla $\langle O,\mft{m}, \mu, \mft{a}, \eta, \mft{i} \rangle$ con las representaciones
+Tupla  $\langle O,\mft{m}, \mu, \mft{a}, \eta, \mft{i} \rangle$ con las representaciones
 
 \begin{enumerate}
 
