@@ -34,7 +34,7 @@ Así pues, si se desea tener como entrada un \emph{String}, el tipo de dato debe
 La definición de estos típos facilitará la construcción de los parsers posteriores, tambien facilitarán la lectura del código.
 
 
-\section{Basic's Parsers}
+\section{Parsers básicos}
 
 Como ya se ha dicho antes, los \emph{Parser Combinators} están conformados por parsers básicos que serán compuestos para poder reconocer gramáticas complejas, por ésta razón, es necesario definir una serie de parsers muy simples los cuales permitirán la creación de una librería de análisis sintáctico basada en la teoría de \emph{Parser Combinators}. \cite{Jeuring2010,Hutton2007}
 
@@ -149,9 +149,9 @@ El uso de $<\$>$ es generalmente sencillo, pero entender la definición de la fu
 	[((\x -> (\_ -> Inside x))), ys]
 	\end{lstlisting}
 	
-	De forma trivial se puede apreciar que la primer función lambda ya fue utilizada. Ésto garantiza la cohesión de tipos  con la función $<*>$. Así se seguirá aplicando la expresión lambda a lo largo de los parsers unidos por $<*>$. Cabe anotar, que el resultado que se espera es \emph{S}, es por ésto que la función lambda sólo utiliza el resultado del parser que está en segundo lugar, es decir, la llamada recursiva de \emph{parenthesis}, pues éste es el único parser que se está usando que retorna el valor \emph{S}.
+	De forma trivial se puede apreciar que la primer función lambda ya fue utilizada. Ésto garantiza la cohesión de tipos  con la función $<*>$. Así se seguirá aplicando la expresión lambda a lo largo de los parsers unidos por $<*>$. Cabe anotar, que el resultado que se espera es \emph{S}, es por ésto que la función lambda sólo utiliza el resultado del parser que está en segundo lugar, es decir, la llamada recursiva de \emph{parenthesis}, pues éste es el único parser que se está usando que retorna el valor \emph{S}. 
 	
-	\begin{lstlisting}[language=Haskell, caption=Ejemplo de la utilización del parser en GHCi]
+	\begin{lstlisting}[language=Haskell]
 	*> parenthesis "((()))"
 	   [(Inside(Inside(Inside Empty)), ""), (Empty,"((()))")]
 	\end{lstlisting}
@@ -229,7 +229,7 @@ Se pueden crear todo tipo de parsers usando los combinators $<|>$ y $<*>$, pero 
 	Partiendo de lo anterior, se pueden implementar los tres nuevos operadores(parsers) que permitirán expresar de una manera mas flexible el analizador sintáctico de una gramática libre de contexto que defina un lenguaje de programación.
 	
 	\lstinputlisting[language=Haskell,caption=Parsers extendidos.,label=cod-mod]{./Codes/EBNF.hs}
-\section{Parsing funcional}
+
 
 
 

@@ -13,7 +13,7 @@ Antes del diseño de cualquier compilador se deben definir los tres tipos de len
 \end{itemize}
 
 Modificar cualquiera de los anteriores lenguajes repercute enormemente en el diseño y la complejidad del compilador, si bien todos los compiladores tienen etapas similares, realizar un cambio abrupto supone modificar la gramática, la semántica, las representaciones intermedias, optimizaciones y obviamente, la generación de código.
-Es por tal razón, que antes de iniciar el proceso de diseño y codificación del compilador, es menester definir cada uno de los anteriores lenguajes. Puesto que no se llevará a cabo una implementación de un compilador completo, no se requiere la definición completa de cada lenguaje. El objetivo central de la investigación es estudiar el parsing partiendo desde dos modelos computacionales que permitirán observar el comportamiento de los mismos.
+Es por tal razón, que antes de iniciar el proceso de diseño y codificación del compilador, es menester definir cada uno de los anteriores lenguajes. Puesto que no se llevará a cabo una implementación de un compilador completo, no se requiere la definición completa de cada lenguaje. El objetivo central de la investigación es estudiar el parsing\footnote{Parsing se refiere al análisis sintáctico.} partiendo desde dos modelos computacionales que permitirán observar el comportamiento de los mismos.
 
 
 \section{Lenguajes utilizados}
@@ -37,7 +37,7 @@ Dado que la teoría descrita en los próximos capítulos parte del \emph{cálcul
 		
 		De una forma casi directa se puede asociar el concepto de \emph{template} con el concepto de \emph{polimorfísmo}\footnote{Polimorfísmo entendido dentro del universo funcional, cabe anotar que el polimorfismo en el universo imperativo tiene un significado totalmente distinto.}, y viceversa, es decir, se puede afirmar que el \emph{polimorfísmo} funcional está asociado al concepto de \emph{template}. Obviamente la limitante de los \emph{templates} es que \emph{C++} al ser un lenguaje compilado y con comprobación de tipos estática, se debe definir en algún momento que tipo de dato reemplazará a la definición generál del \emph{template}.
 		
-		\begin{lstlisting}[language=C++, caption="Función que suma dos variables de tipo T"]
+		\begin{lstlisting}[language=C++, caption=Función que suma dos variables de tipo T]
 		template <typename T>
 		T sum(T a, T b)
 		{
@@ -47,10 +47,10 @@ Dado que la teoría descrita en los próximos capítulos parte del \emph{cálcul
 		
 		De ésta forma se puede generar una función con tipos no especificados, cabe anotar como se dijo anteriormente, en el momento del uso hay que especificar su tipo.
 	
-	\subsubsection{Pointer to Function}
+	\subsubsection{Puntero a una función}
 		Como un objeto, el código generado para un cuerpo de una función es puesto en memoria en algún lugar, entonces tiene una dirección. Se puede tener un puntero a una función como un puntero a un objeto. \cite{Bjarne}
 		
-		\begin{lstlisting}[language=C++, caption="Puntero a una función"]
+		\begin{lstlisting}[language=C++, caption=Puntero a una función]
 		void func(string s) { /* ... */ }
 		
 		void (*pf)(string);
@@ -66,7 +66,7 @@ Dado que la teoría descrita en los próximos capítulos parte del \emph{cálcul
 		
 		También \emph{C++} permite generar \emph{funciones de primer orden} con ayuda de los punteros a funciones.
 		
-		\begin{lstlisting}[language=C++, caption="Funciones de primer orden"]
+		\begin{lstlisting}[language=C++, caption=Funciones de primer orden]
 		void func(string s) { /* ... */ }
 		
 		void high_order_function(void (*pf)(string), string a)
@@ -77,7 +77,7 @@ Dado que la teoría descrita en los próximos capítulos parte del \emph{cálcul
 		
 		De ésta manera se pueden pasar funciones como argumentos. Para evitar escribir explícitamente el tipo de la función, se puede recurrir al uso de \emph{templates}.
 		
-		\begin{lstlisting}[language=C++, caption="Funciones de primer orden con templates"]
+		\begin{lstlisting}[language=C++, caption=Funciones de primer orden con templates]
 		void func(string s) { /* ... */ }
 		
 		template<typename FUNCTOR>
@@ -87,7 +87,7 @@ Dado que la teoría descrita en los próximos capítulos parte del \emph{cálcul
 		}
 		\end{lstlisting}
 		
-	\subsubsection{Lambda expressions}
+	\subsubsection{Expresiones Lambda}
 		\emph{C++11} tiene implementado una eficiente, fácil y elegante forma de utilizar las \emph{expresiones lambda} pertenecientes al universo funcional, las cuales no son otra cosa que funciones anónimas, en otras palabras, una expresión lambda no es más que una función sin nombre, es decir, no están muy separadas del universo imperativo. Utilizando \emph{lambdas} se puede evitar los punteros a funciones.
 		
 		Tal como lo expresa Stroustrup, una expresión lambda es una notación simplificada para definir y usar un objeto a una función anónima. En lugar de definir una clase con el operador (), luego crear el objeto y finalmente invocarlo, se puede usar un atajo. Esto es particularmente útil cuando se necesita pasar una operación como argumento a un algorítmo.\cite{Bjarne}
@@ -96,25 +96,47 @@ Dado que la teoría descrita en los próximos capítulos parte del \emph{cálcul
 		
 		Con una sintaxis bastante funcional se utilizan las \emph{expresiones lambda} en \emph{C++}:
 		
-		\begin{lstlisting}[language=C++, caption="Lambda para elevar al cuadrado un número en C++"]
+		\begin{lstlisting}[language=C++, caption=Lambda para elevar al cuadrado un número en C++]
 			[](int x) -> int { return x * x; }
 		\end{lstlisting}
 	
 	\subsubsection{Auto type}
 		\emph{C++11} trae también con sigo la detección automática de tipos, obviamente, como ya se a expresado, es necesario que éste tipo sea resuelto en tiempo de compilación, es decir, la detección de tipos no puede estar asociada a un efectos colateral, en otras palabras, si el chequeo de tipos no se puede hacer de forma estática, se debe utilizar un tipo explícito.
 	
-		\begin{lstlisting}[language=C++, caption="Auto type en C++"]
+		\begin{lstlisting}[language=C++, caption=Auto type en C++]
 			auto num = 2.8 * 3; //auto -> double
 		\end{lstlisting}
 		
 		De la misma forma se puede evitar escribir todo el tipo del puntero a una función y también se pueden crear variables asociadas a una función lambda:
 		
-		\begin{lstlisting}[language=C++, caption="Auto type en C++"]
+		\begin{lstlisting}[language=C++, caption=Auto type en C++]
 		auto flambda = [](int x) -> int { return x * x; };
 		\end{lstlisting}
 				
 	\subsection{Haskell}
-	
+		\emph{Haskell} es un lenguaje de programación funcional creado principalmente por \textsc{Simon Peyton Jones}, su nombre proviene de \textsc{Haskell B. Curry} quien fue uno de los pioneros en el calculo lambda. La primera especificación de \emph{Haskell} fue en 1980. \emph{Haskell} es un lenguaje funcional puro, es decir, utiliza funciones sin efectos colaterales. \cite{Thompson2011}
+		
+		\emph{Haskell} es sin lugar a dudas el lenguaje funcional por excelencia.
+		
+		\subsubsection{Currying}
+		Toda función en \emph{Haskell} es expresada de forma currificada, así pues, una función que recibe múltiples parámetros, será traducida como múltiples funciones que reciben cada una un único parámetro.
+		
+		\subsubsection{Polimorfismo}
+		Una de las principales características de \emph{Haskell} es el polimorfismo. Un tipo que contiene uno o más tipos de variables es llamado \emph{polimórfico}(muchas formas).\cite{Hutton2007}
+		
+		Si se quisiera definir una función que recibe una lista de cualquier tipo y retorna el número de elementos se debe utilizar el polimorfismo.
+		
+		\begin{lstlisting}[language=Haskell, caption=Polimorfismo]
+		size		::	[a] -> Int
+		size 	[]	= 0
+		size (x:xs) = 1 + size xs
+		\end{lstlisting}
+		
+		\subsubsection{List comprehension}
+		En matemáticas, la notación por comprensión puede utilizarse para construir nuevos conjuntos de otros existentes. Por ejemplo, $\{x^2 | x \in [1..5]\}$ produce el conjunto $[1,4,9,16,25]$. En \emph{Haskell} existe una notación similar: \cite{Hutton2007}
+		\begin{lstlisting}[language=Haskell, caption=List comprehension]
+		[x ^ 2 | x <- [1..5]]
+		\end{lstlisting}
 
 
 

@@ -390,7 +390,7 @@ La necesidad de crear un parser elegante y sencillo en el universo imperativo es
 	El anterior parser cumple con la definición de la gramática. De ésta manera simple y corta se puede escribir cualquier analizador sintáctico recursivo descendente para una gramática LL(1).
 	
 	Una vez implementado, se puede utilizar este parser cuantas veces se necesite, para la entrada ``(())" generará la salida:
-	\begin{lstlisting}[caption=Salida del parser]
+	\begin{lstlisting}
 	[(Inside Inside Empty, ""), (Empty, "))(()")]	
 	\end{lstlisting}
 	

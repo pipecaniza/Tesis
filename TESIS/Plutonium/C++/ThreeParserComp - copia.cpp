@@ -28,6 +28,9 @@ struct Parser{
     {
         if(t.result.size() != 0)
             this->result.push_back(t.result[0]);
+
+        //cout<< "OR\n";
+        //this->ptr();
         return *this;
     }
     void Add(Parser<R> np)
@@ -54,9 +57,9 @@ struct Parser{
         for(int i = 0; i < result.size(); ++i){
             if(result[i] == nullptr)
                 break;
-            cout << "("<<result[i]->first << " ," << result[i]->second<<"),";
+            cout << "("<<result[i]->first << ",\"" << result[i]->second<<"\"),";
         }
-        cout << " ]";
+        cout << " ]\n" ;
     }
 };
 
@@ -65,7 +68,7 @@ struct Parser{
 template <char t>
 Parser<char> symbol (string xs)
 {
-    cout << "to parser: "<<xs<<endl;
+  //  cout << "to parser: "<<xs<<endl;
     Parser<char> parser;
     auto x = x_(xs) == t;
     switch(x)
@@ -99,14 +102,16 @@ template<typename R, typename F, typename P>
 Parser<R> seq (string input, F f, P p)
 {
   //  cout << "p\n";
-  cout << "in: "<<input<<endl;
+  //cout << "in: "<<input<<endl;
+ // if(input == ")(")cout << "THIS\n";
     auto r = p(input);
     if(r.result.size() == 0){
         Parser<R> r1;
         return r1;
     }
     auto f1 = f(r);
-    cout <<"FINAL ___ parseado: "<< r.result[0]->first<<"    Queda: "<<r.result[0]->second<<endl;
+    //f1.ptr();
+   // cout <<"FINAL ___ parseado: "<< r.result[0]->first<<"    Queda: "<<r.result[0]->second<<endl;
     return f1;
 }
 
@@ -119,33 +124,40 @@ Parser<R> seq (string input, F f, P p, Args... args)
         return r1;
     }
     Parser<R> final_result;
+
     for(int i = 0; i < r.result.size(); ++i){
-        cout <<"parseado: "<< r.result[0]->first<<"    Queda: "<<r.result[0]->second<<endl;
+        //cout <<"parseado: "<< r.result[0]->first<<"    Queda: "<<r.result[0]->second<<endl;
+        //r.ptr();
         auto f1 = f(r.get(i));
         final_result.Add(seq<R>(r.result[i]->second, f1, args... ));
     }
+   // final_result.ptr();
     return final_result;
 }
 
 auto l = [](Parser<char> a){
             return [](Parser<string> b){
                 return [b](Parser<char> c){
-                    Parser<string> q;
-                    q.result.push_back(new pair<string,string>("Inside " + b.result[0]->first, c.result[0]->second));
-                    return q;
+                    return [b] (Parser<string> d){
+                        Parser<string> q;
+                        q.result.push_back(new pair<string,string>("Inside ("  + b.result[0]->first + d.result[0]->first + ") ", d.result[0]->second));
+                        return q;
+                    };
                 };
             };
         };
 
 auto l2 = [](Parser<char> a){
-                Parser<string> q;
-                q.result.push_back(new pair<string,string>("Empty", a.result[0]->second));
-                return q;
+            Parser<string> q;
+            q.result.push_back(new pair<string,string>("Empty ", a.result[0]->second));
+            return q;
 };
 
 Parser<string> parenthesis(string input)
 {
-    auto result =   seq<string>(input, l2, succeded<'e'>) | seq<string>(input, l , symbol<'('>, parenthesis, symbol<')'>);
+    auto result =   seq<string>(input, l , symbol<'('>, parenthesis, symbol<')'>, parenthesis)
+                    |   seq<string>(input, l2, succeded<'e'>);
+    result.ptr();
     return result;
 }
 
@@ -170,7 +182,7 @@ string S(string input)
 int main()
 {
     auto f1 = symbol<'d'>;
-    string dota = "(())";
+    string dota = "(())()";
     reverse(dota.begin(),dota.end());cout << dota<<endl;
 
 //   resu.ptr();
