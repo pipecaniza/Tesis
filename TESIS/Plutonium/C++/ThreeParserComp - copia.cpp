@@ -26,8 +26,8 @@ struct Parser{
 
     Parser<R>& operator | (Parser<R> t)
     {
-        if(t.result.size() != 0)
-            this->result.push_back(t.result[0]);
+        for(int i = 0; i < t.result.size(); ++i)
+            this->result.push_back(t.result[i]);
 
         //cout<< "OR\n";
         //this->ptr();
@@ -157,7 +157,7 @@ Parser<string> parenthesis(string input)
 {
     auto result =   seq<string>(input, l , symbol<'('>, parenthesis, symbol<')'>, parenthesis)
                     |   seq<string>(input, l2, succeded<'e'>);
-    result.ptr();
+    //result.ptr();
     return result;
 }
 

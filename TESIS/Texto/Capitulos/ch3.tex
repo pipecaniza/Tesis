@@ -304,9 +304,7 @@ La necesidad de crear un parser elegante y sencillo en el universo imperativo es
 		p1.result.push_back(p2.result[0]);
 	}	
 	\end{lstlisting}
-	
-	La anterior implementación es una simplificación, la cuál sólo toma el primer resultado de parser número dos, puede no ser lo más adecuado, pero sin lugar a dudas es lo más simple.
-	
+		
 	Ésta función, también puede ser mejorada \emph{sobrecargando} el operador $<|>$, lo que permitiría usarla como si se tratara de un operador \emph{infix} en \emph{Haskell}.
 	
 	\subsection{Utilización del Parser Combinator Pseudo-Funcional}
@@ -330,16 +328,7 @@ La necesidad de crear un parser elegante y sencillo en el universo imperativo es
 	\end{exmp}
 	
 	Implementar un parser imperativo clásico para la anterior gramática es simple pero como ya se ha dicho antes supone alejarse totalmente de la gramática, lo que genera un código ilegible.
-	
-	\begin{lstlisting}[language=C++, caption=Parser clásico en C++]
-	string S(string input)
-	{
-		if( == '(')
-			S();
-		
-	}		
-	\end{lstlisting}
-	
+
 	La utilización de la librería que se acaba de crear cambia totalmente la perspectiva de la implementación de un parser en el universo imperativo.
 	
 	\begin{lstlisting}[language=C++, caption=utilización de los Parser combinators en C++]
