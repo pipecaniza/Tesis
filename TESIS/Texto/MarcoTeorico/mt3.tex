@@ -4,8 +4,8 @@
 
 \section{Introducción}
 
-Si queremos que una maquina realice tareas asignadas debemos dotarla de un conjunto de instrucciones agrupadas y ordenadas en un programa, que posea reglas sintácticas, gramática, reglas de construcción, etc. Aun asi, la máquina sólo entiende codificación binaría, por tanto surge la necesidad de un traductor entre el lenguaje de maquina y el humano, es decir el código fuente (Assembler, Fortran, etc) y el utilizado por la máquina llamado código objeto (Binario). El traductor convierte lenguaje de alto nivel o bajo nivel a lenguaje máquina para que el equipo entienda las instrucciones.
-En un principio, estas máquinas ejecutaban instrucciones consistentes en códigos numéricos que señalan a los circuitos de la máquina los estados correspondientes a cada operación. Esta expresión mediante códigos numéricos se llamó Lenguaje Máquina, interpretado por un secuenciador cableado o por un microprograma. Los códigos numéricos de las máquinas son engorrosos. Rapidamente se descubrio la ventaja de escribir programas mediante claves más fáciles de recordar que esos códigos numéricos; al final, todas esas claves juntas se traducían manualmente a Lenguaje Máquina. Estas claves constituyen los llamados lenguajes ensambladores, que se generalizaron en cuanto se dio el paso decisivo de hacer que las propias máquinas realizaran el proceso mecánico de la traducción. A este trabajo se le llama ensamblar el programa.
+Si queremos que una maquina realice tareas asignadas debemos dotarla de un conjunto de instrucciones agrupadas y ordenadas en un programa, que posea reglas sintácticas, gramática, reglas de construcción, etc. Aun así, la máquina sólo entiende codificación binaría, por tanto surge la necesidad de un traductor entre el lenguaje de maquina y el humano, es decir el código fuente (Assembler, Fortran, etc) y el utilizado por la máquina llamado código objeto (Binario). El traductor convierte lenguaje de alto nivel o bajo nivel a lenguaje máquina para que el equipo entienda las instrucciones.
+En un principio, estas máquinas ejecutaban instrucciones consistentes en códigos numéricos que señalan a los circuitos de la máquina los estados correspondientes a cada operación. Esta expresión mediante códigos numéricos se llamó Lenguaje Máquina, interpretado por un secuenciador cableado o por un microprograma. Los códigos numéricos de las máquinas son engorrosos. Rápidamente se descubrió la ventaja de escribir programas mediante claves más fáciles de recordar que esos códigos numéricos; al final, todas esas claves juntas se traducían manualmente a Lenguaje Máquina. Estas claves constituyen los llamados lenguajes ensambladores, que se generalizaron en cuanto se dio el paso decisivo de hacer que las propias máquinas realizaran el proceso mecánico de la traducción. A este trabajo se le llama ensamblar el programa.
 
 El encargado de traducir el lenguaje de alto nivel o bajo nivel a lenguaje máquina se le denomina: Ensamblador, compilador ó intérprete, sin embargo existen diferencias entre ellos \cite{CompJFMM}.
 
@@ -22,20 +22,13 @@ Es un programa que reside en memoria y su función es traducir código fuente a 
 \subsection{Interprete}
 
 El interprete realiza la misma función solo que traduce el programa a código objeto a medida que va corriendo el programa, es decir, no tiene el programa previamente traducido, por supuesto, los tiempos de ejecución son sustancialmente mayores.
-Si analizamos los traductores, podemos deducir que el ensamblador  trabaja con lenguaje de bajo nivel y solo lleva a binario el programa fuente, lo que dificulta la tarea del programador ya que debe utilizar adicionalmente ligadores que establezcan conexión entre el código y la biblioteca  para conseguir el programa objeto, los intérpretes hacen que los programas sean más portable, ya que un programa compilado bajo Windows no funcionara en una Macintosh o bajo Linux, a menos que se vuelva a compilar el programa fuente el nuevo sistema, en cambio, un programa interpretado funcionara en todas las plataformas, siempre que dispongamos del intérprete en cada una de ellas.
+Si analizamos los traductores, podemos deducir que el ensamblador  trabaja con lenguaje de bajo nivel y solo lleva a binario el programa fuente, lo que dificulta la tarea del programador ya que debe utilizar adicionalmente ligadores(linkers) que establezcan conexión entre el código y la biblioteca  para conseguir el programa objeto, los intérpretes hacen que los programas sean más portable, ya que un programa compilado bajo Windows no funcionara en una Macintosh o bajo Linux, a menos que se vuelva a compilar el programa fuente el nuevo sistema, en cambio, un programa interpretado funcionara en todas las plataformas, siempre que dispongamos del intérprete en cada una de ellas.
 En conclusión, los lenguajes compilados no son mejores que los interpretados, ni al contrario. Optar por uno u otro depende de la función para la que vayamos a escribir el programa y del entorno donde deba ejecutarse.
-
-\section{Lenguajes formales}
 
 \section{Partes de un compilador}
 
 Hay dos procesos: análisis y síntesis. La parte del análisis divide el programa fuente en componentes e impone una estructura gramatical sobre ellas. Después utiliza esta estructura para crear una representación intermedia del programa fuente. Si la parte del análisis detecta que el programa fuente está mal formado en cuanto a la sintaxis, o que no tiene una semántica consistente, entonces debe proporcionar mensajes informativos para que el usuario pueda corregirlo. La parte del análisis también recolecta información sobre el programa fuente y la almacena en una estructura de datos llamada tabla de símbolos, la cual se pasa junto con la representación intermedia a la parte de la síntesis. La parte de la síntesis construye el programa destino deseado a partir de la representación intermedia y de la información en la tabla de símbolos. A la parte del análisis se le llama comúnmente el front-end del compilador; la parte de la síntesis (propiamente la traducción) es el back-end.
 
-\subsection{Front-End}
-\subsection{Middle-End}
-\subsection{Back-End}
-
-\section{Construcción de un compilador}
 
 
 

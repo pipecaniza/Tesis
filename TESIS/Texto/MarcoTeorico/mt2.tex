@@ -10,28 +10,28 @@ La programación funcional se cimenta en el cálculo lambda desarrollado por Chu
 
 \subsection{Funciones}
 
-Antes de que aparecieran los ordenadores se habian elaborado tecnicas para solucionar problemas,  usando el concepto fundamental matematico de función, la cual actua como un procesador con una entrada y dando como resultado una salida, los resultados dependen de los parametros a traves de cada pasó, es por eso que se puede asociar una función con la computación.\\
+Antes de que aparecieran los ordenadores se habían elaborado técnicas para solucionar problemas,  usando el concepto fundamental matemático de función, la cual actúa como un procesador con una entrada y dando como resultado una salida, los resultados dependen de los parámetros a través de cada pasó, es por eso que se puede asociar una función con la computación.\\
 
-Podemos entonces decir que un ``programa'' consiste en la definicion de una o varias funciones.  el ordenador procesa los parametros en la funcion  entrega el resultado. Con esta aproximacion no tenemos que preocuparnos del orden de ejecucion, lo cual ya es mas potente que la aproximacion imperativa.
+Podemos entonces decir que un ``programa'' consiste en la definición de una o varias funciones.  el ordenador procesa los parámetros en la función  entrega el resultado. Con esta aproximación no tenemos que preocuparnos del orden de ejecución, lo cual ya es mas potente que la aproximación imperativa.
 
 \subsection{Lenguajes}
 
-A finales de los cincuenta John McCarthy creo el primer lenguaje de programación funcional Lisp. Posteriormente y por la necesidad de dar mas fortaleza al tipado se crearon otros, ML, Scheme, Hope. Cada investigador se enfocaba en crear el suyo propio, tratando de tomar lo mejor de cada uno, un grupo de cientificos de la computacion creo Haskell en los noventa. Posteriormente vendrian versiones de los que ya existian y algunos nuevos Clojure, Scala entre otros, algunos ya tomando fuerza en desarrollos empresariales, por ejemplo F\#.
+A finales de los cincuenta John McCarthy creo el primer lenguaje de programación funcional Lisp. Posteriormente y por la necesidad de dar mas fortaleza al tipado se crearon otros, ML, Scheme, Hope. Cada investigador se enfocaba en crear el suyo propio, tratando de tomar lo mejor de cada uno, un grupo de científicos de la computación creo Haskell en los noventa. Posteriormente vendrían versiones de los que ya existían y algunos nuevos Clojure, Scala entre otros, algunos ya tomando fuerza en desarrollos empresariales, por ejemplo F\#.
 
-\subsection{Teoria de Categorias y Programación Funcional}
+\subsection{Teoría de Categorías y Programación Funcional}
 
-Muchos conceptos de ka programación funcional tienen su origen en la teoria de categorias 
-\cite{MacLane1978}, por ello introducimos a partir de ahora esta teoria de manera formal
-\cite{Cornell} como sustento axiomatico de nuestro trabajo.
+Muchos conceptos de ka programación funcional tienen su origen en la teoría de categorías 
+\cite{MacLane1978}, por ello introducimos a partir de ahora esta teoría de manera formal
+\cite{Cornell} como sustento axiomático de nuestro trabajo.
 
-\subsection{Definiciones formales en Teoria de Categorias}
+\subsection{Definiciones formales en Teoría de Categorías}
 
 Para lo que resta de este capítulo tenga en cuenta lo siguiente.
 \begin{itemize}
-\item Usamos $:$ para definir tipos, asumimos implicitamente el tipado para evitar sobrecargar la notacion cuando no haya confusión al respecto, de lo contrario se escribe $.$ antecedido del tipo.
-\item $\Omega$ es uns generalización para los tipos, es decir el contenedor universal de tipos
-\item $\Sigma_{\Omega}$ es el conjunto contenedor, se infiere de su contexto
-\item El signo $:$ representa el alcance de los cuantificadores si se ubica despues de uno de estos, de lo contrario representa una definicion
+\item Usamos $:$ para definir tipos, asumimos implícitamente el tipado para evitar sobrecargar la notación cuando no haya confusión al respecto, de lo contrario se escribe $.$ antecedido del tipo.
+\item $\Omega$ es uns generalización para los tipos, es decir el contenedor universal de tipos.
+\item $\Sigma_{\Omega}$ es el conjunto contenedor, se infiere de su contexto.
+\item El signo $:$ representa el alcance de los cuantificadores si se ubica después de uno de estos, de lo contrario representa una definición.
 \end{itemize}
 
 \begin{defn}[Monoide]
@@ -76,16 +76,16 @@ Es una tupla $\langle f, \mft{d} \rangle$ basada en una aplicación de $\langle 
 En general denotamos homomorfismo como  $\hom$
 \end{note}
 
-\begin{defn}[Categoria]
+\begin{defn}[Categoría]
 \end{defn}
 Tupla $\langle O,M,\circ,\mft{a},\mft{id},\mft{i} \rangle$ 
 \begin{itemize}
 \item Conjunto de Objetos $O$
 \item Morfismos $M: O \times O \to \Omega$
-\item Funcion $\mft{id} : \forall_C (M(C,C))$
-\item Funcion $\mft{i} : M(C) \to O(C)$ que a cada $A \in O(C)$ le
+\item Función $\mft{id} : \forall_C (M(C,C))$
+\item Función $\mft{i} : M(C) \to O(C)$ que a cada $A \in O(C)$ le
 asigna el morfismo $I_A$, llamado morfismo identidad de $A$.
-\item Siendo $\displaystyle \prod_{O(C)} M(C)^2 := \left\lbrace (f, g) \in M(C \times C) | dom(f)=cod(g) \right\rbrace$, construimos una aplicacion llamada composicion.
+\item Siendo $\displaystyle \prod_{O(C)} M(C)^2 := \left\lbrace (f, g) \in M(C \times C) | dom(f)=cod(g) \right\rbrace$, construimos una aplicación llamada composición.
 \begin{align*}
   \displaystyle \circ: & \prod_{O(C)} M(C)^2  \to M(C) \\
 					   & (f,g) 					  \mapsto f \circ g
@@ -135,10 +135,10 @@ Un functor es en general un homomorfismo de Categorías, el cual preserva estruc
 
 \begin{defn}[Functor Covariante]
 \end{defn}
-Un funtor covariante es el homomorfismo desde $\langle O_\cat{C}, M_\cat{C}, \circ_\cat{C}, \id_\cat{C} \rangle$ hacia $\langle O_\cat{D}, M_\cat{D}, \circ_\cat{D}, \id_\cat{D} \rangle$, y que asocia a esta aplicacion la tupla $\langle F_O, F_M, \mft{d}, \mft{i} \rangle$  
+Un funtor covariante es el homomorfismo desde $\langle O_\cat{C}, M_\cat{C}, \circ_\cat{C}, \id_\cat{C} \rangle$ hacia $\langle O_\cat{D}, M_\cat{D}, \circ_\cat{D}, \id_\cat{D} \rangle$, y que asocia a esta aplicación la tupla $\langle F_O, F_M, \mft{d}, \mft{i} \rangle$  
 \begin{itemize}
-\item Funcion sobre Objetos $F_O : O_\cat{C} \to O_\cat{D}$
-\item Funcion sobre Morfismos $F_M : 
+\item Función sobre Objetos $F_O : O_\cat{C} \to O_\cat{D}$
+\item Función sobre Morfismos $F_M : 
 \forall_{\ob{C}_1, \ob{C}_2}(O_\cat{C}. M_\cat{C}(\ob{C}_1, \ob{C}_2) \to M_\cat{D}(F_O(\ob{C}_1), F_O(\ob{C}_2)))$
 \item Distributividad \\
 $\mft{d}: 
@@ -148,7 +148,7 @@ $\mft{d}:
 \end{itemize}
 
 \begin{defn}[Functor Contravariante]
-Sigue la definicion del Functor covariante excepto por la distributividad que se comporta de la siguiente forma
+Sigue la definición del Functor covariante excepto por la distributividad que se comporta de la siguiente forma
 \end{defn}
 \begin{itemize}
 \item Distributividad \\
@@ -162,7 +162,7 @@ $\mft{d}:
 Es un functor $\zeta$ que cumple que $dom(\zeta)=cod(\zeta)$
 
 \begin{defn}[Definiciones por tipo de morfismo]
-Dada yuna categoria $\mathcal{C}$ y objetos $ A,B \in O_{\mathcal{C}}$, un morfismo $f \in Mor(A,B)$ será:
+Dada una categoría $\mathcal{C}$ y objetos $ A,B \in O_{\mathcal{C}}$, un morfismo $f \in Mor(A,B)$ será:
 \end{defn}
 \begin{itemize}
 \item monomorfismo: $\forall_{ C \in O_{\mathcal{C}} \wedge g,h \in Mor(C,A)}(g=h \Rightarrow f \circ g=f\circ h)$
@@ -185,10 +185,10 @@ $\kappa_{O} : \zeta(O_X) \rightarrow \rho(O_Y)$ en $\mathcal{D}$, tal que para c
 \end{figure}
 
 \begin{note}
-Para introducir monadas debemos pensar en 2-categoria que son una categoria con "morfismos entre morfismos"; es decir, donde cada $\hom \in \Sigma_{\Omega}$ contiene su propia estructura de una categoria. Sus objetos son llamados 0-cell, una 2-cell representa la segunda jerarquia de una funcion y se genera con un functor, por ejemplo si hablamos de la identidad sobre un objeto $O$, la 2-cell sera un functor del tipo $\id_{\id_{A}}$. Entender 2-categorias es mas facil con diagramas conmutativos, los cuales a su vez son una prueba para la teoria.
+Para introducir monadas debemos pensar en 2-categoría que son una categoría con "morfismos entre morfismos"; es decir, donde cada $\hom \in \Sigma_{\Omega}$ contiene su propia estructura de una categoría. Sus objetos son llamados 0-cell, una 2-cell representa la segunda jerarquía de una funcion y se genera con un functor, por ejemplo si hablamos de la identidad sobre un objeto $O$, la 2-cell sera un functor del tipo $\id_{\id_{A}}$. Entender 2-categorías es mas fácil con diagramas conmutativos, los cuales a su vez son una prueba para la teoría.
 \end{note}
 
-\begin{defn}[Monadas en 2-categoria]\end{defn}
+\begin{defn}[Monadas en 2-categoría]\end{defn}
 
 Tupla  $\langle O,\mft{m}, \mu, \mft{a}, \eta, \mft{i} \rangle$ con las representaciones
 
@@ -196,7 +196,7 @@ Tupla  $\langle O,\mft{m}, \mu, \mft{a}, \eta, \mft{i} \rangle$ con las represen
 
 \item Objeto $\ob{C}$ de $\cat{C}$
 \item Morfismo $\mo{m}$ de $\cat{C}$ desde $\ob{C}$ hasta $\ob{C}$
-\item Adjuncion $\mu$ es una 2-cell de $\cat{C}$ desde $\mo{m} \circ \mo{m} \Rightarrow \mo{m}$
+\item Adjunción $\mu$ es una 2-cell de $\cat{C}$ desde $\mo{m} \circ \mo{m} \Rightarrow \mo{m}$
 \item Asociatividad $\mft{a}$ \\
 Es una prueba
 \begin{tikzpicture}[baseline=0]

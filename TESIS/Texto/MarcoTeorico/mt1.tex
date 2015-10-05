@@ -130,7 +130,7 @@ La $\alpha$-conversion no es posible si la equivalencia resultante genera nuevas
 \begin{defn}[$\eta$-conversion $\rightarrow_{\eta}$]\end{defn}
 \texttt{$\succ b \in M \Rightarrow$ ($\lambda$b.Mb) $\rightarrow_{\eta}$ M}
 \begin{note}
-Genera conversiones sobre funciones, es la aproximacion funcional de la extensionalidad de conjuntos.
+Genera conversiones sobre funciones, es la aproximación funcional de la extensionalidad de conjuntos.
 \end{note}
 
 \begin{defn}[Redex ]\end{defn}
@@ -141,7 +141,7 @@ Genera conversiones sobre funciones, es la aproximacion funcional de la extensio
 Una $\lambda$-expresión que no contiene ningún redex se dice que está en su forma normal, no toda expresión lambda tiene forma normal, pero si existe, es única.
 
 \begin{note}
-Funcionalmente evaluar una exporesion consiste en indentificar los redex que contenga.
+Funcionalmente evaluar una expresión consiste en identificar los redex que contenga.
 \end{note}
 
 Estrategia de evaluación de orden normal:  
@@ -171,7 +171,7 @@ El primer modelo, $d_{\infty}$, fue encontrado por D. Scott. Otros modelos resue
 Sea $D$ datatype con $N$ constructores $\{c_i\}_{i=1}^N$, donde el constructor $c_i$ tiene aridad $A_i$. \\
 La codificacion Scott del constructor $c_i$ de datatype $D$ es\\
 $\lambda x_1 \dots x_{A_i} . \lambda c_1 \ldots c_N . c_i\ x_1 \dots x_{A_i}$\\
-Mogensen extiende la codificación de Scott \cite{Mog1994} para codificar cualquier término lambda sin tipo como datos. Esto permite que un $\lambda$-término pueda representarse como datos, dentro de un programa de meta $\lambda$-cálculo donde la funcion meta convierte un $\lambda$-término en la representación de datos correspondiente del término lambda.
+Mogensen extiende la codificación de Scott \cite{Mog1994} para codificar cualquier término lambda sin tipo como datos. Esto permite que un $\lambda$-término pueda representarse como datos, dentro de un programa de meta $\lambda$-cálculo donde la función meta convierte un $\lambda$-término en la representación de datos correspondiente del término lambda.
 $\begin{array}{rcl}
 \operatorname{MS}[x] & = & \lambda a, b, c.a\ x \\
 \ \operatorname{MS}[M\ N] & = & \lambda a, b, c.b\ \operatorname{MS}[M]\ \operatorname{MS}[N] \\
@@ -189,14 +189,14 @@ $\displaystyle f(x_{1}, \dots, x_n) \xrightarrow{g} f(x_1, \dots, x_{n-1})$ recu
 \end{note}
 
 \subsubsection{Combinators}
-Una $\lambda$-expresion que no tiene variables libres es llamada 
+Una $\lambda$-expresión que no tiene variables libres es llamada 
 combinator. por ejemplo:
 \begin{itemize}
 \item[I] $\lambda x.x$ (Identidad)
-\item[App] $\lambda$ f. $\lambda$ x.(f x) (Aplicacion)
-\item[C] $\lambda$f.$\lambda$g.$\lambda$x.(f (g x)) (Composicion)
+\item[App] $\lambda$ f. $\lambda$ x.(f x) (Aplicación)
+\item[C] $\lambda$f.$\lambda$g.$\lambda$x.(f (g x)) (Composición)
 \item[L] $\lambda$x.(x x) $\lambda$x.(x x)) (Loop)
-\item[Cur] $\lambda$f.$\lambda$x.$\lambda$y.((f x) y) (Currificacion)
+\item[Cur] $\lambda$f.$\lambda$x.$\lambda$y.((f x) y) (Currificación)
 \item[Seq] $\lambda$x.$\lambda$y.($\lambda$z.y x) (Secuenciación de orden normal)
 \item[ASeq] $\lambda$x.$\lambda$y.(y x) (Secuenciación de orden aplicativo)
 \end{itemize}
@@ -224,7 +224,7 @@ descripciones que representan al dominio en el cual existe el problema a resolve
 La programación funcional ofrece una visión de alto nivel de programación, provee una gran variedad de características que ayudan a construir librerías de funciones elegantes, poderosas y generales.\cite{Thompson2011}
 
 \subsection{Ventajas declarativo sobre imperativo}
-La siguiente lista denota ventajas que posee el enfoque declarativo sobre el iomperativo basdo en investigaciones \cite{Dec10}
+La siguiente lista denota ventajas que posee el enfoque declarativo sobre el imperativo basado en investigaciones \cite{Dec10}
 \begin{itemize}
 \item No se emplea esfuerzo en diseñar un algoritmo que resuelva el problema.
 \item Descripciones compactas y expresivas. Es posible describir muchos problemas con muy pocas líneas de código del lenguaje.

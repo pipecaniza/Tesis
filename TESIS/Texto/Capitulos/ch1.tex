@@ -26,16 +26,16 @@ Dado que la teoría descrita en los próximos capítulos parte del \emph{cálcul
 		\item Mecanismos de abstracción asequibles y flexibles. \cite{Bjarne2013}
 	\end{itemize}
 	
-	\emph{C++} provee demasiados mecanismos de abstracción sin perder el \emph{performance}. Ademas de ser un lenguaje \emph{multiparadigma}, da la facilidad de utilizar funciones que se acercan mucho al mundo funcional, pero nunca perdiendo el imperativismo. Las últimas versiones del lenguaje incluyen una serie de elementos y abstraciones adicionales que proveen una mayor expresividad funcional.
+	\emph{C++} provee demasiados mecanismos de abstracción sin perder el \emph{performance}. Ademas de ser un lenguaje \emph{multiparadigma}, da la facilidad de utilizar funciones que se acercan mucho al mundo funcional, pero nunca perdiendo el imperativismo. Las últimas versiones del lenguaje incluyen una serie de elementos y abstracciones adicionales que proveen una mayor expresividad funcional.
 	
-	Al igual que en el universo funcional, Bjarne expresa que una de las principales formas de completar tareas complejas es la composición de funciones. Es por esto, que \emph{C++} permite múltiples formas de abstración basándose en las funciones. Desde funciones \emph{genéricas}, hasta punteros a funciones, lo cuál permite crear algorítmos con técnicas funcionales sin desprenderse del universo imperativo. 
+	Al igual que en el universo funcional, Bjarne expresa que una de las principales formas de completar tareas complejas es la composición de funciones. Es por esto, que \emph{C++} permite múltiples formas de abstracción basándose en las funciones. Desde funciones \emph{genéricas}, hasta punteros a funciones, lo cuál permite crear algoritmos con técnicas funcionales sin desprenderse del universo imperativo. 
 	
 	Es necesario definir las características que permitirán que \emph{C++} pueda implementar los \emph{Parser Combinators}, y de que forma se pueden representar aspectos de la programación funcional dentro de un lenguaje mayormente imperativo como lo es \emph{C++}.
 	
 	\subsubsection{Templates}
 		Un \emph{template} es una clase o una función que se parametrizará con un conjunto de tipos o valores. Se utilizan \emph{templates} para representar conceptos que son mejor entendidos como algo muy general desde el cuál se pueden generar tipos específicos y funciones con argumentos que se pueden especificar. \cite{Bjarne2013}
 		
-		De una forma casi directa se puede asociar el concepto de \emph{template} con el concepto de \emph{polimorfísmo}\footnote{Polimorfísmo entendido dentro del universo funcional, cabe anotar que el polimorfismo en el universo imperativo tiene un significado totalmente distinto.}, y viceversa, es decir, se puede afirmar que el \emph{polimorfísmo} funcional está asociado al concepto de \emph{template}. Obviamente la limitante de los \emph{templates} es que \emph{C++} al ser un lenguaje compilado y con comprobación de tipos estática, se debe definir en algún momento que tipo de dato reemplazará a la definición generál del \emph{template}.
+		De una forma casi directa se puede asociar el concepto de \emph{template} con el concepto de \emph{polimorfísmo}\footnote{Polimorfísmo entendido dentro del universo funcional, cabe anotar que el polimorfismo en el universo imperativo tiene un significado totalmente distinto.}, y viceversa, es decir, se puede afirmar que el \emph{polimorfísmo} funcional está asociado al concepto de \emph{template}. Obviamente la limitante de los \emph{templates} es que \emph{C++} al ser un lenguaje compilado y con comprobación de tipos estática, se debe definir en algún momento que tipo de dato reemplazará a la definición general del \emph{template}.
 		
 		\begin{lstlisting}[language=C++, caption=Función que suma dos variables de tipo T]
 		template <typename T>
@@ -90,7 +90,7 @@ Dado que la teoría descrita en los próximos capítulos parte del \emph{cálcul
 	\subsubsection{Expresiones Lambda}
 		\emph{C++11} tiene implementado una eficiente, fácil y elegante forma de utilizar las \emph{expresiones lambda} pertenecientes al universo funcional, las cuales no son otra cosa que funciones anónimas, en otras palabras, una expresión lambda no es más que una función sin nombre, es decir, no están muy separadas del universo imperativo. Utilizando \emph{lambdas} se puede evitar los punteros a funciones.
 		
-		Tal como lo expresa Stroustrup, una expresión lambda es una notación simplificada para definir y usar un objeto a una función anónima. En lugar de definir una clase con el operador (), luego crear el objeto y finalmente invocarlo, se puede usar un atajo. Esto es particularmente útil cuando se necesita pasar una operación como argumento a un algorítmo.\cite{Bjarne2013}
+		Tal como lo expresa Stroustrup, una expresión lambda es una notación simplificada para definir y usar un objeto a una función anónima. En lugar de definir una clase con el operador (), luego crear el objeto y finalmente invocarlo, se puede usar un atajo. Esto es particularmente útil cuando se necesita pasar una operación como argumento a un algoritmo.\cite{Bjarne2013}
 		
 		Se puede observar que el concepto de \emph{expresión lambda} no es del todo ajeno al universo imperativo, pero en el modelo computacional no existe éste concepto.
 		
