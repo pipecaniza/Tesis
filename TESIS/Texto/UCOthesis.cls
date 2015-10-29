@@ -1359,7 +1359,7 @@
 % headers & footers
 %\pagestyle{fancy}
 %% \@chapapp knows when you're in an appendix 
-\renewcommand{\chaptermark}[1]{\markboth{}{}}
+\renewcommand{\chaptermark}[1]{\hspace{.0in}\markboth{}{} \vspace{-.6in}}
 
 \fancyhf{}
 \fancyfoot[C]{\thepage}
