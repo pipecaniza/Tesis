@@ -4,7 +4,7 @@
 
 ``Las herramientas que utilizamos tienen una profunda (¡y retorcida!) influencia en nuestros hábitos de pensamiento, y, por lo tanto, en nuestra habilidad mental'', Edsger Dijkstra. \\
 
-Los paradigmas de programación guían la forma en que debe construirse una solución para resolver problemas utilizando herramientas computacionales. Cada paradigma tiene sus ventajas y desventajas de acuerdo al tipo de problema que se deseé resolver. En este capítulo se revisan las dos principales corriente \emph{imperativa} y \emph{funcional}, soportadas en las \emph{Máquinas de Turing} y el \emph{Cálculo Lambda}, respectivamente.
+Los paradigmas de programación guían la forma en que debe construirse una solución para resolver problemas utilizando herramientas computacionales. Cada paradigma tiene sus ventajas y desventajas de acuerdo al tipo de problema que se desee resolver. En este capítulo se revisan las dos principales corriente \emph{imperativa} y \emph{funcional}, soportadas en las \emph{Máquinas de Turing} y el \emph{Cálculo Lambda}, respectivamente.\\
 
 \section{Modelo computacional}
 
@@ -15,20 +15,20 @@ Para el estudio de la \emph{computación} desde un enfoque teórico, es necesari
 	\item El modelo debe ser lo suficientemente simple para facilitar los análisis y las demostraciones a realizar, siendo menester que dicha abstracción elimine detalles innecesarios, cómo por ejemplo, las especificaciones propias de la máquina o las restricciones de un lenguaje de programación específico.
 \end{enumerate}  
 
-En ese órden de ideas, han surgido múltiples abstracciones que si bien, han inspirado caminos diferentes para la solución de problemas, han resultado siendo equivalentes en poder computacional; es decir, que en los modelos que se exponen a continuación, aplican los mismos principios de la \emph{teoría computacional}, así como también tienen los mismos límites en cuánto a \emph{computabilidad} se refiere.
-
+En ese órden de ideas, han surgido múltiples abstracciones que si bien, han inspirado caminos diferentes para la solución de problemas, han resultado siendo equivalentes en poder computacional; es decir, que en los modelos que se exponen a continuación, aplican los mismos principios de la \emph{teoría computacional}, así como también tienen los mismos límites en cuanto a \emph{computabilidad} se refiere.
+\newpage
 \subsection{Máquina de Turing}
 
 ``(Turing)ha tenido éxito por primera vez en encontrar una definición absoluta de una interesante noción epistemológica, por ejemplo, una que no depende del formalismo seleccionado'', Kurt Gödel. \\
 
-La Máquina de Turing (TM, por sus siglas en inglés), desarrollada por el matemático Alan Turing, ha servido como el principal modelo bajo el cuál se han construido las computadoras modernas.
+La Máquina de Turing (TM, por sus siglas en inglés), desarrollada por el matemático Alan Turing, ha servido como el principal modelo bajo el cual se han construido las computadoras modernas.
 
 \begin{defn}[Definición formal de una TM]\end{defn}
 
 Formalmente, una TM $M$ está descrita por una tupla $(\Gamma, Q, \delta)$  \cite{Arora2009}, que contiene:
 
 \begin{itemize}
-\item Un conjunto finito $\Gamma$ de símbolos que las cintas de $M$ pueden contener. Usualmente se tienen 3 cintas, una de entrada, una de trabajo y una de salida, y sobre estas la máquina realiza las operaciones necesarias. Se asume que $\Gamma$ tiene un símbolo ``blank'', denotado por $\Box$; un símbolo ``start'', denotado por $\rhd$; y los número 0 y 1|. Llamamos $\Gamma$ el \emph{alfabeto} de $M$.
+\item Un conjunto finito $\Gamma$ de símbolos que las cintas de $M$ pueden contener. Usualmente se tienen 3 cintas, una de entrada, una de trabajo y una de salida, y sobre éstas la máquina realiza las operaciones necesarias. Se asume que $\Gamma$ tiene un símbolo ``blank'', denotado por $\Box$; un símbolo ``start'', denotado por $\rhd$; y los número 0 y 1|. Llamamos $\Gamma$ el \emph{alfabeto} de $M$.
 
 \item Un conjunto finito $Q$ de los posibles estados en los que el registro de $M$ puede encontrarse. Asumimos que $Q$ contiene designado un estado inicial, denotado por $q_{start}$, y un estado de terminación (\emph{halting}), denotado por $q_{halt}$.
 
@@ -62,7 +62,7 @@ Dado un conjunto \texttt{A} de nombres de variables tal que $\vert$
 Para denotar términos usamos letras mayúsculas \texttt{M,N, $\dots$} y para denotar variables letras  minúsculas \texttt{$x,y, \dots$}
 \end{note}
 
-Una abstracción funcional crea procedimientos y funciones y los invocara mediante un nombre donde se destaca qué hace la función y se ignora cómo lo hace, está será:
+Una abstracción funcional crea procedimientos y funciones y los invocará mediante un nombre donde se destaca qué hace la función y se ignora cómo lo hace, esta será:
 
 \texttt{$\lambda$<variable>.<expr>}
 donde:
@@ -74,7 +74,7 @@ Una función con más de un argumento se representará:
 
 \begin{defn}[Equivalencia entre expresiones de $\Lambda$]\end{defn}
 
-Aplicación funcional  \texttt{(M N)} la cual produce un resultado \texttt{R} la consistencia implica una interpretacion equivalente,
+Aplicación funcional  \texttt{(M N)} la cual produce un resultado \texttt{R} la consistencia implica una interpretación equivalente,
 es decir \texttt{(M N)} $\equiv$ \texttt{R}, luego representan lo mismo.
 El resultado de una aplicación funcional será obtenido mediante la generación de expresiones equivalentes:
 
@@ -89,7 +89,7 @@ El resultado de una aplicación funcional será obtenido mediante la generación
 \item \texttt{M $\equiv$ N $\Rightarrow$ $\lambda$x.N $\equiv$ $\lambda$x.M}
 \end{itemize}
 
-\begin{defn}[Ocurrencia $\succ$ de un $\lambda$-termino]\end{defn}
+\begin{defn}[Ocurrencia $\succ$ de un $\lambda$-término]\end{defn}
 \begin{itemize}
 \item \texttt{$\succ$P $\in$ P}
 \item \texttt{$\succ$P $\in$ M $\vee$ N $\Rightarrow \ \succ$P $\in$ (M N)}
@@ -159,28 +159,31 @@ Dos expresiones \texttt{M,N} tienen redex igual si y sólo si son equivalentes (
 Aunque el $\lambda$-cálculo trata el cálculo con funciones mediante la sustitución de los valores para los argumentos, puede no admitir una semántica para el $\lambda$-cálculo no tipado, si por función entendemos, como es habitual en la teoría de conjuntos, una relación $R$ tal que para cada par $(x, y)$ y $(x, z)$ en $R$ con la misma primera componente $x$ tenemos $y = z$. Para conjuntos $X$ e $Y$, vamos a denotar con $X^Y$ el conjunto de funciones cuyo dominio es $Y$ y con valores en $X$. Intuitivamente, si $X$ es el dominio de una interpretación de 
 $\lambda$-cálculo, entonces $X$ debe ser, en cierto sentido, isomorfo al $X^X$ porque el dominio debe ser cerrado bajo la abstracción (así como la aplicación). Tomado literalmente \cite{Lambda2013}, sin embargo, este isomorfismo es imposible, porque la cardinalidad de $X$ siempre es estrictamente menor que de la cardinalidad de $X^X$.
 
-Si se esta interesado en la existencia de algún modelo del 
-$\lambda$-cálculo cuyo dominio no necesariamente consista de funciones se encontrara por construcciones conocidas (sintáctica) que implican la $\lambda$ teoría, no muy diferente de las conocidas construcciones Henkin. Estos modelos llamados term models, dan solución insatisfactoria a la cuestión de si existen modelos matemáticos del $\lambda$-cálculo.
+Si se está interesado en la existencia de algún modelo del 
+$\lambda$-cálculo cuyo dominio no necesariamente consista de funciones se encontrará por construcciones conocidas (sintáctica) que implican la $\lambda$ teoría, no muy diferente de las conocidas construcciones Henkin. Estos modelos llamados term models, dan solución insatisfactoria a la cuestión de si existen modelos matemáticos del $\lambda$-cálculo.
 
 La cardinalidad muestra que si vamos a tener una semántica para el 
-$\lambda$-calculo, la interpretación de $\lambda$-términos no puede ser simplemente funciones en el sentido de la teoría de conjuntos. 
-Hay, sin embargo, interpretaciones de $\lambda$-calculo. 
+$\lambda$-cálculo, la interpretación de $\lambda$-términos no puede ser simplemente funciones en el sentido de la teoría de conjuntos. 
+Hay, sin embargo, interpretaciones de $\lambda$-cálculo. 
 El primer modelo, $d_{\infty}$, fue encontrado por D. Scott. Otros modelos resuelven el problema mediante la restricción de cardinalidad del dominio $X$ de la interpretación, de modo que, en ellos, $X$ es en un sentido adecuado isomorfo al $X^X$ espacio funcional.
 
 \begin{defn}[Codificación Scott, Codificación Mogensen–Scott]\end{defn}
 Sea $D$ datatype con $N$ constructores $\{c_i\}_{i=1}^N$, donde el constructor $c_i$ tiene aridad $A_i$. \\
-La codificacion Scott del constructor $c_i$ de datatype $D$ es\\
+La codificación Scott del constructor $c_i$ de datatype $D$ es\\
 $\lambda x_1 \dots x_{A_i} . \lambda c_1 \ldots c_N . c_i\ x_1 \dots x_{A_i}$\\
-Mogensen extiende la codificación de Scott \cite{Mog1994} para codificar cualquier término lambda sin tipo como datos. Esto permite que un $\lambda$-término pueda representarse como datos, dentro de un programa de meta $\lambda$-cálculo donde la función meta convierte un $\lambda$-término en la representación de datos correspondiente del término lambda.
+Mogensen extiende la codificación de Scott \cite{Mog1994} para codificar cualquier término lambda sin tipo como datos. Esto permite que un $\lambda$-término pueda representarse como datos, dentro de un programa de meta $\lambda$-cálculo donde la función meta convierte un $\lambda$-término en la representación de datos correspondiente del término lambda.\\
+\begin{center}
 $\begin{array}{rcl}
 \operatorname{MS}[x] & = & \lambda a, b, c.a\ x \\
 \ \operatorname{MS}[M\ N] & = & \lambda a, b, c.b\ \operatorname{MS}[M]\ \operatorname{MS}[N] \\
 \ \operatorname{MS}[\lambda x . M] & = & \lambda a, b, c.c\ (\lambda x.\operatorname{MS}[M]) \\
 \end{array}$\vspace{0.2cm} \\
+\end{center}
 El $\lambda$-término se representa como una unión de etiquetas con tres constructores:\\
 Constructor $a$ - una variable (aridad 1, no recursiva).\\
 Constructor $b$ - aplicación de función (aridad 2, recursivo en ambos argumentos).\\
 Constructor $c$ - $\lambda$-abstracción (aridad 1, recursivo).
+
 
 \begin{note}
 El cálculo lambda sólo puede representar funciones de una variable, 

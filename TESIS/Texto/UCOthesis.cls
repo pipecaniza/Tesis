@@ -118,6 +118,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{UCOthesis}[2015/04/03 v0.1 UCO University Thesis Class]
 \RequirePackage{fancyhdr}
+%\RequirePackage{titlesec}
 \RequirePackage{apacite}
 %\RequirePackage{ifthen}
 
@@ -165,7 +166,7 @@
 \DeclareOption{doublespace}{\@dbltrue}
 \DeclareOption{draft}{\renewcommand\@draftmark{1}}
 \DeclareOption{final}{\renewcommand\@draftmark{0}}
-\ExecuteOptions{letterpaper,11pt,oneside,final}
+\ExecuteOptions{letterpaper,12pt,oneside,final}
 
 
 % CHOOSING THE TYPE SIZE:
@@ -294,7 +295,7 @@
 %                 ~~~~~~~~
 %
 % acknowledge environment:
-\def\acknowledgename{Agradecimiento}
+\def\acknowledgename{Agradecimientos}
 %                    ~~~~~~~~~~~~~~~~
 %
 % citation to previously published work
@@ -425,7 +426,7 @@
 {
 	\newpage
 	\thispagestyle{empty}
-	\hspace{8cm}
+	\hspace{9.5cm}
 	\begin{minipage}[t]{13cm}		
 			Nota de aceptaci\'on:\\
 			\rule[1pt]{6cm}{1pt}\\
@@ -463,11 +464,13 @@
 {
   \newpage
   \thispagestyle{empty}    % use empty for no page #s here
+  %\vspace*{3cm}
 	\@mkboth{\abstractname}{\abstractname}
   \addcontentsline{toc}{section}{Abstract}
 	%\vspace*{-.8in}
 	%\noindent Thesis advisor \hfill Author \\
 %	\noindent {\bf \@advisor} \hfill {\bf \@author} \\[.4in]
+%\vspace*{.2in}
 \centerline{\begin{centering}\large\bf{\@titulo}\end{centering}} %\\[.4in]
   % attempt to
 % handle multiple-line title correctly; doesn't since part after \\ is not
@@ -511,7 +514,7 @@
 	\thispagestyle{plain}
 	\@mkboth{\acknowledgename}{\conclusionesname}
 	\addcontentsline{toc}{chapter}{\conclusionesname}
-	\vspace*{-.8in}
+%	\vspace*{-.8in}
 	{\centerline{\bf {\LARGE Conclusiones}}}
 	\vspace*{.2in}
 }
@@ -528,8 +531,8 @@
   \thispagestyle{plain}
 	\@mkboth{\acknowledgename}{\acknowledgename}
   \addcontentsline{toc}{section}{\acknowledgename}
-  \vspace*{-.8in}
-  {\centerline{\bf {\LARGE Agradecimiento}}}
+  %\vspace*{-.8in}
+  {\centerline{\bf {\LARGE Agradecimientos}}}
   \vspace*{.2in}
 }
 {}
@@ -773,7 +776,7 @@
 % \@chapapp is initially defined to be '\chaptername'.  The \appendix
 % command redefines it to be '\appendixname'.
 %
-\def\@chapapp{\chaptername}
+\def\@chapapp{ \chaptername}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                        PART                          %
@@ -877,18 +880,18 @@
 
 \def\@pnumwidth{1.55em}
 \def\@tocrmarg {2.55em}
-\def\@dotsep{4.5}
+\def\@dotsep{200}
 \setcounter{tocdepth}{2}
 
 
 % TABLEOFCONTENTS
 %  In ucthesis style, \tableofcontents, \listoffigures, etc. are always
 %  set in single-column style.  @restonecol
-
+\renewcommand{\contentsname}{Contenido}
 \def\tableofcontents{\@restonecolfalse
   \if@twocolumn\@restonecoltrue\onecolumn\fi
-  \chapter*{\contentsname
-        \@mkboth{\uppercase{\contentsname}}{\uppercase{\contentsname}}}%
+  \chapter*{\vspace*{-2.5cm}\centerline{Contenido}
+        \@mkboth{\uppercase{Contenido}}{\uppercase{Contenido}}}%
   {\ssp\@starttoc{toc}}\if@restonecol\twocolumn\fi}
 
 \def\l@part#1#2{\addpenalty{-\@highpenalty}%
@@ -928,6 +931,7 @@
 \def\l@subsubsection{\@dottedtocline{3}{7.0em}{4.1em}}
 \def\l@paragraph{\@dottedtocline{4}{10em}{5em}}
 \def\l@subparagraph{\@dottedtocline{5}{12em}{6em}}
+
 
 % LIST OF FIGURES
 %
@@ -1361,6 +1365,7 @@
 %% \@chapapp knows when you're in an appendix 
 \renewcommand{\chaptermark}[1]{\hspace{.0in}\markboth{}{} \vspace{-.6in}}
 
+
 \fancyhf{}
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0pt}
@@ -1391,11 +1396,6 @@
   \renewcommand{\footrulewidth}{0pt}
 }
 
-\newcommand{\shortchap}{}
-\newcommand{\hackchapter}[2]{
-  \renewcommand{\shortchap}{\itshape \large \@chapapp \thechapter:  #2}
-  \chapter{#1}
-}
 
 
 % 10 pt
@@ -1423,6 +1423,41 @@
 \setlength{\oddsidemargin}{.5in} % makes 1.5in from left side.
 \textwidth 6in % makes 1in from right
 % textheight is height of body, and is a bit less than 9in: don't set.
+
+\renewcommand{\@makechapterhead}[1]{%
+	%\vspace*{1in}%
+	\begin{center}
+		\large \bf \chaptername \hspace*{0cm} \thechapter:	{#1}
+		\vspace*{0.5cm}
+		%\mbox{} \\[2\baselineskip]
+	\end{center}
+}
+%\def\@seccntformat#1{\csname the#1\endcsname\hspace*{0.5em}$|$\hspace*{0.5em}}
+
+
+%\titleformat{\section}
+%{}
+%{\makebox[1in][l]{\thesection}}{0in}{}
+
+
+\renewcommand\section{%
+	\@startsection{section}{2}
+	{\z@}%
+	{-3.25ex\@plus -1ex \@minus -.2ex}%
+	{1sp}% No space after subsections
+	{\normalfont\normalsize\bf\centering}% normal size, boldface
+}
+
+
+\renewcommand\subsection{
+	\@startsection{subsection}{3}
+	{\z@}%
+	{-3.25ex\@plus -1ex \@minus -.2ex}%
+	{1sp}% No space after subsections
+	{\normalfont\normalsize\it\centering}% normal size, boldface
+}
+
+
 
 \bibliographystyle{apacite}
 

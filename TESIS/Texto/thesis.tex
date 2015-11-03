@@ -13,6 +13,7 @@
 \documentclass[12pt,oneside,final]{UCOthesis}
 
 \usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
 \usepackage{epsfig,bm,epsf,float}
 \usepackage{apacite}
 \usepackage{graphicx}
@@ -23,13 +24,19 @@
 \usepackage{listings}
 \usepackage{fancyvrb}
 \usepackage{color}
+\usepackage[margin=2.54cm]{geometry}
+%\usepackage[none]{hyphenat}
 
 \setcounter{tocdepth}{2}
+%\hyphenpenalty=100
+%\exhyphenpenalty=100
 
 \include{helper}
 
 \begin{document}
-
+\makeatletter
+\renewcommand\@seccntformat[1]{\quad \hspace{0em}}
+\makeatother
 % Front Matter %
 \include{./Front/frontmatter}
 
@@ -45,9 +52,6 @@
 \include{./Capitulos/ch2}
 \include{./Capitulos/ch3}
 \include{./Capitulos/Conclusiones}
-%\include{./Capitulos/ch4}
-%\include{./Capitulos/ch5}
-
 
 % Bibliografía %
 \include{./Bibliografia/b}

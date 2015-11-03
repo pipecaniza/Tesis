@@ -3,9 +3,9 @@
 \chapter{Parser Combinators}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-En la programación funcional, una popular aproximación para construir parsers recursivos descendentes es modelar los parsers como funciones, y definir funciones de primer orden (o combinators) que implementan la construcción de gramáticas como secuenciación, elección, y repetición.\cite{Hutton1996}
+En la programación funcional, una popular aproximación para construir parsers recursivos descendentes es modelar los parsers como funciones, y definir funciones de primer orden (o combinators) que implementan la construcción de gramáticas como secuenciación, elección, y repetición\cite{Hutton1996}.
 
-Los \emph{Parser Combinators} ocupan un lugar único en el campo del \emph{parsing}, pues hacen posible escribir expresiones que lucen como gramáticas, pero realmente describen los parsers de éstas gramáticas. La mayoría de los \emph{frameworks} de parsing más maduros suponen un preprocesamiento voluminoso, que lee la sintaxis, la analiza, y produce un código destino para la gramática de entrada. En contraste, una librería relativamente pequeña de \emph{Parsers Combinators} pueden alcanzar el poder de análisis aprovechando las estructuras del lenguaje.\cite{Swierstra2008}
+Los \emph{Parser Combinators} ocupan un lugar único en el campo del \emph{parsing}, pues hacen posible escribir expresiones que lucen como gramáticas, pero realmente describen los parsers de éstas gramáticas. La mayoría de los \emph{frameworks} de parsing más maduros suponen un preprocesamiento voluminoso, que lee la sintaxis, la analiza, y produce un código destino para la gramática de entrada. En contraste, una librería relativamente pequeña de \emph{Parsers Combinators} pueden alcanzar el poder de análisis aprovechando las estructuras del lenguaje\cite{Swierstra2008}.
 
 
 \section{Teoría}
@@ -16,7 +16,7 @@ En términos generales, los \emph{Parser Combinators} consisten en la definició
 
 En primer lugar, es necesario definir el tipo de los parsers. El proceso de análisis siempre recibe como entrada algo a lo que se le va a realizar el análisis sintáctico, ese algo puede ser un árbol, un string o cualquier otro tipo, aunque generalmente es un texto, por lo que string es el tipo más conveniente. Como resultado arroja algún tipo de dato que trae la información del parsing, y tambien debe arrojar el resto del string de entrada que aún no ha parseado.
 
-Cada parser tiene un resultado y un resto de la entrada asociado, es decir, hay que mantener una estructura que permita saber que retorno cada uno de los parsers, dado que son dos valores la mejor estructura es una \emph{tupla}, la cuál va a contener el resultado del proceso y la entrada restante, de ésta manera (resultado, símbolos). Como se tendrán varios parsers, y cada uno retornará tuplas, es necesario que estas tuplas estén dentro de una lista, esto también servirá para saber cuando el proceso de parsing falló, pues si se tiene una lista vacía, significa que no hubo forma de continuar el parsing. Partiendo de lo anterior, como resultado se debe obtener [(resultado, símbolos)].
+Cada parser tiene un resultado y un resto de la entrada asociado, es decir, hay que mantener una estructura que permita saber que retorno cada uno de los parsers, dado que son dos valores la mejor estructura es una \emph{tupla}, la cual va a contener el resultado del proceso y la entrada restante, de ésta manera (resultado, símbolos). Como se tendrán varios parsers, y cada uno retornará tuplas, es necesario que estas tuplas estén dentro de una lista, esto también servirá para saber cuando el proceso de parsing falló, pues si se tiene una lista vacía, significa que no hubo forma de continuar el parsing. Partiendo de lo anterior, como resultado se debe obtener [(resultado, símbolos)].
 
 El siguiente es una simplificación realizada por Hutton para definir el tipo de parser: \cite{Hutton1996}
 \begin{lstlisting}[language=Haskell]
@@ -36,9 +36,9 @@ La definición de estos tipos facilitará la construcción de los parsers poster
 
 \section{Parsers básicos}
 
-Como ya se ha dicho antes, los \emph{Parser Combinators} están conformados por parsers básicos que serán compuestos para poder reconocer gramáticas complejas, por ésta razón, es necesario definir una serie de parsers muy simples los cuales permitirán la creación de una librería de análisis sintáctico basada en la teoría de \emph{Parser Combinators}. \cite{Jeuring2010,Hutton2007}
+Como ya se ha dicho antes, los \emph{Parser Combinators} están conformados por parsers básicos que serán compuestos para poder reconocer gramáticas complejas, por ésta razón, es necesario definir una serie de parsers muy simples los cuales permitirán la creación de una librería de análisis sintáctico basada en la teoría de \emph{Parser Combinators} \cite{Jeuring2010,Hutton2007}.
 
-Los Parsers básicos o elementales pueden unicamente analizar secuencias fijas de símbolos terminales. Para una gramática que contenga no terminales a su lado derecho se deben utilizar los \emph{Parser Combinators}. \cite{Jeuring2010} Todo parser tiene implícito una entrada definida en el tipo \emph{Parser}, ésta corresponde al código de entrada que se le aplicará el análisis. Ademas, 
+Los Parsers básicos o elementales pueden únicamente analizar secuencias fijas de símbolos terminales. Para una gramática que contenga no terminales a su lado derecho se deben utilizar los \emph{Parser Combinators}. \cite{Jeuring2010} Todo parser tiene implícito una entrada definida en el tipo \emph{Parser}, ésta corresponde al código de entrada que se le aplicará el análisis. Ademas, 
 algunos parsers elementales utilizan otra entrada, ya sea una función, un caracter o un string para analizar los terminales.
 
 Estos Parser básicos se asemejan mucho al proceso de análisis léxico, en el que se pueden consumir o no caracteres de la entrada y se analiza si el caracter actual es el correcto.
@@ -47,7 +47,7 @@ Existen tres parsers elementales, el primero reconoce un caracter, el segundo no
  
 \lstinputlisting[language=Haskell,caption=Definición de los Parser elementales. (Jeuring \& Swiertra 2011),label=cod-mod]{./Codes/ParserType.hs}
 
-La implementación de cada uno de los anteriores parsers puede variar, pero siempre realizan la misma tarea. El parser \emph{symbol} recibe un símbolo \emph{a} y una lista, ambos de tipo \emph{s}, donde este tipo \emph{s} tiene la definición de comparación (\emph{Eq}), si la lista es vacía, significa que no hay entrada que analizar, por tanto retorna una lista vacía, si ls lista no es vacía, compara el primer elemento de la lista y el símbolo \emph{a}, si son iguales, retorna una lista de éxito (de la traducción \emph{Success list}) como ya se había visto en la definición del tipo \emph{Parser}, si los dos símbolos no concuerdan, se retornará la lista vacía que representa error al intentar realizar el análisis. Es claro que éste primer parser tiene como función comparar un elemento de la entrada con un símbolo definido, y consume símbolos o caracteres de la entrada. El parser \emph{failp} siempre falla retornando una lista vacía sin importar la entrada. El parser \emph{succeed} toma un argumento y retorna un parser, en otras palabras, dado un símbolo de entrada, siempre retorna una lista con el símbolo sin consumir caracteres o tokens del código de entrada. \cite{Hutton1996,Jeuring2010,Swierstra2008,Hutton1992}
+La implementación de cada uno de los anteriores parsers puede variar, pero siempre realizan la misma tarea. El parser \emph{symbol} recibe un símbolo \emph{a} y una lista, ambos de tipo \emph{s}, donde este tipo \emph{s} tiene la definición de comparación (\emph{Eq}), si la lista es vacía, significa que no hay entrada que analizar, por tanto retorna una lista vacía, si la lista no es vacía, compara el primer elemento de la lista y el símbolo \emph{a}, si son iguales, retorna una lista de éxito (de la traducción \emph{Success list}) como ya se había visto en la definición del tipo \emph{Parser}, si los dos símbolos no concuerdan, se retornará la lista vacía que representa error al intentar realizar el análisis. Es claro que éste primer parser tiene como función comparar un elemento de la entrada con un símbolo definido, y consume símbolos o caracteres de la entrada. El parser \emph{failp} siempre falla retornando una lista vacía sin importar la entrada. El parser \emph{succeed} toma un argumento y retorna un parser, en otras palabras, dado un símbolo de entrada, siempre retorna una lista con el símbolo sin consumir caracteres o tokens del código de entrada. \cite{Hutton1996,Jeuring2010,Swierstra2008,Hutton1992}
 
 \begin{lstlisting}[language=Haskell, caption=Ejemplo de la utilización del parser symbol en GHCi]
 *> symbol 'l' "lambda"
@@ -85,7 +85,7 @@ Este parser es el más simple de todos, recibe dos parsers que representan las d
 
 El parser de \emph{secuenciación} ó \emph{repetición} permite concatenar varios parser elementales, ésto con el fin de hacer un análisis a una gramática que tenga múltiples terminales y no terminales al lado derecho. También provee implícito un mecanismo para de alguna manera unir todos los resultados de los parsers unidos por éste operador.
 
-Como entrada recibe dos parsers \textsc{P1} y \textsc{P2}, pero \textsc{P1} tiene una peculiaridad, como valor que retorna al realizar el análisis es una función que servirá para unir de alguna manera el resultado de \textsc{P1} y \textsc{P2}. Ésta aplicación no es trivial, y para logra el \emph{functor} esperado en el resultado de \textsc{P1} es necesario usar el próximo \emph{Parser Combinator}.
+Como entrada recibe dos parsers \textsc{P1} y \textsc{P2}, pero \textsc{P1} tiene una peculiaridad, como valor que retorna al realizar el análisis es una función que servirá para unir de alguna manera el resultado de \textsc{P1} y \textsc{P2}. Ésta aplicación no es trivial, y para logra obtener la \emph{función} esperada en el resultado de \textsc{P1} es necesario usar el próximo \emph{Parser Combinator}.
 En términos generales, el parser $<*>$ toma dos parsers y la entrada a la cuál se le realizará el análisis, primero ejecuta el parser \textsc{P1} y con la entrada sobrante ejecuta el parser \textsc{P2}.
 
 \begin{exmp}
@@ -113,7 +113,7 @@ Existe un problema con el ejemplo anterior, que \textsc{P1} retorna `l' como res
 				]
 \end{lstlisting}
 
-El parser combinator $<\$>$ toma como argumentos una función y un parser, el resultado es un parser que reconoce el mismo string de entrada que el parser original, pero \emph{postprocesando} el resultado usando el functor de entrada.\cite{Jeuring2010}. Este parser combinator tiene dos propósitos: proporcionar una manera fácil y efectiva de combinar los resultados de parser unidos por el operador $<*>$ (función sequenciadora), evitando anidamiento innecesario de tuplas, también permite ser usado como una función semántica, que provee de flexibilidad a la combinación de parsers para modificar el tipo de retorno de los mismos, desde un árbol de sintaxis abstracta polimórfico hasta un valor o un string. 
+El parser combinator $<\$>$ toma como argumentos una función y un parser, el resultado es un parser que reconoce el mismo string de entrada que el parser original, pero \emph{postprocesando} el resultado usando la función de entrada.\cite{Jeuring2010}. Este parser combinator tiene dos propósitos: proporcionar una manera fácil y efectiva de combinar los resultados de parser unidos por el operador $<*>$ (función sequenciadora), evitando anidamiento innecesario de tuplas, también permite ser usado como una función semántica, que provee de flexibilidad a la combinación de parsers para modificar el tipo de retorno de los mismos, desde un árbol de sintaxis abstracta polimórfico hasta un valor o un string. 
 
 El uso de $<\$>$ es generalmente sencillo, pero entender la definición de la función es difícil si no se tiene un conocimiento sólido en programación funcional. Este parser combinator es un claro ejemplo del pensamiento declarativo, una función muy compacta con una aplicación compleja. En primer lugar el \emph{Currying} es el núcleo de la definición de ésta función.
 
@@ -131,19 +131,19 @@ El uso de $<\$>$ es generalmente sencillo, pero entender la definición de la fu
 	
 	\lstinputlisting[language=Haskell,caption=Parser para la gramática $G_1$.,label=cod-mod]{./Codes/ParserS.hs}
 	
-	\emph{S} es la representación del árbol de sintaxis abstracta, su construcción es directa con la gramática, pero se omiten los terminales, en éste caso, $\forall x \in \{ `(', `)` \}$. Por la definición recursiva de la gramática, se usa en constructor \emph{Inside} que recibe el tipo de dato \emph{S}, lo que significa que hay parentesis tal como lo dice la gramática, y el constructor vació \emph{Empty}, que se traduce al \emph{epsilon} de $G_1$.
+	\emph{S} es la representación del árbol de sintaxis abstracta, su construcción es directa con la gramática, pero se omiten los terminales, en éste caso, $\forall x \in \{ `(', `)` \}$. Por la definición recursiva de la gramática, se usa en constructor \emph{Inside} que recibe el tipo de dato \emph{S}, lo que significa que hay paréntesis tal como lo dice la gramática, y el constructor vació \emph{Empty}, que se traduce al \emph{epsilon} de $G_1$.
 	
 	El nuevo parser que se está construyendo es \emph{parenthesis} con ayuda de los \emph{parser combinators}, éste recibe un [Char], y como resultado arroja [(S,[Char])]. Como se están usando varios parsers con el operador $<*>$ y no todos retornan S, debemos utilizar el operador $<\$>$ que servirá como pegamento para los diferentes parsers y para cambiar el resultado final con la función semántica.
 	
 	La función lambda está currificada, y puede ser reescrita como:
-	
+
 	\begin{lstlisting}[language=Haskell]
 		(\_ -> (\x -> (\_ -> Inside x)))
 	\end{lstlisting}
 
 	Se observa de forma trivial, que dado la asociatividad por la derecha de las funciones currificadas, la aplicación de las mismas tiene una asociatividad por la izquierda.
 	
-	Toda la función lambda será el functor enviado a la función de primer orden $<\$>$, y el parser recibido será \emph{open}. Utilizando la definición de $<*>$, sabemos que el primer parser arrojará como resultado una función de $(a \to b)$, dado que la función $<\$>$ se aplico antes, el functor enviado a ésta también ya se aplico, pero parcialmente debido a que se reescribió descurrificandola, es decir, el resultado se podría expresar de la siguiente manera:
+	Toda la función lambda será enviada a la función de primer orden $<\$>$, y el parser recibido será \emph{open}. Utilizando la definición de $<*>$, sabemos que el primer parser arrojará como resultado una función de $(a \to b)$, dado que la función $<\$>$ se aplico antes, la función enviada a ésta también ya se aplicó, pero parcialmente debido a que se reescribió descurrificándola, es decir, el resultado se podría expresar de la siguiente manera:
 	
 	\begin{lstlisting}[language=Haskell]
 	[((\x -> (\_ -> Inside x))), ys]
@@ -156,7 +156,7 @@ El uso de $<\$>$ es generalmente sencillo, pero entender la definición de la fu
 	   [(Inside(Inside(Inside Empty)), ""), (Empty,"((()))")]
 	\end{lstlisting}
 	
-	Nótese que el parser intenta realizar la aplicación de todas las maneras posibles, lo cuál es obvio por su naturaleza recursiva, el segundo arbol es descartado pues no logra completar el análisis hasta el final.\\
+	Nótese que el parser intenta realizar la aplicación de todas las maneras posibles, lo cuál es obvio por su naturaleza recursiva, el segundo árbol es descartado pues no logra completar el análisis hasta el final.\\
 	
 	Con el anterior parser se puede reconocer la gramática $G_1$, y arrojará como resultado el árbol de sintaxis abstracta del mismo. Nótese lo corto y directo que és el código, tan sólo modificando el constructor \emph{Inside} agregándole otra \emph{S}, agregando otra variable de entrada a la función lambda, y agregando otra llamada recursiva al parser \emph{parenthesis} luego del parser \emph{close}, será posible realizar el análisis sintáctico de la siguiente gramática:
 	
@@ -167,7 +167,7 @@ El uso de $<\$>$ es generalmente sencillo, pero entender la definición de la fu
 \end{exmp}
 
 \section{Parser Combinators E-BNF}
-Se pueden crear todo tipo de parsers usando los combinators $<|>$ y $<*>$, pero en la practica es más fácil contar con más \emph{parser combinators}. Al igual que en los lenguajes regulares, las gramáticas también poseen operadores de repetición (uno o muchos, cero o muchos...), estos operadores pertenecen al BNF extendido, también llamado E-BNF. Con éstos combinators adicionales se puede fácilmente crear parsers que evalúen una gramática que tenga elementos dentro de parentesis, múltiples parámetros, o estructuras separadas con algún caracter, sin necesidad de crear un parser recursivo adicional.
+Se pueden crear todo tipo de parsers usando los combinators $<|>$ y $<*>$, pero en la practica es más fácil contar con más \emph{parser combinators}. Al igual que en los lenguajes regulares, las gramáticas también poseen operadores de repetición (uno o muchos, cero o muchos...), estos operadores pertenecen al BNF extendido, también llamado E-BNF. Con éstos combinators adicionales se puede fácilmente crear parsers que evalúen una gramática que tenga elementos dentro de paréntesis, múltiples parámetros, o estructuras separadas con algún caracter, sin necesidad de crear un parser recursivo adicional.
 
 \begin{exmp}
 	Sea $G_1$ una gramática válida sobre el lenguaje $L'$, y $G_1 \in LL(1)$.

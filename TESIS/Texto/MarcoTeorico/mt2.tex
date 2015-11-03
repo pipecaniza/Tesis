@@ -10,17 +10,17 @@ La programación funcional se cimenta en el cálculo lambda desarrollado por Chu
 
 \subsection{Funciones}
 
-Antes de que aparecieran los ordenadores se habían elaborado técnicas para solucionar problemas,  usando el concepto fundamental matemático de función, la cual actúa como un procesador con una entrada y dando como resultado una salida, los resultados dependen de los parámetros a través de cada pasó, es por eso que se puede asociar una función con la computación.\\
+Antes de que aparecieran los ordenadores se habían elaborado técnicas para solucionar problemas,  usando el concepto fundamental matemático de función, la cual actúa como un procesador con una entrada y dando como resultado una salida, los resultados dependen de los parámetros a través de cada paso, es por eso que se puede asociar una función con la computación.\\
 
-Podemos entonces decir que un ``programa'' consiste en la definición de una o varias funciones.  el ordenador procesa los parámetros en la función  entrega el resultado. Con esta aproximación no tenemos que preocuparnos del orden de ejecución, lo cual ya es mas potente que la aproximación imperativa.
+Podemos entonces decir que un ``programa'' consiste en la definición de una o varias funciones.  el ordenador procesa los parámetros en la función  entrega el resultado. Con ésta aproximación no tenemos que preocuparnos del orden de ejecución, lo cual ya es más potente que la aproximación imperativa.
 
 \subsection{Lenguajes}
 
-A finales de los cincuenta John McCarthy creo el primer lenguaje de programación funcional Lisp. Posteriormente y por la necesidad de dar mas fortaleza al tipado se crearon otros, ML, Scheme, Hope. Cada investigador se enfocaba en crear el suyo propio, tratando de tomar lo mejor de cada uno, un grupo de científicos de la computación creo Haskell en los noventa. Posteriormente vendrían versiones de los que ya existían y algunos nuevos Clojure, Scala entre otros, algunos ya tomando fuerza en desarrollos empresariales, por ejemplo F\#.
+A finales de los cincuenta John McCarthy creo el primer lenguaje de programación funcional Lisp. Posteriormente y por la necesidad de dar más fortaleza al tipado se crearon otros, ML, Scheme, Hope. Cada investigador se enfocaba en crear el suyo propio, tratando de tomar lo mejor de cada uno, un grupo de científicos de la computación creo Haskell en los noventa. Posteriormente vendrían versiones de los que ya existían y algunos nuevos Clojure, Scala entre otros, algunos ya tomando fuerza en desarrollos empresariales, por ejemplo F\#.
 
 \subsection{Teoría de Categorías y Programación Funcional}
 
-Muchos conceptos de ka programación funcional tienen su origen en la teoría de categorías 
+Muchos conceptos de la programación funcional tienen su origen en la teoría de categorías 
 \cite{MacLane1978}, por ello introducimos a partir de ahora esta teoría de manera formal
 \cite{Cornell} como sustento axiomático de nuestro trabajo.
 
@@ -28,10 +28,10 @@ Muchos conceptos de ka programación funcional tienen su origen en la teoría de
 
 Para lo que resta de este capítulo tenga en cuenta lo siguiente.
 \begin{itemize}
-\item Usamos $:$ para definir tipos, asumimos implícitamente el tipado para evitar sobrecargar la notación cuando no haya confusión al respecto, de lo contrario se escribe $.$ antecedido del tipo.
+\item Usamos $(:)$ para definir tipos, asumimos implícitamente el tipado para evitar sobrecargar la notación cuando no haya confusión al respecto, de lo contrario se escribe $(.)$ antecedido del tipo.
 \item $\Omega$ es uns generalización para los tipos, es decir el contenedor universal de tipos.
 \item $\Sigma_{\Omega}$ es el conjunto contenedor, se infiere de su contexto.
-\item El signo $:$ representa el alcance de los cuantificadores si se ubica después de uno de estos, de lo contrario representa una definición.
+\item El signo $:$ representa el alcance de los cuantificadores si se ubica después de uno de éstos, de lo contrario representa una definición.
 \end{itemize}
 
 \begin{defn}[Monoide]
@@ -185,7 +185,7 @@ $\kappa_{O} : \zeta(O_X) \rightarrow \rho(O_Y)$ en $\mathcal{D}$, tal que para c
 \end{figure}
 
 \begin{note}
-Para introducir monadas debemos pensar en 2-categoría que son una categoría con "morfismos entre morfismos"; es decir, donde cada $\hom \in \Sigma_{\Omega}$ contiene su propia estructura de una categoría. Sus objetos son llamados 0-cell, una 2-cell representa la segunda jerarquía de una funcion y se genera con un functor, por ejemplo si hablamos de la identidad sobre un objeto $O$, la 2-cell sera un functor del tipo $\id_{\id_{A}}$. Entender 2-categorías es mas fácil con diagramas conmutativos, los cuales a su vez son una prueba para la teoría.
+Para introducir monadas debemos pensar en 2-categoría que son una categoría con ``morfismos entre morfismos"; es decir, donde cada $\hom \in \Sigma_{\Omega}$ contiene su propia estructura de una categoría. Sus objetos son llamados 0-cell, una 2-cell representa la segunda jerarquía de una función y se genera con un functor, por ejemplo si hablamos de la identidad sobre un objeto $O$, la 2-cell será un functor del tipo $\id_{\id_{A}}$. Entender 2-categorías es más fácil con diagramas conmutativos, los cuales a su vez son una prueba para la teoría.
 \end{note}
 
 \begin{defn}[Monadas en 2-categoría]\end{defn}

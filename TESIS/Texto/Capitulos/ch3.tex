@@ -3,18 +3,18 @@
 \chapter{Universo imperativo}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Existen dos grandes modelos computacionales: el funcional, basado en el calculo lambda de Alonzo Church, y el imperativo, basado en la máquina de Turing, inventada por Alan Turing. La exploración de estos modelos no sólo hace parte de la teoría computacional, sino también, de lenguajes formales y compiladores, pues cada modelo de cómputo genera diferentes paradigmas que definen el lenguaje y su implementación.
+Existen dos grandes modelos computacionales: el funcional, basado en el cálculo lambda de Alonzo Church, y el imperativo, basado en la máquina de Turing, inventada por Alan Turing. La exploración de estos modelos no sólo hace parte de la teoría computacional, sino también, de lenguajes formales y compiladores, pues cada modelo de cómputo genera diferentes paradigmas que definen el lenguaje y su implementación.
 
-\paragraph{El modelo computacional es indiferente,} tal como lo plante la tesis Church-Turing (CT)\footnote{La tesis CT no es un teorema.}, una máquina de Turing puede simular cualquier otro modelo computacional con máximo una ralentización polinomial, esto tiene como resultado que dada la clase de complejidad \textbf{P}  en el modelo análogo\footnote{Clase de complejidad P, conjunto de problemas solucionables en tiempo polinomial por una máquina determinista.}, esta no es más grande que en una máquina de Turing. Si la tesis es cierta, implicaría que la clase \textbf{P} definida por los alienígenas es igual a la nuestra. \cite{Arora2009}
+\paragraph{El modelo computacional es indiferente,} tal como lo plantea la tesis Church-Turing (CT)\footnote{La tesis CT no es un teorema.}, una máquina de Turing puede simular cualquier otro modelo computacional con máximo una ralentización polinomial, esto tiene como resultado que dada la clase de complejidad \textbf{P}  en el modelo análogo\footnote{Clase de complejidad P, conjunto de problemas solucionables en tiempo polinomial por una máquina determinista.}, esta no es más grande que en una máquina de Turing. Si la tesis es cierta, implicaría que la clase \textbf{P} definida por los alienígenas es igual a la nuestra. \cite{Arora2009}
 
 
 
 
 \section{Funcional vs Imperativo}
 
-Comúnmente tenemos la pre-concepción de que el universo Funcional es excluyente al Imperativo, en cierto sentido puede ser cierto, pues están basados en diferentes modelos computacionales, asumiendo que la tesis CT es cierta, sabemos que todo el conjunto de los problemas solucionables en cualquier modelo computacional determinista (válido) pueden ser solucionados con los dos enfoques, es decir, ambos modelos son igualmente poderosos, la pregunta que se podría hacer es, ¿existe alguna manera de comunicar ambos universos para aplicar técnicas existentes que solo se encuentran en alguno de los dos?
+Comúnmente tenemos la pre-concepción de que el universo Funcional es excluyente al Imperativo, en cierto sentido puede ser cierto, pues están basados en diferentes modelos computacionales, asumiendo que la tesis CT es cierta, sabemos que todo el conjunto de los problemas solucionables en cualquier modelo computacional determinista (válido) pueden ser solucionados con los dos enfoques, es decir, ambos modelos son igualmente poderosos, la pregunta que se podría hacer es, ¿existe alguna manera de comunicar ambos universos para aplicar técnicas existentes que sólo se encuentran en alguno de los dos?
 
-Actualmente todos los lenguajes de programación modernos mezclan atributos de ambos paradigmas creando a su vez nuevos paradigmas que dotan a los lenguajes de gran flexibilidad. Según \textsc{Beckman}, en el inicio de la computación moderna, el mundo se partió en dos campos, el campo \emph{bottom-up} teniendo como base las máquinas de Turing, empezando con el hardware y añadiendo abstracción a medida que sea necesario, cada vez acercándose mas a las matemáticas pero nunca perjudicando el performance, el otro campo \emph{top-down} parte de las matemáticas y cada vez quita abstracción para acercarse a la máquina sin importar el performance, comenzando desde el calculo lambda, actualmente se está llegando a un punto de equilibrio entre ambos campos \cite{Beckman2007}  . Esto es posible con la definición de un lenguaje que permita utilizar estructuras pertenecientes a cada uno de los enfoques computacionales, esto puede responder en cierta medida la pregunta anterior, pero ¿que sucede si el lenguaje no soporta todas las estructuras necesarias para realizar distintas técnicas que solo pertenecen a un enfoque?\\
+Actualmente todos los lenguajes de programación modernos mezclan atributos de ambos paradigmas creando a su vez nuevos paradigmas que dotan a los lenguajes de gran flexibilidad. Según \textsc{Beckman}, en el inicio de la computación moderna, el mundo se partió en dos campos, el campo \emph{bottom-up} teniendo como base las máquinas de Turing, empezando con el hardware y añadiendo abstracción a medida que sea necesario, cada vez acercándose más a las matemáticas pero nunca perjudicando el performance, el otro campo \emph{top-down} parte de las matemáticas y cada vez quita abstracción para acercarse a la máquina sin importar el performance, comenzando desde el calculo lambda, actualmente se está llegando a un punto de equilibrio entre ambos campos \cite{Beckman2007}  . Esto es posible con la definición de un lenguaje que permita utilizar estructuras pertenecientes a cada uno de los enfoques computacionales, esto puede responder en cierta medida la pregunta anterior, pero ¿qué sucede si el lenguaje no soporta todas las estructuras necesarias para realizar distintas técnicas que solo pertenecen a un enfoque?\\
 
 La implementación de un lenguaje funcional en una máquina imperativa requiere de múltiples transformaciones y optimizaciones de bajo nivel, esto permite crear lenguajes funcionales con un desempeño aceptable, de no ser así, como resultado se tendría un lenguaje funcional con grandes fallas de desempeño.
 
@@ -27,7 +27,7 @@ Una solución plausible podría ser crear un nuevo lenguaje $L^*$ que soporte am
 
 
 	\subsection{Arquitectura Von-Neumann}
-	La popularidad del modelo imperativo se debe a la arquitectura del computador que usamos, la arquitectura Von-Neumann, inventada por el matemático Húngaro-Estadounidense con el mismo nombre. Es fácil notar que aunque la máquina de Turing y el cálculo lambda son altamente abstractos, el primero está mucho mas cerca a una implementación real de un computador basado en la tecnología digital. La arquitectura Von-Neumann está más ligada al concepto de estamentos que modifiquen el estado de la máquina, que a la composición de funciones puras.\\\\
+	La popularidad del modelo imperativo se debe a la arquitectura del computador que usamos, la arquitectura Von-Neumann, inventada por el matemático Húngaro-Estadounidense con el mismo nombre. Es fácil notar que aunque la máquina de Turing y el cálculo lambda son altamente abstractos, el primero está mucho más cerca a una implementación real de un computador basado en la tecnología digital. La arquitectura Von-Neumann está más ligada al concepto de estamentos que modifiquen el estado de la máquina, que a la composición de funciones puras.\\\\
 	
 	\begin{figure}[H]
 		\centering
@@ -48,13 +48,13 @@ Una solución plausible podría ser crear un nuevo lenguaje $L^*$ que soporte am
 		\coordinate (ad) at (4,-4);		
 		
 		% Memoria
-		\draw (ma) -- (mb) node [above=2mm, midway] {\textsc{memoria}};
+		\draw (ma) -- (mb) node [above=2mm, midway] (m){\textsc{memoria}};
 		\draw (mb) -- (mc);
 		\draw (mc) -- (md);
 		\draw (md) -- (ma); 
 		
 		% Unidad de control
-		\draw (ca) -- (cb) node [below=6mm, midway] {\begin{tabular}{c}
+		\draw (ca) -- (cb) node [below=6mm, midway] (ctr){\begin{tabular}{c}
 			\textsc{Unidad}\\\textsc{de}\\\textsc{control}
 		\end{tabular}};
 		\draw (cb) -- (cc);
@@ -73,6 +73,16 @@ Una solución plausible podría ser crear un nuevo lenguaje $L^*$ que soporte am
 		\node [below left=8mm and 0.1mm of ac] [box] (i) {Entrada};
 		\node [below right=8mm and 0.1mm of ac] [box] (o) {Salida};
 		
+		% arrows  	
+		\draw [arrow] (ac.south) -- node[] {} (i.north); 	
+		\draw [arrow] (ac.south) -- node[] {} (o.north); 
+		\draw [arrow] (m.south) -- node[] {} (ctr.north); 
+		\draw [arrow] (m.south) -- node[] {} (ALU.north); 
+		%\draw [arrow] (entrada.north) -- node[] {} (ram.south);
+		%\draw [arrow] (acumulador.east) -- node[] {} (ram.west);
+		%\draw [arrow] (acumulador.west) -- node[] {} (ram.east); 	
+		%\draw [arrow] (acumulador.east) -- node[] {} (memoria.west);
+		
 		
 		\end{tikzpicture}
 		
@@ -88,7 +98,7 @@ Una solución plausible podría ser crear un nuevo lenguaje $L^*$ que soporte am
 	
 	
 \section{Parser imperativo clásico}
-El análisis sintáctico o parsing está presente en todos los compiladores, puesto que es la fase que se encarga de evaluar el programa fuente verificando que éste cumpla con las especificaciones del lenguaje definido para el compilador \cite{MarioZ}, ademas, realiza la representación intermedia que será utilizada por el \emph{back-end} para optimizar y generar código \cite{Dragon}.
+El análisis sintáctico o parsing está presente en todos los compiladores, puesto que es la fase que se encarga de evaluar el programa fuente verificando que éste cumpla con las especificaciones del lenguaje definido para el compilador \cite{MarioZ}, además, realiza la representación intermedia que será utilizada por el \emph{back-end} para optimizar y generar código \cite{Dragon}.
 
 Existen múltiples formas de diseñar un parser, pero la más común es la forma \emph{descendente}, puede verse como el problema de construir un árbol de análisis sintáctico para la cadena de entrada, partiendo desde la raíz y creando los nodos del árbol de análisis sintáctico en preorden.\cite{Dragon}
 
@@ -106,7 +116,7 @@ Así pues, si se quisiera construir un parser descendente por la izquierda se de
 	$G_1$ no es una gramática recursiva por la izquierda y tampoco es ambigua.
 	
 	Así se construirá un parser descendente por la izquierda imperativo clásico:
-	\begin{lstlisting}[language=C++, caption="Parser imperativo"]
+	\begin{lstlisting}[language=C++, caption=Parser imperativo]
 	void FUNCTION()
 	{
 		if(current_token == token.function){
@@ -136,7 +146,7 @@ Así pues, si se quisiera construir un parser descendente por la izquierda se de
 
 	Como se puede observar un parser imperativo clásico se vuelve rápidamente inmanejable, por ésta razón existen generadores de analizadores sintácticos, pero éstos últimos tienen un gran problema, que generan una enorme cantidad de código a espaldas del programador.
 	
-	A simple vista se puede observar la gran desventaja que tiene esta forma de implementar los analizadores sintácticos, están totalmente desligados de la gramática, y teniendo en cuenta que aún no se han implementado las estructuras para crear el árbol de sintaxis abstracta, omitiendo el análisis léxico y la definición de los tokens y la demás estructura presente en la clase que contiene el parser.
+	A simple vista se puede observar la gran desventaja que tiene ésta forma de implementar los analizadores sintácticos, están totalmente desligados de la gramática, y teniendo en cuenta que aún no se han implementado las estructuras para crear el árbol de sintaxis abstracta, omitiendo el análisis léxico y la definición de los tokens y la demás estructura presente en la clase que contiene el parser.
 
 
 \section{Parser Funcional sobre un lenguaje imperativo}
@@ -146,15 +156,15 @@ La necesidad de crear un parser elegante y sencillo en el universo imperativo es
 	\subsection{Tipo del parser}
 	Tal como se han implementado los \emph{Parser Combinators} en \emph{Haskell}, es menester definir el tipo del parser, y en el mundo imperativo continua siendo igual de importante éste primer paso.
 	
-	\begin{lstlisting}[language=C++, caption="Tipo Parser"]
+	\begin{lstlisting}[language=C++, caption=Tipo Parser]
 	template<typename R>
 	struct Parser{
 		vector<pair<R,string>* > result;		
 	};
 	\end{lstlisting}
 
-	La definición del tipo del parser cumple con los mismos objetivos que la definida en el universo funcional. El template permite simular el polimorfísmo presente en los parsers funcionales implementados en \emph{Haskell}, así pues, el resultado del mismo puede ser cualquier tipo de dato definido para el análisis sintáctico. 
-	Se puede notar que la definición que se ha utilizado es la simplificada por \textsc{Hutton}, en la cuál la entrada es siempre un \emph{string}, obviamente puede ser remplazado por un argumento en el template lo que dotará de mayor flexibilidad al parser para que pueda recibir cualquier tipo de dato.
+	La definición del tipo del parser cumple con los mismos objetivos que la definida en el universo funcional. El template permite simular el polimorfismo presente en los parsers funcionales implementados en \emph{Haskell}, así pues, el resultado del mismo puede ser cualquier tipo de dato definido para el análisis sintáctico. 
+	Se puede notar que la definición que se ha utilizado es la simplificada por \textsc{Hutton}, en la cual la entrada es siempre un \emph{string}, obviamente puede ser remplazado por un argumento en el template lo que dotará de mayor flexibilidad al parser para que pueda recibir cualquier tipo de dato.
 	
 	El atributo \texttt{result} cumple la función de lista de éxito (\emph{Success list}), dicha lista está implementado con un \texttt{vector} de \texttt{pair}, es decir, una lista de pares ordenados, donde cada par cumple con la misma definición dada en el capítulo 2.
 	
@@ -170,7 +180,7 @@ La necesidad de crear un parser elegante y sencillo en el universo imperativo es
 	
 	La implementación de estos parsers en \emph{C++} es un poco más tediosa y menos clara que en \emph{Haskell}.
 	
-	\begin{lstlisting}[language=C++, caption="Parsers básicos"]
+	\begin{lstlisting}[language=C++, caption=Parsers básicos]
 		template <char t>
 		Parser<char> symbol (string xs)
 		{
@@ -216,7 +226,7 @@ La necesidad de crear un parser elegante y sencillo en el universo imperativo es
 	\subsection{Currying imperativo}
 	Como se expuso en el capítulo anterior, el currying es un elemento básico en los \emph{Parser Combinators}, y sobretodo en la definición de los mismos desde un punto totalmente teórico. La currificación en el mundo funcional provee gran flexibilidad, especialmente si de la \emph{evaluación parcial de funciones} se trata. La evaluación parcial de funciones es precisamente lo que permite inyectar \emph{funciones semánticas} a través de cada resultado de los parsers.
 	Es necesario crear un mecanismo de currying en \emph{C++} para poder implementar \emph{Parser Combinators} fieles a la teoría funcional.
-	
+	\newpage
 	\begin{exmp}
 		Sea la función $f$ de tipo
 		$f:(X \times Y) \to Z$ es igual a a lu función currificada que crea la siguiente función \texttt{curry}$(f): X \to (Y \to Z)$, en otras palabras, cualquier función con múltiples parámetros puede ser expresada como una secuencia de funciones que toman un parámetro.		
@@ -241,7 +251,7 @@ La necesidad de crear un parser elegante y sencillo en el universo imperativo es
 	\end{exmp}
 	
 	\subsection{Varadic templates}
-	Diseñar una librería en un lenguaje imperativo partiendo de la teoría funcional es un problema para nada trivial. Múltiples soluciones pueden existir para lograr traducir la expresividad de alto nivel de un lenguaje funcional a un lenguaje imperativo; la mayor complicación radica en que un lenguaje como \emph{C++} no posee la enorme cantidad de mecanismos heredados del \emph{calculo lambda}, si bien \emph{C++} soporta muchísimos más que los lenguajes imperativos promedio, se deben diseñar mecanismos que simulen los presentes en el lenguaje funcional. 
+	Diseñar una librería en un lenguaje imperativo partiendo de la teoría funcional es un problema para nada trivial. Múltiples soluciones pueden existir para lograr traducir la expresividad de alto nivel de un lenguaje funcional a un lenguaje imperativo; la mayor complicación radica en que un lenguaje como \emph{C++} no posee la enorme cantidad de mecanismos heredados del \emph{cálculo lambda}, si bien \emph{C++} soporta muchísimos más que los lenguajes imperativos promedio, se deben diseñar mecanismos que simulen los presentes en el lenguaje funcional. 
 
 	Las funciones más complejas en la implementación de la librería vista en el capítulo 2 son las de los \emph{Parser Combinators}, y en el universo imperativo es mucho más complejo su diseño.
 	
@@ -259,7 +269,7 @@ La necesidad de crear un parser elegante y sencillo en el universo imperativo es
 	}	
 	\end{lstlisting}
 	
-	La anterior definición tiene un claro problema, no hay una forma simple de aplicar la función semántica, ademas, para utilizar la función seq se deben llamar tantas veces como parsers existan, lo que generará un anidamiento innecesario de la función, esto se debe a que en \emph{C++} no se pueden crear operadores con un orden jerárquico definido.
+	La anterior definición tiene un claro problema, no hay una forma simple de aplicar la función semántica, además, para utilizar la función seq se deben llamar tantas veces como parsers existan, lo que generará un anidamiento innecesario de la función, esto se debe a que en \emph{C++} no se pueden crear operadores con un orden jerárquico definido.
 	
 	Los \emph{Varadic Templates} permiten recibir un número indefinido de parámetros con tipos no definidos, de ésta manera es posible crear una única función secuenciadora que reciba todos los parsers y se encargue de utilizarlos uno a uno.
 	
@@ -295,12 +305,12 @@ La necesidad de crear un parser elegante y sencillo en el universo imperativo es
 	}	
 	\end{lstlisting}
 	
-	De ésta manera es posible crear una función lo suficientemente poderosa y simple que simule los \emph{combinators} de parsers en el mundo funcional. Se recibe la entrada, la \emph{función semántica} y los n parsers que se secuenciarán. Ademas, si un parser falla, se debe retornar una \emph{lista singleton} tal como ocurre en la implementación en \emph{Haskell}.
+	De ésta manera es posible crear una función lo suficientemente poderosa y simple que simule los \emph{combinators} de parsers en el mundo funcional. Se recibe la entrada, la \emph{función semántica} y los n parsers que se secuenciarán. Además, si un parser falla, se debe retornar una \emph{lista singleton} tal como ocurre en la implementación en \emph{Haskell}.
 	
 	Esta elegante solución permite sequenciar todos los tipos de parsers que se deseen, e inyecta una \emph{función semántica} permitiendo modificar el retorno de los parsers.
 	
 	\subsection{$<|>$ imperativo}
-	Al igual que en la implementación en \emph{Haskell}, el operador $<|>$ es el más sencillo de todos, y puede ser implementado de forma sencilla de la siguiente manera:
+	Al igual que en la implementación en \emph{Haskell}, el operador $<|>$ es el más sencillo de todos, y puede ser implementado de forma sencilla de la siguiente manera:\newpage
 	\begin{lstlisting}[language=C++, caption=función de elección en C++]
 	
 	template<typename P>
@@ -324,9 +334,9 @@ La necesidad de crear un parser elegante y sencillo en el universo imperativo es
 		\end{lstlisting}
 		
 		$G_1$ no es una gramática recursiva por la izquierda y tampoco es ambigua.
-		La salida del parser debe ser un string que represente los parentesis de la siguiente manera:
+		La salida del parser debe ser un string que represente los paréntesis de la siguiente manera:
 		\begin{itemize}
-			\item El string ``Inside" representa un parentesis que abre y uno que cierra.
+			\item El string ``Inside" representa un paréntesis que abre y uno que cierra.
 			\item El string ``Empty" representa el caracter $\epsilon$.
 		\end{itemize}
 		Esto es, si el string de entrada es ``()" la representación del parser deberá ser igual a ``Inside Empty".		
@@ -336,7 +346,7 @@ La necesidad de crear un parser elegante y sencillo en el universo imperativo es
 
 	La utilización de la librería que se acaba de crear cambia totalmente la perspectiva de la implementación de un parser en el universo imperativo.
 	
-	\begin{lstlisting}[language=C++, caption=utilización de los Parser combinators en C++]
+	\begin{lstlisting}[language=C++, caption=Utilización de los Parser combinators en C++]
 	Parser<string> parenthesis(string input)
 	{
 		auto result = seq<string>(input, /*Funcion semantica*/ , 
@@ -348,7 +358,7 @@ La necesidad de crear un parser elegante y sencillo en el universo imperativo es
 	
 	De ésta manera se implementa fácilmente un parser en \emph{C++}, corto y totalmente relacionado con la gramática, como se puede notar, el \emph{Parser Combinator} \texttt{seq} recibe el input y cada uno de los parsers en orden, muy similar a lo que se hace en \emph{Haskell}. Lo único que falta es definir las funciones semánticas que permitirán retornar un \texttt{Parser<string>}. 
 	
-	\begin{lstlisting}[language=C++, caption=Funciones semánticas en C++]
+	\begin{lstlisting}[language=C++]
 		auto l = [](Parser<char> a){
 					return [](Parser<string> b){
 						return [b](Parser<char> c){
@@ -360,7 +370,9 @@ La necesidad de crear un parser elegante y sencillo en el universo imperativo es
 					};
 				};
 			};
-		
+	\end{lstlisting}
+	\newpage
+	\begin{lstlisting}[language=C++, caption=Funciones semánticas en C++]
 		auto l2 = [](Parser<char> a){
 			Parser<string> q;
 			q.result.push_back(new pair<string,string>("Empty", 
@@ -371,7 +383,7 @@ La necesidad de crear un parser elegante y sencillo en el universo imperativo es
 	
 	Entendiendo el uso de las \emph{funciones semánticas} se pueden implementar de forma trivial. Cabe anotar que éstas funciones se pueden definir dentro de la llamada de la función secuenciadora, pero no es lo correcto, pues debido a que en \emph{C++} se debe implementar el \emph{currying} manualmente, la longitud de éstas funciones crece mucho y no permite visualizar el parser, es decir, si se implementan de forma separada, como se ha hecho, los parsers quedarán con una sintaxis totalmente directa con la gramática, que es lo que se busca en los \emph{Parser Combinators}.
 	
-	\begin{lstlisting}[language=C++, caption=utilización de los Parser combinators en C++]
+	\begin{lstlisting}[language=C++, caption=Utilización de los Parser combinators en C++]
 	Parser<string> parenthesis(string input)
 	{
 		auto result = seq<string>(input, l, 
@@ -382,7 +394,7 @@ La necesidad de crear un parser elegante y sencillo en el universo imperativo es
 	\end{lstlisting}
 	
 	El anterior parser cumple con la definición de la gramática. De ésta manera simple y corta se puede escribir cualquier analizador sintáctico recursivo descendente para una gramática LL(1).
-	
+	\newpage
 	Una vez implementado, se puede utilizar este parser cuantas veces se necesite, para la entrada ``(())" generará la salida:
 	\begin{lstlisting}
 	[(Inside Inside Empty, ""), (Empty, "))(()")]	
@@ -392,10 +404,6 @@ La necesidad de crear un parser elegante y sencillo en el universo imperativo es
 	
 El anterior \emph{Parser Combinator} sobre un lenguaje imperativo no es más que un prototipo inicial.
 
-
-\begin{conj}
-	monada
-\end{conj}
 
 
 
